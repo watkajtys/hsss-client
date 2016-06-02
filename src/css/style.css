@@ -1,0 +1,11 @@
+body {
+  font-family      : 'Open Sans', sans-serif;
+  background-color : #EFECF2;
+  color            : black;
+}
+
+#content {
+  position : absolute;
+  top      : 50px;
+  width    : 100%;
+}
