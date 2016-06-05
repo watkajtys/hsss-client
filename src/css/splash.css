@@ -1,11 +1,13 @@
 #splash {
-  background     : #4F3065;
-  color          : white;
-  height         : 100%;
-  width          : 100%;
-  display        : flex;
-  align-items    : center;
-  flex-direction : column;
+  /*background     : #4F3065;*/
+  background-image : url('../images/LandingPagev3.gif');
+  background-size  : cover;
+  color            : white;
+  height           : 100%;
+  width            : 100%;
+  display          : flex;
+  align-items      : center;
+  flex-direction   : column;
 }
 
 #splash > .splash-logo-wrapper {
@@ -23,10 +25,10 @@
 
 .he-wrap {
   position        : relative;
-  width           : 300px;
+  width           : 220px;
   text-align      : center;
   margin          : 20px auto 0;
-  height          : 85px;
+  height          : 70px;
   background      : #3CA3BB;
   display         : flex;
   align-items     : center;
@@ -47,10 +49,10 @@
 
 .she-wrap {
   position        : relative;
-  width           : 300px;
+  width           : 220px;
   text-align      : center;
   margin          : 10px auto 0;
-  height          : 85px;
+  height          : 70px;
   background      : #F16375;
   display         : flex;
   align-items     : center;
@@ -73,6 +75,7 @@
   position : absolute;
   bottom   : 20px;
   margin   : auto;
+  width    : 100%;
 }
 
 .start-btn > .up-icon {
@@ -84,5 +87,5 @@
   font-size      : 18px;
   font-style     : normal;
   letter-spacing : 4px;
-  margin : 0;
+  margin         : 0;
 }
