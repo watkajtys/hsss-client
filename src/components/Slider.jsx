@@ -1,34 +1,36 @@
 import React from 'react';
-import Splash from './intro/Splash';
+import Slide from './Slide';
 require('../css/slide.css');
+let _ = require('lodash');
 
 export default React.createClass({
+  getInitialState: function() {
+    return {activeSlide: 0}
+  },
+  componentWillMount: function () {
+    this.id = _.uniqueId('slide-wrap_');
+  },
   componentDidMount: function () {
-    console.log('mount');
-    var swiper = new Swiper('.swiper-container', {
+    let that = this;
+    let swiper = new Swiper('.swiper-container', {
       direction: 'vertical',
       calculateHeight:true,
-      spaceBetween: 400
+      spaceBetween: 400,
+      onSlideChangeEnd: function (swiper) {
+        console.log('%cslide change end - after %d', 'font-size: 12px; color: cyan; background: black;', swiper.activeIndex);
+        that.setState({activeSlide: swiper.activeIndex});
+      }
     });
   },
   getSlides: function () {
     return this.props.slides || [];
   },
-  isSplash: function (slide) {
-    if (slide.special && slide.specialType === 'splash') {
-      return true
-    }
-  },
   render: function () {
     return (
-      <div className="slide_container swiper-container">
+      <div className="slide_container swiper-container" key={this.id}>
         <div className="swiper-wrapper">
           {this.getSlides().map(slide =>
-            <div className="slide swiper-slide" key={slide.deck}>
-              {this.isSplash(slide) ? <Splash/> :
-                <h1>{slide.deck}</h1>
-              }
-            </div>
+            <Slide slide={slide} activeSlide={this.state.activeSlide}/>
           )}
         </div>
       </div>
