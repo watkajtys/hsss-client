@@ -23,9 +23,9 @@
   align-items     : center;
   float           : left;
   min-height      : 20px;
-  max-width       : 70%;
+  max-width       : 80%;
   margin          : 2px 0;
-  padding         : 10px;
+  padding         : 5px 10px;
   background      : #E9E4EC;
   color           : #734E86;
   border          : #734E86 2px solid;
@@ -56,7 +56,7 @@
 
 .message > p {
   margin    : 0;
-  font-size : 16px;
+  font-size : 15px;
 }
 
 .prompt-line {
