@@ -104,9 +104,13 @@ export default React.createClass({
     }
     // this.setState({data: this.state.data.concat([message])});
   },
+  messageClass : function () {
+    let extra = this.props.classExtra ? this.props.classExtra : '';
+    return 'messaging-container ' + extra;
+  },
   render             : function () {
     return (
-      <div className="messaging-container" id={this.id}>
+      <div className={this.messageClass()} id={this.id}>
         {this.state.data.map(message =>
           <Message msg={message} sender={message.sender}/>
         )}

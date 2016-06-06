@@ -9,7 +9,8 @@ export default React.createClass({
   messageClass: function() {
     console.log(this.props);
     let sender = this.props.sender;
-    return 'message ' + sender;
+    let extra = this.props.classExtra ? this.props.classExtra : '';
+    return 'message ' + sender + ' ' + extra;
   },
   render : function () {
     return (
