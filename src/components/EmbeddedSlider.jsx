@@ -17,7 +17,6 @@ export default React.createClass({
       direction: 'horizontal',
       initialSlide: 1,
       spaceBetween: 150,
-      pagination: '.swiper-pagination-hor',
       onSlideChangeEnd: function (horizontalSlider) {
         console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
         that.setState({activeSlideHorizontal: horizontalSlider.activeIndex});
@@ -35,7 +34,6 @@ export default React.createClass({
             <Slide slide={slide} activeSlideVertical={this.state.activeVert} activeSlideHorizontal={this.state.activeSlideHorizontal}/>
           )}
         </div>
-        <div class="swiper-pagination swiper-pagination-hor"></div>
       </div>
     )
   }
