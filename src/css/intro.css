@@ -1,0 +1,91 @@
+#intro {
+  /*background     : #4F3065;*/
+  background-image : url('../motionbackgrounds/Quote_Sides.gif');
+  background-size  : cover;
+  color            : white;
+  height           : 100%;
+  width            : 100%;
+  display          : flex;
+  align-items      : center;
+  justify-content  : center;
+  flex-direction   : column;
+}
+
+.display-item {
+  font-size   : 30px;
+  line-height : 50px;
+  width       : 75%;
+  margin      : auto;
+  display     : flex;
+  align-items : center;
+}
+
+.display-item.vert {
+  flex-direction : column;
+}
+
+.display-item > p {
+  margin : 0;
+  filter : drop-shadow(1px 1px 3px black);
+}
+
+.display-item > p.avatar.john {
+  margin       : 0;
+  text-align   : left;
+  display      : inline-flex;
+  padding-left : 25px;
+  font-size    : 20px;
+  line-height  : 30px;
+}
+
+.display-item > p.avatar.sue {
+  margin        : 15px 0 0 0;
+  text-align    : right;
+  display       : inline-flex;
+  padding-right : 25px;
+  font-size     : 20px;
+  line-height   : 30px;
+}
+
+.display-item > img.avatar.john {
+  float : left;
+}
+
+.display-item > img.avatar.sue {
+  float      : right;
+  display    : inline-flex;
+  order      : 2;
+  margin-top : 15px;
+}
+
+.display-item > img.swipe-choice {
+  width      : 100%;
+  margin-top : 30px;
+}
+
+.fadeIn-enter {
+  opacity    : 0.01;
+  transition : all .5s ease-in;
+}
+
+.fadeIn-enter.fadeIn-enter-active {
+  opacity : 1;
+}
+
+.fadeIn-leave {
+  opacity    : 1;
+  transition : all .5s ease-in;
+}
+
+.fadeIn-leave.fadeIn-leave-active {
+  opacity : 0.01;
+}
+
+.fadeIn-appear {
+  opacity    : 0.01;
+  transition : all .5s ease-in;
+}
+
+.fadeIn-appear.fadeIn-appear-active {
+  opacity : 1;
+}
