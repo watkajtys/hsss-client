@@ -57,23 +57,23 @@ export default React.createClass({
       var i = loop.iteration();
       var group = allMessageDecks[i];
       syncLoop(group.length, function(loop){
+        var i = loop.iteration();
+        let obj = group[i];
+        that.setState({data: that.state.data.concat([obj])});
         setTimeout(function(){
-          var i = loop.iteration();
-          let obj = group[i];
-          that.setState({data: that.state.data.concat([obj])});
           loop.next();
-        }, 3000);
+        }, 3500);
       }, function(){
-        setTimeout(function() {
-          console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length-1);
-          if (i === allMessageDecks.length-1) {
-            console.log('%cLast Item', 'color: orange; background: black;')
-          } else {
-            that.setState({data: []});
-          }
-          loop.next();
 
-        }, 3000)
+        console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length-1);
+        if (i === allMessageDecks.length-1) {
+          console.log('%cLast Item', 'color: orange; background: black;')
+        } else {
+          that.setState({data: []});
+        }
+        setTimeout(function() {
+          loop.next();
+        }, 3500)
       });
 
     }, function(){
