@@ -1,6 +1,6 @@
 #splash {
   /*background     : #4F3065;*/
-  background-image : url('../images/LandingPagev3.gif');
+  background-image : url('../motionbackgrounds/LandingPagev3.gif');
   background-size  : cover;
   color            : white;
   height           : 100%;
@@ -21,6 +21,7 @@
   font-size   : 18px;
   font-weight : normal;
   text-align  : center;
+  filter      : drop-shadow(1px 1px 3px black);
 }
 
 .he-wrap {
