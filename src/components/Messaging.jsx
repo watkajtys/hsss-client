@@ -43,7 +43,7 @@ export default React.createClass({
   getMessages        : function () {
     let messages = [];
     let display = [];
-    let displayInterval = 2000;
+    let displayInterval = 2500;
     messages     = this.props.deck.messages || null;
     // if (this.props.deck.messageFollowUps) {
     //   messages = this.props.deck.messageFollowUp;
@@ -97,9 +97,9 @@ export default React.createClass({
               if (message.additionalPrompt) {
                 that.setState({prompts: [{prompt: message.promptFollowUp[0].prompt}]});
               }
-            }, 2000);
+            }, 2500);
           }
-        }, 2000);
+        }, 2500);
       }
     }
     // this.setState({data: this.state.data.concat([message])});
