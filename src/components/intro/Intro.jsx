@@ -9,7 +9,9 @@ export default React.createClass({
     return {data: []}
   },
   componentDidUpdate: function() {
-    if (this.props.active && !this.triggered) {
+    var activeVert = localStorage.getItem('activeVerticalSlide');
+
+    if (activeVert == this.props.deck.deck && !this.triggered) {
       this.triggered = true;
       this.getAndDisplayData();
     }
