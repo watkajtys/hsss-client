@@ -1,8 +1,20 @@
 .messaging-container {
-  width  : 90%;
-  height : 90%;
-  overflow-y: scroll;
-  overflow-scrolling: touch;
+  width              : 90%;
+  height             : 90%;
+  overflow-y         : scroll;
+  overflow-scrolling : touch;
+}
+
+.messaging-container.she {
+  width      : 100%;
+  background : rgb(254, 245, 246);
+  padding: 0 5%;
+}
+
+.messaging-container.he {
+  width      : 100%;
+  background : rgb(243, 249, 251);
+  padding: 0 5%;
 }
 
 .message {
@@ -25,8 +37,8 @@
 .message.user {
   background    : #4F3065;
   color         : white;
-  border-radius: 20px 0 20px 20px;
-  float : right;
+  border-radius : 20px 0 20px 20px;
+  float         : right;
 }
 
 .message:first-child {

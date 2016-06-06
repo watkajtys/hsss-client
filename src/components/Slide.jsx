@@ -30,6 +30,21 @@ export default React.createClass({
       return true
     }
   },
+  deckIsHorizontallyActive : function (slide) {
+    if (this.props.activeSlideHorizontal == slide.order) {
+      return true
+    }
+  },
+  sheContainer: function(slide) {
+    if (slide.container && slide.container === 'sue') {
+      return true
+    }
+  },
+  heContainer: function (slide) {
+    if (slide.container && slide.container === 'john') {
+      return true
+    }
+  },
   render: function () {
     var slideType;
     if (this.isSplash(this.props.slide)) {
@@ -38,7 +53,12 @@ export default React.createClass({
       slideType = <Intro deck={this.props.slide} activeSlide={this.props.activeSlideVert} active={this.deckIsActive(this.props.slide)}/>;
     } else if (this.trifurcate(this.props.slide)) {
       slideType = <EmbeddedSlider slides={this.props.slide.sections} activeVert={this.props.activeSlideVert} initial="1" class=".swiper-container-hor" deck={this.props} active={this.deckIsActive(this.props.slide)}/>
-    } else {
+    } else if (this.sheContainer(this.props.slide)) {
+      slideType = <Messaging deck={this.props.slide} classExtra='she' active={this.deckIsHorizontallyActive(this.props.slide)}/>
+    } else if (this.heContainer(this.props.slide)) {
+      slideType = <Messaging deck={this.props.slide} classExtra='he' active={this.deckIsHorizontallyActive(this.props.slide)}/>
+    }
+    else {
       slideType = <Messaging deck={this.props.slide} activeVert={this.props.activeSlide} active={this.deckIsActive(this.props.slide)}/>;
     }
     return (
