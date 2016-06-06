@@ -1,6 +1,8 @@
 .messaging-container {
   width  : 90%;
   height : 90%;
+  overflow-y: scroll;
+  overflow-scrolling: touch;
 }
 
 .message {
@@ -17,10 +19,19 @@
   border          : #734E86 2px solid;
   border-radius   : 0 20px 20px 0;
   text-align      : left;
+  clear           : both;
+}
+
+.message.user {
+  background    : #4F3065;
+  color         : white;
+  border-radius: 20px 0 20px 20px;
+  float : right;
 }
 
 .message:first-child {
-  margin-top : 10px;
+  margin-top                : 10px;
+  border-bottom-left-radius : 20px;
 }
 
 .message:only-child {
@@ -34,4 +45,28 @@
 .message > p {
   margin    : 0;
   font-size : 16px;
+}
+
+.prompt-line {
+  position        : absolute;
+  bottom          : 0;
+  height          : 50px;
+  width           : 90%;
+  display         : flex;
+  align-items     : center;
+  justify-content : flex-end;
+}
+
+.prompt {
+  background    : #4F3065;
+  color         : white;
+  height        : 40px;
+  display       : flex;
+  align-items   : center;
+  padding       : 0 20px;
+  border-radius : 20px 0 20px 20px;
+}
+
+.prompt > p {
+  margin : 0;
 }
