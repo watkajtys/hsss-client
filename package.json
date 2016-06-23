@@ -43,5 +43,6 @@
     "react-addons-test-utils": "^15.1.0",
     "react-addons-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-router": "^2.4.1"
   }
 }
