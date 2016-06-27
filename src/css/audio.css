@@ -1,0 +1,72 @@
+.audio-wrapper {
+  height    : 259px;
+  overflow  : hidden;
+  transform : rotateX(180deg);
+}
+
+.audio-container {
+  width              : 100%;
+  height             : 100%;
+  overflow-y         : scroll;
+  overflow-scrolling : touch;
+  color              : white;
+  background-size    : cover;
+  display            : flex;
+  align-items        : center;
+  justify-content    : center;
+  flex-direction     : column;
+
+}
+
+.audio-container.he {
+  background-image : url('../motionbackgrounds/NumberExchange_John.gif');
+}
+
+.audio-container.she {
+  background-image : url('../motionbackgrounds/NumberExchange_Sue.gif');
+}
+
+.audio-container > .content-wrap {
+  padding : 0 5%;
+}
+
+.audio-container > .content-wrap > .header-container {
+  filter : drop-shadow(1px 1px 3px black);
+  width  : 60%;
+}
+
+.audio-container > .content-wrap > .start-btn > .start-text {
+  margin : auto;
+  filter : drop-shadow(1px 1px 3px black);
+}
+
+.audio-container > .content-wrap > .play-pause {
+  text-align       : left;
+  height : 50px;
+  width :50px;
+  display          : flex;
+  align-items      : center;
+  justify-content  : center;
+  margin           : 10px;
+}
+
+.audio-container > .content-wrap > .play-pause > .play {
+  height : 100%;
+  width :100%;
+  background-size: cover;
+  background-image : url('../images/play.png');
+}
+
+.audio-container > .content-wrap > .play-pause > .pause {
+  height : 100%;
+  width :100%;
+  background-size: cover;
+  background-image : url('../images/pause.png');
+}
+
+.audio-container > .content-wrap > .play-pause > .replay {
+  height : 100%;
+  width :100%;
+  background-size: cover;
+  background-image : url('../images/replay.png');
+}
