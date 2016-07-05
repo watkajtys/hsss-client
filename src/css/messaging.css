@@ -8,13 +8,23 @@
 .messaging-container.she {
   width      : 100%;
   background : rgb(254, 245, 246);
-  padding: 0 5%;
+  padding    : 0 5%;
 }
 
 .messaging-container.he {
   width      : 100%;
   background : rgb(243, 249, 251);
-  padding: 0 5%;
+  padding    : 0 5%;
+}
+
+.message__wrapper {
+  width   : 100%;
+  height  : auto;
+  display : inline-flex;
+}
+
+.message__wrapper.user {
+  justify-content: flex-end;
 }
 
 .message {
@@ -42,7 +52,6 @@
 }
 
 .message:first-child {
-  margin-top                : 10px;
   border-bottom-left-radius : 20px;
 }
 
@@ -81,4 +90,51 @@
 
 .prompt > p {
   margin : 0;
+}
+
+@keyframes typing1 {
+  0% {
+    width  : 12px;
+    height : 12px;
+    margin : 0;
+  }
+  50% {
+    width  : 8px;
+    height : 8px;
+    margin : 2px;
+  }
+  100% {
+    width  : 8px;
+    height : 8px;
+    margin : 2px;
+  }
+}
+
+.point {
+  background-color          : #CCC;
+  display                   : inline-block;
+  border-radius             : 100px;
+  animation-duration        : 1s;
+  animation-iteration-count : infinite;
+  height                    : 8px;
+  width                     : 8px;
+  margin                    : 2px;
+}
+
+.point:nth-of-type(1) {
+  animation-name : typing1;
+}
+
+.point:nth-of-type(2) {
+  animation-delay : 333ms;
+  animation-name  : typing1;
+}
+
+.point:nth-of-type(3) {
+  animation-delay : 667ms;
+  animation-name  : typing1;
+}
+
+.hidden {
+  display : none !important;
 }

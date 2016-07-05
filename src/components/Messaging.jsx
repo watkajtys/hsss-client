@@ -61,7 +61,6 @@ export default React.createClass({
         count++;
         console.log(count, messages.length);
         if (count >= messages.length) {
-          console.log('%cSHOULD NUKE at %d', 'color:orange', count);
           clearInterval(timer);
           setTimeout(function() {
             that.getPrompts();
@@ -76,7 +75,8 @@ export default React.createClass({
     if (message.prompt) {
       let obj = {
         sender: 'user',
-        content: message.prompt
+        content: message.prompt,
+        skipDelay: true
       };
       that.setState({data: that.state.data.concat([obj])});
     }
@@ -112,7 +112,7 @@ export default React.createClass({
     return (
       <div className={this.messageClass()} id={this.id}>
         {this.state.data.map(message =>
-          <Message msg={message} sender={message.sender}/>
+          <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime}/>
         )}
         <PromptList prompts={this.state.prompts} addMessage={this.addMessage}/>
       </div>
