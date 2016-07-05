@@ -3,6 +3,7 @@ require('../css/audio.css');
 let _ = require('lodash');
 var hisAudio = require('../audio/First_Impressions_He_ALT_1-2.mp3');
 var herAudio = require('../audio/First_Impressions_She_ALT_1-2.mp3');
+let classNames = require('classnames');
 import Waveform from './shared/waveform';
 
 export default React.createClass({
@@ -10,6 +11,7 @@ export default React.createClass({
   getInitialState: function () {
     return {
       playing: false,
+      finished: false,
       pos: 0,
       elapsed: '0:00'
     }
@@ -27,9 +29,18 @@ export default React.createClass({
   },
 
   handleTogglePlay: function () {
-    this.setState({
-      playing: !this.state.playing
-    });
+    console.log(this.state, "STATE");
+    if (this.state.finished) {
+      console.log('STATE FINISHED')
+      this.setState({
+        finished: false,
+        playing: true
+      });
+    } else {
+      this.setState({
+        playing: !this.state.playing
+      });
+    }
   },
 
   handlePosChange(e) {
@@ -37,6 +48,16 @@ export default React.createClass({
       pos: e.originalArgs ? e.originalArgs[0] : +e.target.value,
       elapsed: e.originalArgs ? e.originalArgs[1] : '0:00'
     });
+  },
+
+  handlePlayChange(e) {
+    console.log(e)
+    if (e.playArgs) {
+      this.setState({
+        finished: e.playArgs[0],
+        playing: !e.playArgs[0]
+      });
+    }
   },
   //REFACTOR THIS INTO ONE FUNCTION CALL
   waveClass: function() {
@@ -53,6 +74,12 @@ export default React.createClass({
       normalize: true
     };
 
+    var btnClass = classNames({
+      'play': !this.state.playing,
+      'pause': this.state.playing,
+      'replay': !this.state.playing && this.state.finished
+    });
+
     return (
       <div id={this.id} className={this.audioClass()}>
         <div className="content-wrap">
@@ -61,11 +88,11 @@ export default React.createClass({
             {this.state.elapsed}
           </div>
           <div className="play-pause">
-            <div className="replay" onClick={(event) => this.handleTogglePlay(event)}></div>
+            <div className={btnClass} onClick={(event) => this.handleTogglePlay(this)}></div>
           </div>
           <div className="audio-wrapper">
             <div className="audio-element">
-              <Waveform audioFile={herAudio} pos={this.state.pos} onPosChange={this.handlePosChange} playing={this.state.playing} options={options}/>
+              <Waveform audioFile={herAudio} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} playing={this.state.playing} options={options}/>
             </div>
           </div>
         </div>

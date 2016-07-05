@@ -9,7 +9,8 @@ class Waveform extends Component {
 
     this.state = {
       pos : 0,
-      elapsed: '00:00'
+      elapsed: '00:00',
+      finished: false
     };
 
     this._wavesurfer = Object.create(WaveSurfer);
@@ -62,12 +63,34 @@ class Waveform extends Component {
       })
     });
 
+    this._wavesurfer.on('finish', () => {
+      console.log('FINISH CALLED', this._wavesurfer);
+      this.setState({
+        finished : true
+      });
+
+      this.props.onPlayChange({
+        playArgs : [this.state.finished]
+      });
+    });
+
+    this._wavesurfer.on('play', () => {
+      this.setState({
+        finished : false
+      });
+
+      this.props.onPlayChange({
+        playArgs : [this.state.finished]
+      });
+    });
+
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile, this.props.audioPeaks);
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('recieve', nextProps);
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
@@ -151,6 +174,7 @@ Waveform.propTypes = {
   volume: PropTypes.number,
   zoom: PropTypes.number,
   onPosChange: PropTypes.func,
+  onPlayChange: PropTypes.func,
   children: PropTypes.element,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
@@ -186,7 +210,8 @@ Waveform.defaultProps = {
   playing: false,
   pos: 0,
   options: Waveform.defaultParams,
-  onPosChange: () => {}
+  onPosChange: () => {},
+  onPlayChange: () => {}
 };
 
 export default Waveform;
