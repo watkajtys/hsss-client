@@ -74,11 +74,12 @@
 
 .fadeIn-leave {
   opacity    : 1;
-  transition : all .5s ease-in;
+  transition : all 1s ease-in;
 }
 
 .fadeIn-leave.fadeIn-leave-active {
   opacity : 0.01;
+  transform : translateY(-200%);
 }
 
 .fadeIn-appear {

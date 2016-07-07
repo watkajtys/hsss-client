@@ -91,7 +91,7 @@ export default React.createClass({
     }.bind(this));
     return (
       <div id="intro">
-        <ReactCSSTransitionGroup transitionName="fadeIn" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+        <ReactCSSTransitionGroup transitionName="fadeIn" transitionEnterTimeout={500} transitionLeaveTimeout={1000}>
           {items}
         </ReactCSSTransitionGroup>
       </div>
