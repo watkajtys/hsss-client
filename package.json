@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "deep-assign": "^2.0.0",
     "lodash": "^4.13.1",
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
