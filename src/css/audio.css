@@ -37,10 +37,13 @@
 }
 
 .audio-container > .content-wrap > .timer {
-  width     : 70%;
-  position  : relative;
-  top       : 60px;
-  font-size : 35px;
+  display     : inline-block;
+  width       : 60%;
+  position    : relative;
+  top         : 60px;
+  font-size   : 35px;
+  text-align  : left;
+  margin-left : 40px;
 }
 
 .audio-container > .content-wrap > .start-btn > .start-text {
