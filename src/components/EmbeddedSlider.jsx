@@ -20,6 +20,12 @@ export default React.createClass({
       onSlideChangeEnd: function (horizontalSlider) {
         console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
         that.setState({activeSlideHorizontal: horizontalSlider.activeIndex});
+      },
+      onSlideNextStart: function (horizontalSlider) {
+        localStorage.setItem('activeHorizontalSlide', horizontalSlider.activeIndex);
+      },
+      onSlidePrevStart : function (horizontalSlider) {
+        localStorage.setItem('activeHorizontalSlide', horizontalSlider.activeIndex);
       }
     });
   },
@@ -28,10 +34,10 @@ export default React.createClass({
   },
   render: function () {
     return (
-      <div className="slide_container swiper-container swiper-container-hor" key={this.id}>
+      <div className="slide_container swiper-container swiper-container-hor">
         <div className="swiper-wrapper">
           {this.getSlides().map(slide =>
-            <Slide slide={slide} activeSlideVertical={this.state.activeVert} activeSlideHorizontal={this.state.activeSlideHorizontal}/>
+            <Slide key={slide.description} slide={slide} activeSlideVertical={this.state.activeVert} activeSlideHorizontal={this.state.activeSlideHorizontal}/>
           )}
         </div>
       </div>

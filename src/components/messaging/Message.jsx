@@ -15,7 +15,7 @@ export default React.createClass({
   componentDidMount: function() {
     if (!this.props.skipDelay) {
       //SET DELAY TIME TO 1SEC UNLESS SPECIFIED
-      let delayTime = this.props.delayTime ? this.props.delayTime : 2000;
+      let delayTime = this.props.delayTime ? this.props.delayTime : 1000;
       this.toggleMessageDelay(true);
 
       var that = this;
@@ -38,7 +38,11 @@ export default React.createClass({
   },
   wrapperClass : function() {
     let sender = this.props.sender;
-    return 'message__wrapper ' + sender
+    let wrapper__class = 'message__wrapper non-user ' + sender;
+    if (sender === 'user') {
+      wrapper__class = 'message__wrapper ' + sender;
+    }
+    return wrapper__class
   },
   render : function () {
     return (

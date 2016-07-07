@@ -51,15 +51,15 @@
   float         : right;
 }
 
-.message:first-child {
+.message__wrapper.non-user:first-child > .message {
   border-bottom-left-radius : 20px;
 }
 
-.message:only-child {
+.message__wrapper.non-user:nth-last-child(2) > .message {
   border-bottom-left-radius : 20px;
 }
 
-.message:last-child {
+.message.indicator {
   border-bottom-left-radius : 20px;
 }
 
