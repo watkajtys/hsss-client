@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "82de8e1a09a40fadfb01"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b7056058d0e4a0063b3e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8176,7 +8176,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(362);
+	__webpack_require__(365);
 
 	var routes = _react2.default.createElement(
 	  _reactRouter.Route,
@@ -34310,7 +34310,7 @@
 
 	var _Slider2 = _interopRequireDefault(_Slider);
 
-	var _shared = __webpack_require__(361);
+	var _shared = __webpack_require__(364);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
@@ -53131,45 +53131,67 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _waveform = __webpack_require__(355);
+
+	var _waveform2 = _interopRequireDefault(_waveform);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(355);
+	__webpack_require__(358);
 	var _ = __webpack_require__(327);
-	var hisAudio = __webpack_require__(359);
-	var herAudio = __webpack_require__(360);
-
+	var hisAudio = __webpack_require__(362);
+	var herAudio = __webpack_require__(363);
 	exports.default = _react2.default.createClass({
 	  displayName: 'Audio',
+
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      playing: false,
+	      pos: 0,
+	      elapsed: '0:00'
+	    };
+	  },
 
 	  componentWillMount: function componentWillMount() {
 	    this.id = _.uniqueId('audio_');
 	  },
-	  componentDidMount: function componentDidMount() {
-	    var container = this.props.classExtra === 'he' ? '.waveform-he' : '.waveform-she';
-	    var waveSurfer = WaveSurfer.create({
-	      container: container,
-	      waveColor: 'rgba(255, 255, 255, 0.6)',
-	      progressColor: 'white',
-	      barWidth: 3,
-	      normalize: true
-	    });
-
-	    if (this.props.classExtra && this.props.classExtra === 'he') {
-	      waveSurfer.load(hisAudio);
-	    } else {
-	      waveSurfer.load(herAudio);
-	    }
-	  },
+	  componentDidMount: function componentDidMount() {},
 	  audioClass: function audioClass() {
 	    var extra = this.props.classExtra ? this.props.classExtra : '';
 	    return 'audio-container ' + extra;
 	  },
+
+	  handleTogglePlay: function handleTogglePlay() {
+	    this.setState({
+	      playing: !this.state.playing
+	    });
+	  },
+
+	  handlePosChange: function handlePosChange(e) {
+	    this.setState({
+	      pos: e.originalArgs ? e.originalArgs[0] : +e.target.value,
+	      elapsed: e.originalArgs ? e.originalArgs[1] : '0:00'
+	    });
+	  },
+
 	  //REFACTOR THIS INTO ONE FUNCTION CALL
 	  waveClass: function waveClass() {
 	    var extra = this.props.classExtra ? this.props.classExtra : '';
 	    return 'waveform-' + extra;
 	  },
 	  render: function render() {
+	    var _this = this;
+
+	    var options = {
+	      waveColor: 'rgba(255, 255, 255, 0.6)',
+	      progressColor: 'rgba(255, 255, 255, 1)',
+	      barWidth: 3,
+	      cursorWidth: 0,
+	      height: 512,
+	      normalize: true
+	    };
+
 	    return _react2.default.createElement(
 	      'div',
 	      { id: this.id, className: this.audioClass() },
@@ -53187,18 +53209,34 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'audio-element' },
-	          _react2.default.createElement('div', { className: this.waveClass() })
+	          { className: 'timer' },
+	          this.state.elapsed
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'start-btn' },
-	          _react2.default.createElement('i', { className: 'fa fa-angle-up up-icon' }),
+	          { className: 'play-pause' },
+	          _react2.default.createElement('i', { className: 'fa fa-play', onClick: function onClick(event) {
+	              return _this.handleTogglePlay(event);
+	            } })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'audio-wrapper' },
 	          _react2.default.createElement(
-	            'h1',
-	            { className: 'start-text' },
-	            'Next'
+	            'div',
+	            { className: 'audio-element' },
+	            _react2.default.createElement(_waveform2.default, { audioFile: herAudio, pos: this.state.pos, onPosChange: this.handlePosChange, playing: this.state.playing, options: options })
 	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'start-btn' },
+	        _react2.default.createElement('i', { className: 'fa fa-angle-up up-icon' }),
+	        _react2.default.createElement(
+	          'h1',
+	          { className: 'start-text' },
+	          'Next'
 	        )
 	      )
 	    );
@@ -53212,10 +53250,334 @@
 /* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(150); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(150);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _deepAssign = __webpack_require__(356);
+
+	var _deepAssign2 = _interopRequireDefault(_deepAssign);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ = __webpack_require__(327);
+
+	var Waveform = function (_Component) {
+	  _inherits(Waveform, _Component);
+
+	  function Waveform(props) {
+	    _classCallCheck(this, Waveform);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Waveform).call(this, props));
+
+	    _this.state = {
+	      pos: 0,
+	      elapsed: '00:00'
+	    };
+
+	    _this._wavesurfer = Object.create(WaveSurfer);
+	    _this._isReady = false;
+	    _this._loadAudio = _this._loadAudio.bind(_this);
+	    _this._seekTo = _this._seekTo.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Waveform, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.id = _.uniqueId('wave_');
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      var options = (0, _deepAssign2.default)({}, this.props.options, {
+	        container: this.refs.wavesurfer
+	      });
+
+	      this._wavesurfer.init(options);
+
+	      //LOADED FILE AND DREW THE WAVES
+	      this._wavesurfer.on('ready', function () {
+	        _this2._isReady = true;
+
+	        //set initial position
+
+	        if (_this2.props.pos) {
+	          _this2._seekTo(_this2.props.pos);
+	        }
+	      });
+
+	      this._wavesurfer.on('audioprocess', function (pos) {
+	        var currentTimeInSeconds = Math.floor(_this2._wavesurfer.getCurrentTime());
+	        var formattedTime = _this2._toMSS(currentTimeInSeconds);
+	        _this2.setState({
+	          pos: pos,
+	          elapsed: formattedTime
+	        });
+
+	        _this2.props.onPosChange({
+	          wavesurfer: _this2._wavesurfer,
+	          originalArgs: [pos, formattedTime]
+	        });
+	      });
+
+	      //audioprocess not fired when seeking
+	      this._wavesurfer.on('seek', function (pos) {
+	        var formattedPos = _this2._posToSec(pos);
+	        _this2.setState({
+	          formattedPos: formattedPos
+	        });
+	      });
+
+	      if (this.props.audioFile) {
+	        this._loadAudio(this.props.audioFile, this.props.audioPeaks);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.audioFile !== nextProps.audioFile) {
+	        this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
+	      }
+
+	      if (this.props.playing !== nextProps.playing || this._wavesurfer.isPlaying() !== nextProps.playing) {
+	        if (nextProps.playing) {
+	          this._wavesurfer.play();
+	        } else {
+	          this._wavesurfer.pause();
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this._wavesurfer.destroy();
+	    }
+	  }, {
+	    key: '_secToPos',
+	    value: function _secToPos(sec) {
+	      return 1 / this._wavesurfer.getDuration() * sec;
+	    }
+	  }, {
+	    key: '_toMSS',
+	    value: function _toMSS(secs) {
+	      var sec_num = parseInt(secs, 10);
+	      var minutes = Math.floor(sec_num / 60) % 60;
+	      var seconds = sec_num % 60;
+	      return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+	    }
+
+	    //recieves position as float and transforms to seconds
+
+	  }, {
+	    key: '_posToSec',
+	    value: function _posToSec(pos) {
+	      return pos * this._wavesurfer.getDuration();
+	    }
+	  }, {
+	    key: '_seekTo',
+	    value: function _seekTo(sec) {
+	      var pos = this._secToPos(sec);
+	      this._wavesurfer.seekTo(pos);
+	    }
+	  }, {
+	    key: '_loadAudio',
+	    value: function _loadAudio(audioFile, audioPeaks) {
+	      this._wavesurfer.load(audioFile, audioPeaks);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
+	      var childrenWithProps = this.props.children ? _react2.default.Children.map(this.props.children, function (child) {
+	        return _react2.default.cloneElement(child, {
+	          wavesurfer: _this3._wavesurfer,
+	          isReady: _this3._isReady
+	        });
+	      }) : false;
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { ref: 'wavesurfer' }),
+	        childrenWithProps
+	      );
+	    }
+	  }]);
+
+	  return Waveform;
+	}(_react.Component);
+
+	Waveform.propTypes = {
+	  playing: _react.PropTypes.bool,
+	  pos: _react.PropTypes.number,
+	  audioFile: function audioFile(props, propName, componentName) {
+	    var prop = props[propName];
+	    if (prop && typeof prop !== 'string' && !prop instanceof Blob && !prop instanceof File) {
+	      return new Error('Invalid ' + propName + ' supplied to ' + componentName + '\n        expected either string or file/blob');
+	    }
+
+	    return null;
+	  },
+
+	  mediaElt: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.instanceOf(HTMLElement)]),
+	  audioPeaks: _react.PropTypes.array,
+	  volume: _react.PropTypes.number,
+	  zoom: _react.PropTypes.number,
+	  onPosChange: _react.PropTypes.func,
+	  children: _react.PropTypes.element,
+	  options: _react.PropTypes.shape({
+	    audioRate: _react.PropTypes.number,
+	    backend: _react.PropTypes.oneOf(['WebAudio', 'MediaElement']),
+	    barWidth: function barWidth(props, propName, componentName) {
+	      var prop = props[propName];
+	      if (prop !== undefined && typeof prop !== 'number') {
+	        return new Error('Invalid ' + propName + ' supplied to ' + componentName + '\n          expected either undefined or number');
+	      }
+
+	      return null;
+	    },
+
+	    cursorColor: _react.PropTypes.string,
+	    dragSelection: _react.PropTypes.bool,
+	    fillParent: _react.PropTypes.bool,
+	    hideScrollbar: _react.PropTypes.bool,
+	    interact: _react.PropTypes.bool,
+	    loopSelection: _react.PropTypes.bool,
+	    mediaControls: _react.PropTypes.bool,
+	    normalize: _react.PropTypes.bool,
+	    pixelRatio: _react.PropTypes.number,
+	    progressColor: _react.PropTypes.string,
+	    scrollParent: _react.PropTypes.bool,
+	    skipLength: _react.PropTypes.number,
+	    waveColor: _react.PropTypes.string,
+	    autoCenter: _react.PropTypes.bool
+	  })
+	};
+
+	Waveform.defaultProps = {
+	  playing: false,
+	  pos: 0,
+	  options: Waveform.defaultParams,
+	  onPosChange: function onPosChange() {}
+	};
+
+	exports.default = Waveform;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(320); if (makeExportsHot(module, __webpack_require__(150))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "waveform.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var isObj = __webpack_require__(357);
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Sources cannot be null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function assignKey(to, from, key) {
+		var val = from[key];
+
+		if (val === undefined || val === null) {
+			return;
+		}
+
+		if (hasOwnProperty.call(to, key)) {
+			if (to[key] === undefined || to[key] === null) {
+				throw new TypeError('Cannot convert undefined or null to object (' + key + ')');
+			}
+		}
+
+		if (!hasOwnProperty.call(to, key) || !isObj(val)) {
+			to[key] = val;
+		} else {
+			to[key] = assign(Object(to[key]), from[key]);
+		}
+	}
+
+	function assign(to, from) {
+		if (to === from) {
+			return to;
+		}
+
+		from = Object(from);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				assignKey(to, from, key);
+			}
+		}
+
+		if (Object.getOwnPropertySymbols) {
+			var symbols = Object.getOwnPropertySymbols(from);
+
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					assignKey(to, from, symbols[i]);
+				}
+			}
+		}
+
+		return to;
+	}
+
+	module.exports = function deepAssign(target) {
+		target = toObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			assign(target, arguments[s]);
+		}
+
+		return target;
+	};
+
+
+/***/ },
+/* 357 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = function (x) {
+		var type = typeof x;
+		return x !== null && (type === 'object' || type === 'function');
+	};
+
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(356);
+	var content = __webpack_require__(359);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(319)(content, {});
@@ -53224,8 +53586,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(356, function() {
-				var newContent = __webpack_require__(356);
+			module.hot.accept(359, function() {
+				var newContent = __webpack_require__(359);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53235,7 +53597,7 @@
 	}
 
 /***/ },
-/* 356 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(318)();
@@ -53243,37 +53605,37 @@
 
 
 	// module
-	exports.push([module.id, ".audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(357) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(358) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n  width  : 60%;\n}\n\n.audio-container > .content-wrap > .start-brn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}", ""]);
+	exports.push([module.id, ".audio-wrapper {\n  height    : 260px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(360) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(361) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n  width  : 60%;\n}\n\n.audio-container > .content-wrap > .start-btn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align       : left;\n  height           : 50px;\n  width            : 50px;\n  background-color : white;\n  border-radius    : 25px;\n  color            : #F16375;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  font-size        : 25px;\n  margin           : 10px;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 357 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5bbd11d8f01ab1bcc43979f0760bea05.gif";
 
 /***/ },
-/* 358 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "bbe8d7c69a3e83f91ad1aec665ac57e5.gif";
 
 /***/ },
-/* 359 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "661b71cdbf3069ed8bc83e83c195ad2b.mp3";
 
 /***/ },
-/* 360 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b3dcec80fa7e1f4996f9a300d3593eda.mp3";
 
 /***/ },
-/* 361 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(150); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -53449,13 +53811,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 362 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(363);
+	var content = __webpack_require__(366);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(319)(content, {});
@@ -53464,8 +53826,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(363, function() {
-				var newContent = __webpack_require__(363);
+			module.hot.accept(366, function() {
+				var newContent = __webpack_require__(366);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53475,7 +53837,7 @@
 	}
 
 /***/ },
-/* 363 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(318)();
