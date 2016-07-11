@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 export default React.createClass({
   componentWillMount: function () {
-    this._id = _.uniqueId('prompt-list_');
+    this.id = _.uniqueId('prompt-list_');
   },
   componentDidMount: function () {
     console.log(this.props.messages, 'MOUNTED');
