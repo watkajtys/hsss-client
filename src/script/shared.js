@@ -15,10 +15,10 @@ let intro_script = [{
     description     : 'hello',
     messages        : [
       {
-        sender  : 'narrator',
-        content : 'Hello!',
-        skipDelay: true,
-        delay: 1000
+        sender    : 'narrator',
+        content   : 'Hello!',
+        skipDelay : true,
+        delay     : 1000
       }
     ],
     reaction        : true,
@@ -161,7 +161,7 @@ let intro_script = [{
             specialType : 'audio',
             header      : 'Number Exchange',
             audioFile   : 'file',
-            gender : 'he'
+            gender      : 'he'
           }
         ]
       },
@@ -179,28 +179,28 @@ let intro_script = [{
               {
                 sender  : 'narrator',
                 content : "Howdy!",
-                delay: 1000
+                delay   : 1000
               },
               {
                 sender  : 'narrator',
                 content : "Here is my side of the story",
-                delay: 500
+                delay   : 500
               },
               {
                 sender  : 'narrator',
                 content : "(You can switch to John's side at any point by swiping right)",
-                delay: 1000
+                delay   : 1000
               }
             ],
             reaction        : true,
             reactionType    : 'buttons',
             reactionOptions : [
               {
-                prompt       : 'Thumbs Up',
-                deckLoad     : true,
-                reactionType : 'buttons',
-                loadMore         : true,
-                messagesToLoad   : [
+                prompt         : 'Thumbs Up',
+                deckLoad       : true,
+                reactionType   : 'buttons',
+                loadMore       : true,
+                messagesToLoad : [
                   {
                     sender  : 'narrator',
                     content : "Sue?"
@@ -214,53 +214,68 @@ let intro_script = [{
             description : 'sues-number-exchange',
             special     : true,
             specialType : 'audio',
-            header      : 'Number Exchange',
+            header      : 'Number Exchange!',
             audioFile   : 'file',
-            gender : 'she'
+            gender      : 'she'
           },
           {
-            deck            : '5',
-            description     : 'sue-and-john-exchange',
-            messages        : [
+            deck        : '6',
+            description : 'sue-and-john-exchange',
+            charmsg     : 'she',
+            messages    : [
               {
-                sender  : 'john',
-                content : 'Sue',
-                skipDelay: true,
-                delay: 1000
+                sender        : 'john',
+                content       : 'Sue',
+                skipDelay     : true,
+                delay         : 1000,
+                displayAvatar : true
               },
               {
-                sender: 'sue',
-                content: 'John',
-                delay : 500
+                sender        : 'sue',
+                content       : 'John',
+                delay         : 500,
+                displayAvatar : true
               },
               {
-                sender: 'sue',
-                content: 'Jon?',
-                delay: 500
+                sender         : 'sue',
+                content        : 'Jon?',
+                delay          : 500,
+                lastMsgInBlock : true
               },
               {
-                sender: 'john',
-                content: 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
-                delay : 1000
+                sender        : 'john',
+                content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
+                delay         : 1000,
+                displayAvatar : true
               }
             ]
           },
           {
-            deck            : '6',
-            description     : 'hello',
+            deck            : '7',
+            description     : 'hello2',
             messages        : [
               {
-                sender  : 'narrator',
-                content : 'Hello!',
-                skipDelay: true,
-                delay: 1000
+                sender    : 'narrator',
+                content   : 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
+                skipDelay : true,
+                delay     : 1000
+              },
+              {
+                sender    : 'narrator',
+                content   : 'Their names have been changed of course.',
+                delay     : 1000
+              },
+              {
+                sender    : 'narrator',
+                content   : 'Shall we continue?',
+                delay     : 1000
               }
             ],
             reaction        : true,
             reactionType    : 'buttons',
             reactionOptions : [
               {
-                prompt           : 'Hello?',
+                prompt           : 'Yes Please!',
                 deckLoad         : false,
                 routeLoad        : false,
                 reactionType     : 'buttons',
@@ -268,31 +283,29 @@ let intro_script = [{
                 messagesToLoad   : [
                   {
                     sender  : 'narrator',
-                    content : "I'm the creative director also your narrator today."
-                  },
+                    content : "Back to Sue then..."
+                  }
+                ]
+              },
+              {
+                prompt           : 'No wait!',
+                deckLoad         : false,
+                routeLoad        : false,
+                reactionType     : 'buttons',
+                loadMore         : true,
+                messagesToLoad   : [
                   {
                     sender  : 'narrator',
-                    content : "You know those people whose voiceovers come on when they want to confess sth?"
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Except I'm sparing you the montage and the saccharine music, well sorta..."
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "I suggest using headphones for the next 4-5 minutes :)"
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Let's get started, shall we?"
+                    content : "So you're a context person, huh?"
                   }
                 ],
                 additionalPrompt : true,
                 promptFollowUp   : [
                   {
-                    prompt     : 'Ok!',
-                    deckLoad   : true,
-                    deckAction : '3'
+                    prompt     : 'Up'
+                  },
+                  {
+                    prompt : 'Down'
                   }
                 ]
               }
