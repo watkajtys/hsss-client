@@ -34,7 +34,9 @@ export default React.createClass({
     let sender = this.props.sender;
     let extra = this.props.classExtra ? this.props.classExtra : '';
     let delay = this.state.longerMessageDelay ? 'hidden' : 'viewable';
-    return 'message ' + sender + ' ' + extra + ' ' + delay;
+    let avatarMsg = this.props.displayAvatar ? 'avatar__msg' : '';
+    let last = this.props.lastinblock ? 'last__msg' : '';
+    return 'message ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
   },
   wrapperClass : function() {
     let sender = this.props.sender;
@@ -45,9 +47,21 @@ export default React.createClass({
     return wrapper__class
   },
   render : function () {
+    let sender = this.props.sender;
+    let displayAvatar = this.props.displayAvatar;
+    let avatar;
+    if (displayAvatar && sender === 'john') {
+      avatar = <div className="avatar john"></div>
+    } else if (displayAvatar && sender === 'sue') {
+      avatar = <div className="avatar sue"></div>
+    } else if (sender === 'sue' || sender === 'john'){
+      avatar = <div className="avatar non__user"></div>
+    }
+
     return (
-      <div className={this.wrapperClass()}>
-        <div className={this.messageClass()} id={this.id}>
+      <div className={this.wrapperClass()} key={this.id}>
+        {avatar}
+        <div className={this.messageClass()}>
           <p>{this.props.msg.content}</p>
         </div>
         <div id="indicator" className={'message indicator ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden')}>

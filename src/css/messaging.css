@@ -1,19 +1,19 @@
 .messaging-container {
   width              : 90%;
-  height             : 90%;
+  height             : 100%;
   overflow-y         : scroll;
   overflow-scrolling : touch;
 }
 
 .messaging-container.she {
   width      : 100%;
-  background : rgb(254, 245, 246);
+  background : rgba(241, 99, 117, .25);
   padding    : 0 5%;
 }
 
 .messaging-container.he {
   width      : 100%;
-  background : rgb(243, 249, 251);
+  background : rgba(60, 163, 187, .25);
   padding    : 0 5%;
 }
 
@@ -24,17 +24,18 @@
 }
 
 .message__wrapper.user {
-  justify-content: flex-end;
+  justify-content : flex-end;
 }
 
-.message {
+.message__wrapper > .message {
   display         : inline-flex;
   justify-content : flex-start;
   align-items     : center;
+  position        : relative;
   float           : left;
   min-height      : 20px;
-  max-width       : 80%;
-  margin          : 2px 0;
+  max-width       : 70%;
+  margin          : 0;
   padding         : 5px 10px;
   background      : #E9E4EC;
   color           : #734E86;
@@ -44,11 +45,64 @@
   clear           : both;
 }
 
-.message.user {
+.message__wrapper > .message.avatar__msg {
+  margin-top : 10px;
+}
+
+.message__wrapper > .message.sue.avatar__msg:after {
+  position     : absolute;
+  width        : 0;
+  height       : 0;
+  content      : "";
+  top          : -1px;
+  right        : -9px;
+  border-top   : 8px solid #F16375;
+  border-right : 8px solid transparent;
+}
+
+.message__wrapper > .message.john.avatar__msg:after {
+  position    : absolute;
+  width       : 0;
+  height      : 0;
+  content     : "";
+  top         : -1px;
+  left        : -9px;
+  border-top  : 8px solid #F16375;
+  border-left : 8px solid transparent;
+}
+
+.message__wrapper > .message.user {
   background    : #4F3065;
   color         : white;
   border-radius : 20px 0 20px 20px;
   float         : right;
+}
+
+.message__wrapper > .message.john {
+  margin-left : 10px;
+  color       : #333;
+  border      : 1px solid #F16375;
+}
+
+.message__wrapper > .message.john > p {
+  padding-right : 5px;
+}
+
+.message__wrapper > .message.sue {
+  margin-right  : 10px;
+  border-radius : 20px 0 0 20px;
+  border        : 1px solid #F16375;
+  color         : #333;
+  background    : white;
+}
+
+.message__wrapper > .message.sue > p {
+  padding-left : 5px;
+}
+
+.message__wrapper > .message.last__msg {
+  border-bottom-left-radius  : 20px;
+  border-bottom-right-radius : 20px;
 }
 
 .message__wrapper.non-user:first-child > .message {
@@ -63,6 +117,28 @@
   border-bottom-left-radius : 20px;
 }
 
+.message__wrapper.sue {
+  flex-direction : row-reverse;
+}
+
+.message__wrapper > .avatar {
+  height          : 45px;
+  width           : 45px;
+  background-size : cover;
+}
+
+.message__wrapper > .avatar.non__user {
+  height : 40px;
+}
+
+.message__wrapper > .avatar.john {
+  background-image : url('../images/john_avatar.png');
+}
+
+.message__wrapper > .avatar.sue {
+  background-image : url('../images/sue_avatar.png');
+}
+
 .message > p {
   margin    : 0;
   font-size : 15px;
@@ -72,7 +148,8 @@
   position        : absolute;
   bottom          : 0;
   height          : 50px;
-  width           : 90%;
+  width           : 100%;
+  left            : 0;
   display         : flex;
   align-items     : center;
   justify-content : flex-end;
