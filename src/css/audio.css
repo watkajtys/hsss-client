@@ -19,11 +19,11 @@
 }
 
 .audio-container.he {
-  background-image : url('../motionbackgrounds/NumberExchange_John.gif');
+  background-image : url('../staticbackgrounds/NumberExchange_John.jpg');
 }
 
 .audio-container.she {
-  background-image : url('../motionbackgrounds/NumberExchange_Sue.gif');
+  background-image : url('../staticbackgrounds/NumberExchange_Sue.jpg');
 }
 
 .audio-container > .content-wrap {
