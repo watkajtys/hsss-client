@@ -233,19 +233,19 @@ let intro_script = [{
               {
                 sender        : 'sue',
                 content       : 'John',
-                delay         : 500,
+                delay         : 1500,
                 displayAvatar : true
               },
               {
                 sender         : 'sue',
                 content        : 'Jon?',
-                delay          : 500,
+                delay          : 1500,
                 lastMsgInBlock : true
               },
               {
                 sender        : 'john',
                 content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
-                delay         : 1000,
+                delay         : 1500,
                 displayAvatar : true
               }
             ]
