@@ -5,15 +5,18 @@ let _ = require('lodash');
 
 export default React.createClass({
   getInitialState: function() {
-    return {activeSlide: 0}
+    return {
+      activeSlide: 0,
+      renderedSlides: []
+    }
   },
   componentWillMount: function () {
     this.id = _.uniqueId('slide-wrap_');
   },
   componentDidMount: function () {
+    this.setState({renderedSlides: this.state.renderedSlides.concat(this.props.slides[0])});
     let that = this;
-    console.log(this.props, 'DA PROPS');
-    var swipercustom = new Swiper('.' + this.props.customClass, {
+    this.swipercustom = new Swiper('.' + this.props.customClass, {
       direction: 'vertical',
       calculateHeight:true,
       spaceBetween: 400,
@@ -30,6 +33,17 @@ export default React.createClass({
       }
     });
   },
+  slideTo : function (index) {
+    this.swipercustom.slideTo(index);
+  },
+  appendSlide : function (slide) {
+    //ADDING THE NEXT SLIDE TO THE STATE AND THUS RENDERING
+    this.setState({renderedSlides: this.state.renderedSlides.concat(slide)});
+    //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
+    this.swipercustom.update(true);
+    //TRANSITION TO THE NEWLY APPENDED SLIDE
+    this.swipercustom.slideNext(true, 500);
+  },
   componentWillUnmount: function () {
     localStorage.removeItem('activeVerticalSlide');
   },
@@ -41,11 +55,17 @@ export default React.createClass({
     console.log('GENERATE');
     return 'slide_container swiper-container ' + this.props.customClass; 
   },
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (this.props.index !== nextProps.index) {
+      this.slideTo(nextProps.index);
+    }
+  },
   render: function () {
     return (
       <div className={this.generateClassList()} key={this.id}>
         <div className="swiper-wrapper">
-          {this.getSlides().map(slide =>
+          {this.state.renderedSlides.map(slide =>
             <Slide key={slide.description} slide={slide} activeCustomSlide={this.state.activeSlide}/>
           )}
         </div>
