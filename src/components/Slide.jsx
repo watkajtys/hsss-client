@@ -61,9 +61,9 @@ export default React.createClass({
     } else if (this.bifurcate(this.props.slide)) {
       slideType = <EmbeddedSlider slides={this.props.slide.sections} activeVert={this.props.activeSlideVert} activeHorizontal={this.props.activeSlideHorz} initial="1" class=".swiper-container-hor" deck={this.props} active={this.deckIsActive(this.props.slide)}/>
     } else if (this.sheContainer(this.props.slide)) {
-      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="sheSlider" direction="vertical"/>
+      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="sheSlider" direction="vertical" index={this.props.indexToTrigger}/>
     } else if (this.heContainer(this.props.slide)) {
-      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="heSlider" direction="vertical"/>
+      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="heSlider" direction="vertical" index={this.props.indexToTrigger}/>
     } else if (this.isAudio(this.props.slide)) {
       slideType = <Audio header={this.props.slide.header} classExtra={this.props.slide.gender}/>
     } else {
