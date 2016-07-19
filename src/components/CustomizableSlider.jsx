@@ -53,8 +53,27 @@ const CustomizableSlider = React.createClass({
       },
       onSlidePrevStart : function (swipercustom) {
         localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
+      },
+      onInit : function (swipercustom) {
+        if (that.props.slides[0].loadNextAutomatically) {
+          setTimeout(function(){
+            that.setState({renderedSlides: that.state.renderedSlides.concat(that.props.slides[1])});
+            //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
+            that.swipercustom.update(true);
+          }, 500)
+        }
       }
+      // onTransitionStart : function (swipercustom) {
+      //   console.log('trans start');
+      // },
+
     });
+
+    //IF THE SECOND SLIDE NEEDS TO BE LOADED MANUALLY - DO IT
+    // if (this.props.slides[0].loadNextAutomatically) {
+    //   console.log('APPENd');
+    //   this.appendSlide(this.props.slides[1]);
+    // }
   },
   slideTo : function (index) {
     this.swipercustom.slideTo(index);
