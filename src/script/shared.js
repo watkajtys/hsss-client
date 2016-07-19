@@ -1,24 +1,30 @@
+import sue_slides from './sue';
+import john_slides from './john'
+
 let intro_script = [{
-  deck        : '0',
-  description : 'start',
-  special     : true,
-  specialType : 'splash',
-  messages    : [
-    {
-      sender  : 'narrator',
-      content : 'An interactive story about dating in the digital age'
-    }
-  ]
-},
+    deck        : '0',
+    slide       : 'D1',
+    description : 'start',
+    special     : true,
+    specialType : 'splash',
+    loadNextAutomatically: true,
+    messages    : [
+      {
+        sender  : 'narrator',
+        content : 'An interactive story about dating in the digital age'
+      }
+    ]
+  },
   {
     deck            : '1',
+    slide           : 'D2.1',
     description     : 'hello',
     messages        : [
       {
-        sender  : 'narrator',
-        content : 'Hello!',
-        skipDelay: true,
-        delay: 1000
+        sender    : 'narrator',
+        content   : 'Hello!',
+        skipDelay : true,
+        delay     : 1000
       }
     ],
     reaction        : true,
@@ -56,8 +62,8 @@ let intro_script = [{
         promptFollowUp   : [
           {
             prompt     : 'Ok!',
-            deckLoad   : true,
-            deckAction : '3'
+            slideLoad   : true,
+            slideToLoad : 'D2.2'
           }
         ]
       }
@@ -66,11 +72,14 @@ let intro_script = [{
   {
     container   : 'story',
     description : 'story-container',
+    slide       : 'D2.2',
+    episodeToStart: 'D3',
     deck        : '2',
     order       : 1,
     tense       : 'present',
     special     : true,
     specialType : 'intro',
+    loadNextAutomatically: true,
     textBlock   : [
       [
         {
@@ -125,180 +134,17 @@ let intro_script = [{
     tense       : 'present',
     special     : true,
     specialType : 'bifurcate',
+    slide       : 'D3',
     sections    : [
       {
         container       : 'john',
         description     : 'john-container',
-        order           : 0,
-        characterSlides : [
-          {
-            slideDeck       : '3',
-            charmsg         : 'he',
-            messages        : [
-              {
-                sender  : 'narrator',
-                content : "Okay...Here is John's side of the story."
-              },
-              {
-                sender  : 'narrator',
-                content : "(You can switch to Sue's perspective at any point by swiping left)"
-              }
-            ],
-            reaction        : true,
-            reactionType    : 'buttons',
-            reactionOptions : [
-              {
-                prompt       : 'Thumbs Up',
-                deckLoad     : true,
-                reactionType : 'buttons'
-              }
-            ]
-          },
-          {
-            slideDeck   : '4',
-            description : 'john-number-exchange',
-            special     : true,
-            specialType : 'audio',
-            header      : 'Number Exchange',
-            audioFile   : 'file',
-            gender : 'he'
-          }
-        ]
+        characterSlides : john_slides
       },
       {
         container       : 'sue',
         description     : 'sue-container',
-        order           : 2,
-        characterSlides : [
-          {
-            charmsg         : 'she',
-            slideDeck       : '3',
-            slideOrder      : 2,
-            description     : 'okay-sues-side',
-            messages        : [
-              {
-                sender  : 'narrator',
-                content : "Howdy!",
-                delay: 1000
-              },
-              {
-                sender  : 'narrator',
-                content : "Here is my side of the story",
-                delay: 500
-              },
-              {
-                sender  : 'narrator',
-                content : "(You can switch to John's side at any point by swiping right)",
-                delay: 1000
-              }
-            ],
-            reaction        : true,
-            reactionType    : 'buttons',
-            reactionOptions : [
-              {
-                prompt       : 'Thumbs Up',
-                deckLoad     : true,
-                reactionType : 'buttons',
-                loadMore         : true,
-                messagesToLoad   : [
-                  {
-                    sender  : 'narrator',
-                    content : "Sue?"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            slideDeck   : '4',
-            description : 'sues-number-exchange',
-            special     : true,
-            specialType : 'audio',
-            header      : 'Number Exchange',
-            audioFile   : 'file',
-            gender : 'she'
-          },
-          {
-            deck            : '5',
-            description     : 'sue-and-john-exchange',
-            messages        : [
-              {
-                sender  : 'john',
-                content : 'Sue',
-                skipDelay: true,
-                delay: 1000
-              },
-              {
-                sender: 'sue',
-                content: 'John',
-                delay : 500
-              },
-              {
-                sender: 'sue',
-                content: 'Jon?',
-                delay: 500
-              },
-              {
-                sender: 'john',
-                content: 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
-                delay : 1000
-              }
-            ]
-          },
-          {
-            deck            : '6',
-            description     : 'hello',
-            messages        : [
-              {
-                sender  : 'narrator',
-                content : 'Hello!',
-                skipDelay: true,
-                delay: 1000
-              }
-            ],
-            reaction        : true,
-            reactionType    : 'buttons',
-            reactionOptions : [
-              {
-                prompt           : 'Hello?',
-                deckLoad         : false,
-                routeLoad        : false,
-                reactionType     : 'buttons',
-                loadMore         : true,
-                messagesToLoad   : [
-                  {
-                    sender  : 'narrator',
-                    content : "I'm the creative director also your narrator today."
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "You know those people whose voiceovers come on when they want to confess sth?"
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Except I'm sparing you the montage and the saccharine music, well sorta..."
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "I suggest using headphones for the next 4-5 minutes :)"
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Let's get started, shall we?"
-                  }
-                ],
-                additionalPrompt : true,
-                promptFollowUp   : [
-                  {
-                    prompt     : 'Ok!',
-                    deckLoad   : true,
-                    deckAction : '3'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        characterSlides : sue_slides
       }
     ]
   }

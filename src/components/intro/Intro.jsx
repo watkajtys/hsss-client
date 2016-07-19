@@ -1,4 +1,5 @@
 import React from 'react';
+import store from '../shared/store';
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 import DisplayItem from '../intro/DisplayItem';
 
@@ -8,13 +9,21 @@ export default React.createClass({
   getInitialState: function () {
     return {data: []}
   },
-  componentDidUpdate: function() {
-    var activeVert = localStorage.getItem('activeVerticalSlide');
+  componentDidMount: function() {
 
-    if (activeVert == this.props.deck.deck && !this.triggered) {
+    if (this.props.activeSlide === this.props.deck.slide && !this.triggered) {
       this.triggered = true;
       this.getAndDisplayData();
     }
+  },
+  launchEpisode: function () {
+    //THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
+    //IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+    const action = {
+      type: 'CHANGE_SLIDE',
+      activeSlide: this.props.deck.episodeToStart
+    };
+    store.dispatch(action);
   },
   getAndDisplayData: function() {
     let  allMessageDecks = this.props.deck.textBlock;
@@ -67,7 +76,9 @@ export default React.createClass({
 
         console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length-1);
         if (i === allMessageDecks.length-1) {
-          console.log('%cLast Item', 'color: orange; background: black;')
+          console.log('%cLast Item', 'color: orange; background: black;');
+          //LAST ITERATION SO TRIGGER NEXT SLIDE
+          that.launchEpisode();
         } else {
           that.setState({data: []});
         }
@@ -86,7 +97,7 @@ export default React.createClass({
   render: function () {
     var items = this.state.data.map(function(item, i) {
       return (
-        <DisplayItem msg={item.content} item={item} key={item.id}/>
+        <DisplayItem msg={item.content} item={item} key={i}/>
       )
     }.bind(this));
     return (
