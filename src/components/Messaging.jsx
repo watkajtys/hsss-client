@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from './shared/store';
 import assign from 'deep-assign';
 import Message from './messaging/Message';
 import PromptList from './messaging/PromptList';
@@ -16,10 +18,14 @@ export default React.createClass({
     this.promptId = _.uniqueId('prompt-container_');
   },
   componentDidMount   : function () {
-    this.getMessages();
+    console.log('Are we active? Mount', this.props.active);
+    if (this.props.active && !this.triggered) {
+      this.triggered = true;
+      this.getMessages();
+    }
   },
   componentDidUpdate  : function () {
-    console.log('Are we active?', this.props.active);
+    console.log('Are we active? Update', this.props.active);
     if (this.props.active && !this.triggered) {
       this.triggered = true;
       this.getMessages();
