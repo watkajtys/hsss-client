@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import Slider from './Slider';
+import CustomizableSlider from './CustomizableSlider';
 import intro_script from '../script/shared.js';
 
 export default React.createClass({
@@ -9,7 +9,7 @@ export default React.createClass({
       <main>
         <Header/>
         <div id="content">
-          <Slider slides={intro_script} direction="vertical" initial="0"/>
+          <CustomizableSlider slides={intro_script} direction="vertical" initial="0"/>
         </div>
       </main>
     )
