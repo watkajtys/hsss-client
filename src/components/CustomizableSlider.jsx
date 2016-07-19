@@ -16,9 +16,22 @@ export default React.createClass({
     this.id = _.uniqueId('slide-wrap_');
   },
   componentDidMount: function () {
-    this.setState({renderedSlides: this.state.renderedSlides.concat(this.props.slides[0])});
+
+    //WHEN THIS MOUNTS, LOAD IN THE FIRST SLIDE AUTOMATICALLY
+    console.log('%cINIT CSWIPER', 'font-size: 14px; color: orange; background: black');
+    let firstSlide = this.props.slides[0];
+    if (firstSlide) {
+      console.log(firstSlide);
+      this.setState({renderedSlides: this.state.renderedSlides.concat(firstSlide)});
+      const firstAction = {
+        type: 'CHANGE_SLIDE',
+        activeSlide: firstSlide.slide
+      };
+      store.dispatch(firstAction)
+    }
+
     let that = this;
-    this.swipercustom = new Swiper('.' + this.props.customClass, {
+    this.swipercustom = new Swiper('.' + that.props.customClass, {
       direction: 'vertical',
       calculateHeight:true,
       spaceBetween: 400,
