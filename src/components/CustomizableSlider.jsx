@@ -5,10 +5,9 @@ import Slide from './Slide';
 require('../css/slide.css');
 let _ = require('lodash');
 
-export default React.createClass({
+const CustomizableSlider = React.createClass({
   getInitialState: function() {
     return {
-      activeSlide: 0,
       renderedSlides: []
     }
   },
@@ -37,8 +36,17 @@ export default React.createClass({
       spaceBetween: 400,
       initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
       onSlideChangeEnd: function (swipercustom) {
-        console.log('%cslide change end - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
-        that.setState({activeSlide: swipercustom.activeIndex});
+
+      },
+      onSlideChangeStart: function (swipercustom) {
+        console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
+        let index = swipercustom.activeIndex;
+        console.log(index, that.props.slides[index]);
+        const action = {
+          type: 'CHANGE_SLIDE',
+          activeSlide: that.props.slides[index].slide
+        };
+        store.dispatch(action)
       },
       onSlideNextStart: function (swipercustom) {
         localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
