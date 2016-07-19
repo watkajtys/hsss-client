@@ -153,6 +153,14 @@ export default React.createClass({
           }, 500);
         }
       }
+
+      if (message.slideLoad) {
+        const action = {
+          type: 'CHANGE_SLIDE',
+          activeSlide: message.slideToLoad
+        };
+        store.dispatch(action);
+      }
     }
 
 
