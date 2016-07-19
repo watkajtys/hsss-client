@@ -5,6 +5,7 @@ var _ = require('lodash');
 export default React.createClass({
   componentWillMount: function () {
     this.id = _.uniqueId('prompt-list_');
+    this.promptLineId = _.uniqueId('prompt-line-id_');
   },
   componentDidMount: function () {
     console.log(this.props.messages, 'MOUNTED');
@@ -13,9 +14,9 @@ export default React.createClass({
     var that = this;
     console.log(that, 'THAT');
     return (
-      <div className="prompt-line">
-        {that.props.prompts.map(prompt =>
-          <div className="prompt" onClick={ () => {that.props.addMessage(prompt)}}><p>{prompt.prompt}</p></div>
+      <div className="prompt-line" key={this.promptLineId}>
+        {that.props.prompts.map((prompt, index) =>
+          <div className="prompt" onClick={ () => {that.props.addMessage(prompt)}} key={index}><p>{prompt.prompt}</p></div>
         )}
       </div>
     )

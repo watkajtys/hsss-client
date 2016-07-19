@@ -24,7 +24,6 @@ export default React.createClass({
       }, delayTime); 
     }
   },
-
   toggleMessageDelay : function (delayBool) {
     this.setState({
       longerMessageDelay: delayBool
