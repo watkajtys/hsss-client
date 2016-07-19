@@ -23,6 +23,10 @@
   display : inline-flex;
 }
 
+.message__wrapper.non-user.narrator {
+  margin : 2px 0;
+}
+
 .message__wrapper.user {
   justify-content : flex-end;
 }
@@ -132,11 +136,11 @@
 }
 
 .message__wrapper > .avatar.john {
-  background-image : url('../images/john_avatar.png');
+  background-image : url('../images/inline_avatars/john_red.png');
 }
 
 .message__wrapper > .avatar.sue {
-  background-image : url('../images/sue_avatar.png');
+  background-image : url('../images/inline_avatars/sue_red.png');
 }
 
 .message > p {
@@ -163,6 +167,7 @@
   align-items   : center;
   padding       : 0 20px;
   border-radius : 20px 0 20px 20px;
+  margin-right  : 10px;
 }
 
 .prompt > p {
