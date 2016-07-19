@@ -12,8 +12,7 @@ const EmbeddedSlider =  React.createClass({
   },
   componentDidMount: function () {
     var that = this;
-    var horizontalSlider;
-    horizontalSlider = new Swiper('.swiper-container-hor', {
+    this.horizontalSlider = new Swiper('.swiper-container-hor', {
       direction: 'horizontal',
       initialSlide: 1,
       spaceBetween: 150,
@@ -42,6 +41,20 @@ const EmbeddedSlider =  React.createClass({
 
       }
     });
+  },
+  componentWillReceiveProps(nextProps) {
+    if (this.props.side !== nextProps.side) {
+      this.toggleSide(nextProps.side);
+    }
+  },
+  toggleSide : function (side) {
+    let index = 1;
+    if (side === 'she') {
+      index = 1;
+    } else {
+      index = 0;
+    }
+    this.horizontalSlider.slideTo(index);
   },
   getSlides: function () {
     return this.props.slides || [];
