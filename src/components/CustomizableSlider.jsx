@@ -80,9 +80,23 @@ export default React.createClass({
     return 'slide_container swiper-container ' + this.props.customClass; 
   },
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    if (this.props.index !== nextProps.index) {
-      this.slideTo(nextProps.index);
+    console.log(nextProps, 'NEXT PROPS!!!');
+    let index = this.swipercustom.activeIndex;
+    if (this.props.slides[index].slide !== nextProps.activeSlide) {
+      var found = this.state.renderedSlides.filter(function(slide) {
+        return slide.slide === nextProps.activeSlide;
+      });
+      if (found && found[0]) {
+        console.log(found, 'FOUND SHIT SO SLIDE TO');
+        position = this.state.renderedSlides.map(function(slide) {return slide.slide; }).indexOf(nextProps.activeSlide);
+        this.slideTo(position);
+      } else {
+        console.log('WE AINT FOUND  SHIT', this.props.slides);
+        let slideItem = this.props.slides.filter(function(slide) {
+          return slide.slide === nextProps.activeSlide;
+        });
+        this.appendSlideAndTransition(slideItem);
+      }
     }
   },
   render: function () {
