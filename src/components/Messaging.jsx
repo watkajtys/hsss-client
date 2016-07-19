@@ -44,6 +44,7 @@ export default React.createClass({
     let that = this;
     prompts  = this.props.deck.reactionOptions || [];
     prompts.forEach(function (prompt) {
+      console.log(prompt)
       that.setState({prompts : that.state.prompts.concat([prompt])});
     })
 
@@ -116,7 +117,11 @@ export default React.createClass({
     var promise = this.runMessagingPromise(messageArray);
     promise.then(function (result) {
       if (prompts) {
-        that.setState({prompts : [{prompt : prompts}]});
+        console.log('more prompts!', prompts);
+        prompts.forEach(function (prompt) {
+          console.log(prompt);
+          that.setState({prompts : that.state.prompts.concat([prompt])});
+        })
       } else {
         that.getPrompts();
       }
@@ -138,8 +143,10 @@ export default React.createClass({
         if (message.messagesToLoad) {
           setTimeout(function () {
             if (message.additionalPrompt) {
-              that.executeMessaging(message.messagesToLoad, message.promptFollowUp[0].prompt);
+              //EXECUTE MESSAGING WITH PROMPTS
+              that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
             } else {
+              //EXECUTE MESSAGING NORMALLY
               that.executeMessaging(message.messagesToLoad);
             }
 
