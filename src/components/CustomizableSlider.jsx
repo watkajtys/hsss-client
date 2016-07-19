@@ -39,12 +39,21 @@ export default React.createClass({
     this.swipercustom.slideTo(index);
   },
   appendSlide : function (slide) {
+    //ADDING THE NEXT SLIDE TO INTERNAL STATE AND RENDING IT
+    this.setState({renderedSlides: this.state.renderedSlides.concat(slide)});
+  },
+  appendSlideAndTransition : function (slide) {
+    console.log('appending and sliding', slide);
     //ADDING THE NEXT SLIDE TO THE STATE AND THUS RENDERING
     this.setState({renderedSlides: this.state.renderedSlides.concat(slide)});
-    //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
-    this.swipercustom.update(true);
-    //TRANSITION TO THE NEWLY APPENDED SLIDE
-    this.swipercustom.slideNext(true, 500);
+    let that = this;
+    //BRIEF TIMEOUT FOR A DELAY AND ALLOW REACT TO RENDER
+    setTimeout(function () {
+      //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
+      that.swipercustom.update(true);
+      //TRANSITION TO THE NEWLY APPENDED SLIDE
+      that.swipercustom.slideNext(true, 500);
+    }, 1000)
   },
   componentWillUnmount: function () {
     localStorage.removeItem('activeVerticalSlide');
