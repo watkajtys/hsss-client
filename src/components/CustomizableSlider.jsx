@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from './shared/store';
 import Slide from './Slide';
 require('../css/slide.css');
 let _ = require('lodash');
@@ -66,10 +68,19 @@ export default React.createClass({
       <div className={this.generateClassList()} key={this.id}>
         <div className="swiper-wrapper">
           {this.state.renderedSlides.map(slide =>
-            <Slide key={slide.description} slide={slide} activeCustomSlide={this.state.activeSlide}/>
+            <Slide key={slide.description} slide={slide} activeSlide={this.props.activeSlide}/>
           )}
         </div>
       </div>
     )
   }
 });
+
+const mapStateToProps = function (store) {
+  return {
+    activeSlide : store.slideState.activeSlide,
+    activeContainer: store.slideState.activeContainer
+  }
+};
+
+export default connect(mapStateToProps)(CustomizableSlider);
