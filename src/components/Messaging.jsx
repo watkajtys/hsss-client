@@ -12,7 +12,8 @@ export default React.createClass({
     return {data : [], prompts : []}
   },
   componentWillMount  : function () {
-    this.id = _.uniqueId('message-container_')
+    this.id = _.uniqueId('message-container_');
+    this.promptId = _.uniqueId('prompt-container_');
   },
   componentDidMount   : function () {
     this.getMessages();
@@ -174,7 +175,7 @@ export default React.createClass({
         {this.state.data.map(message =>
           <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime} displayAvatar={message.displayAvatar} lastinblock= {message.lastMsgInBlock}/>
         )}
-        <PromptList prompts={this.state.prompts} addMessage={this.addMessage}/>
+        <PromptList prompts={this.state.prompts} addMessage={this.addMessage} key={this.promptId}/>
       </div>
     )
   }
