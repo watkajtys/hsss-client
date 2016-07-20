@@ -9,7 +9,7 @@ export default React.createClass({
       <main>
         <Header/>
         <div id="content">
-          <CustomizableSlider slides={intro_script} direction="vertical" initial="0"/>
+          <CustomizableSlider slides={intro_script} direction="vertical" initial="0" container="INTRO"/>
         </div>
       </main>
     )
