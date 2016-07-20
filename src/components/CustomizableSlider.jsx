@@ -140,7 +140,7 @@ const CustomizableSlider = React.createClass({
       <div className={this.generateClassList()} key={this.id}>
         <div className="swiper-wrapper">
           {this.state.renderedSlides.map(slide =>
-            <Slide key={slide.description} slide={slide} activeSlide={this.props.activeSlide}/>
+            <Slide key={slide.description} slide={slide} activeSlide={this.props.activeSlide} activeContainer={this.props.activeContainer} container={this.props.container}/>
           )}
         </div>
       </div>
