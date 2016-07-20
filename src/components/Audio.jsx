@@ -21,7 +21,13 @@ export default React.createClass({
     this.id = _.uniqueId('audio_');
   },
   componentDidMount : function () {
-
+  },
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.active) {
+      this.play();
+    } else {
+      this.stop();
+    }
   },
   audioClass: function () {
     let extra = this.props.classExtra ? this.props.classExtra : '';
@@ -29,7 +35,6 @@ export default React.createClass({
   },
 
   handleTogglePlay: function () {
-    console.log(this.state, "STATE");
     if (this.state.finished) {
       console.log('STATE FINISHED')
       this.setState({
@@ -41,6 +46,18 @@ export default React.createClass({
         playing: !this.state.playing
       });
     }
+  },
+
+  play : function() {
+    this.setState({
+      playing: true
+    });
+  },
+
+  stop : function() {
+    this.setState({
+      playing: false
+    });
   },
 
   handlePosChange(e) {
