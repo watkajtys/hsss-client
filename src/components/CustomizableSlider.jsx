@@ -114,20 +114,48 @@ const CustomizableSlider = React.createClass({
   componentWillReceiveProps(nextProps) {
     console.log(nextProps, 'NEXT PROPS!!!');
     let index = this.swipercustom.activeIndex;
-    if (this.props.slides[index].slide !== nextProps.activeSlide) {
-      var found = this.state.renderedSlides.filter(function(slide) {
-        return slide.slide === nextProps.activeSlide;
-      });
-      if (found && found[0]) {
-        console.log(found, 'FOUND SHIT SO SLIDE TO');
-        position = this.state.renderedSlides.map(function(slide) {return slide.slide; }).indexOf(nextProps.activeSlide);
-        this.slideTo(position);
-      } else {
-        console.log('WE AINT FOUND  SHIT', this.props.slides);
-        let slideItem = this.props.slides.filter(function(slide) {
+    
+    //IF WE ARE IN THE ACTIVE CONTAINER
+    if (this.props.container === this.props.activeContainer) {
+      //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
+      if (this.props.slides[index].slide !== nextProps.activeSlide) {
+        //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
+        var found = this.state.renderedSlides.filter(function(slide) {
           return slide.slide === nextProps.activeSlide;
         });
-        this.appendSlideAndTransition(slideItem);
+        if (found && found[0]) {
+          console.log(found, 'FOUND SHIT SO SLIDE TO');
+          //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
+          let position = this.state.renderedSlides.map(function(slide) {return slide.slide; }).indexOf(nextProps.activeSlide);
+          this.slideTo(position);
+        } else {
+          //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
+          console.log('WE AINT FOUND  SHIT', this.props.slides);
+          let slideItem = this.props.slides.filter(function(slide) {
+            return slide.slide === nextProps.activeSlide;
+          });
+          console.log(slideItem, 'SLIDE ITEM');
+          let itemSingle = slideItem[0];
+          
+          if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
+            //APPEND THE NEW SLIDE
+            var that = this;
+            that.appendSlideAndTransition(slideItem);
+            let nextItem = this.props.slides.filter(function(slide) {
+              return slide.slide === itemSingle.nextSlide;
+            });
+            if (nextItem) {
+              console.log(nextItem, "NE$XT");
+              setTimeout(function() {
+                that.appendSlide(nextItem)
+              }, 3000)
+
+            }
+          } else {
+            //APPEND THE NEW SLIDE
+            this.appendSlideAndTransition(slideItem);
+          }
+        }
       }
     }
   },
