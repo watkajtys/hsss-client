@@ -1,5 +1,5 @@
 import React from 'react';
-import Slide from './Slide';
+import CustomizableSlider from './CustomizableSlider';
 import { connect } from 'react-redux';
 import store from './shared/store';
 // import store from '../components/shared/store.js';
@@ -7,6 +7,12 @@ require('../css/slide.css');
 let _ = require('lodash');
 
 const EmbeddedSlider =  React.createClass({
+
+  getInitialState : function() {
+    return {
+      rendered: []
+    }
+  },
   componentWillMount: function () {
     this.id = _.uniqueId('slide-wrap-hor_');
   },
@@ -63,8 +69,10 @@ const EmbeddedSlider =  React.createClass({
     return (
       <div className="slide_container swiper-container swiper-container-hor">
         <div className="swiper-wrapper">
-          {this.getSlides().map(slide =>
-            <Slide key={slide.description} slide={slide}/>
+          {this.getSlides().map((slide, index) =>
+            <div className="slide swiper-slide">
+              <CustomizableSlider slides={slide.characterSlides} customClass={slide.customClass} direction="vertical" index={this.props.indexToTrigger} activeSlide={this.props.activeSlide} container={slide.container} key={index}/>
+            </div>
           )}
         </div>
       </div>

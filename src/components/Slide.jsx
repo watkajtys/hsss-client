@@ -3,7 +3,6 @@ import Messaging from './Messaging';
 import Splash from './intro/Splash';
 import Intro from './intro/Intro';
 import EmbeddedSlider from './EmbeddedSlider';
-import CustomizableSlider from './CustomizableSlider';
 import Audio from './Audio';
 let _ = require('lodash');
 
@@ -27,7 +26,6 @@ export default React.createClass({
     }
   },
   deckIsActive: function (slide) {
-    console.log(slide, "DECK SLIDE");
     if (this.props.activeSlide == slide.slide) {
       console.log('yuop');
       return true
@@ -43,16 +41,6 @@ export default React.createClass({
       return true
     }
   },
-  sheContainer: function(slide) {
-    if (slide.container && slide.container === 'sue') {
-      return true
-    }
-  },
-  heContainer: function (slide) {
-    if (slide.container && slide.container === 'john') {
-      return true
-    }
-  },
   render: function () {
     var slideType;
     if (this.isSplash(this.props.slide)) {
@@ -60,15 +48,11 @@ export default React.createClass({
     } else if (this.isIntro(this.props.slide)) {
       slideType = <Intro deck={this.props.slide} activeSlide={this.props.activeSlide} active={this.deckIsActive(this.props.slide)}/>;
     } else if (this.bifurcate(this.props.slide)) {
-      slideType = <EmbeddedSlider slides={this.props.slide.sections} activeSlide={this.props.activeSlide} initial="1" class=".swiper-container-hor" deck={this.props} active={this.deckIsActive(this.props.slide)} side={this.props.side}/>
-    } else if (this.sheContainer(this.props.slide)) {
-      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="sheSlider" direction="vertical" index={this.props.indexToTrigger} activeSlide={this.props.activeSlide}/>
-    } else if (this.heContainer(this.props.slide)) {
-      slideType = <CustomizableSlider slides={this.props.slide.characterSlides} customClass="heSlider" direction="vertical" index={this.props.indexToTrigger} key={_.uniqueId('slide-wrap_')} activeSlide={this.props.activeSlide}/>
+      slideType = <EmbeddedSlider slides={this.props.slide.sections} activeSlide={this.props.activeSlide} initial="1" class=".swiper-container-hor" deck={this.props} active={this.deckIsActive(this.props.slide)} side={this.props.side} container={this.props.slide.container}/>
     } else if (this.isAudio(this.props.slide)) {
       slideType = <Audio header={this.props.slide.header} classExtra={this.props.slide.gender} activeSlide={this.props.activeSlide}/>
     } else {
-      slideType = <Messaging deck={this.props.slide} activeSlide={this.props.activeSlide} active={this.deckIsActive(this.props.slide)} classExtra={this.props.slide.charmsg} key={this.id}/>;
+      slideType = <Messaging deck={this.props.slide} activeSlide={this.props.activeSlide} active={this.deckIsActive(this.props.slide)} classExtra={this.props.slide.charmsg} key={this.id} activeContainer={this.props.activeContainer} parentContainer={this.props.container}/>;
     }
     return (
       <div className="slide swiper-slide" key={this.id}>
