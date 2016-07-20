@@ -81,8 +81,15 @@ const CustomizableSlider = React.createClass({
     this.swipercustom.slideTo(index);
   },
   appendSlide : function (slide) {
+    console.log('appending', slide);
     //ADDING THE NEXT SLIDE TO INTERNAL STATE AND RENDING IT
     this.setState({renderedSlides: this.state.renderedSlides.concat(slide)});
+    let that = this;
+    //BRIEF TIMEOUT FOR A DELAY AND ALLOW REACT TO RENDER
+    setTimeout(function () {
+      //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
+      that.swipercustom.update(true);
+    }, 500)
   },
   appendSlideAndTransition : function (slide) {
     console.log('appending and sliding', slide);
