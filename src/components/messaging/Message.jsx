@@ -37,6 +37,14 @@ export default React.createClass({
     let last = this.props.lastinblock ? 'last__msg' : '';
     return 'message ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
   },
+  indicatorClass: function() {
+    let sender = this.props.sender;
+    let extra = this.props.classExtra ? this.props.classExtra : '';
+    let delay = this.state.longerMessageDelay ? 'textmessage' : 'hidden';
+    let avatarMsg = this.props.displayAvatar ? 'avatar__msg' : '';
+    let last = this.props.lastinblock ? 'last__msg' : '';
+    return 'message indicator ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
+  },
   wrapperClass : function() {
     let sender = this.props.sender;
     let wrapper__class = 'message__wrapper non-user ' + sender;
@@ -63,7 +71,7 @@ export default React.createClass({
         <div className={this.messageClass()}>
           <p>{this.props.msg.content}</p>
         </div>
-        <div id="indicator" className={'message indicator ' + this.props.sender + ' ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden')}>
+        <div id="indicator" className={this.indicatorClass()}>
           <span className="bubble">
             <i className="point"></i>
             <i className="point"></i>
