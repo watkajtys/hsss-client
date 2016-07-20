@@ -26,7 +26,7 @@ export default React.createClass({
     }
   },
   deckIsActive: function (slide) {
-    if (this.props.activeSlide == slide.slide) {
+    if (this.props.activeSlide === slide.slide && this.props.container === this.props.activeContainer) {
       console.log('yuop');
       return true
     }
