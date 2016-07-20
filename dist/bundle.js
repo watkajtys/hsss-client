@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5ebf7692c6d719c0941d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e4f3d48265a59ed412df"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8204,7 +8204,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(341);
+	__webpack_require__(343);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -31365,7 +31365,7 @@
 
 	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
-	var _shared = __webpack_require__(338);
+	var _shared = __webpack_require__(340);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
@@ -31808,7 +31808,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(324);
+	__webpack_require__(326);
 	var _ = __webpack_require__(298);
 
 	var CustomizableSlider = _react2.default.createClass({
@@ -31844,6 +31844,7 @@
 	      spaceBetween: 400,
 	      initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
 	      onSlideChangeEnd: function onSlideChangeEnd(swipercustom) {
+	        //WE ONLY WANT THE ACTIVE CONTAINER TO REPORT SLIDE CHANGES
 	        if (that.props.container == that.props.activeContainer) {
 	          console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
 	          var index = swipercustom.activeIndex;
@@ -31855,13 +31856,6 @@
 	          _store2.default.dispatch(action);
 	        }
 	      },
-	      onSlideChangeStart: function onSlideChangeStart(swipercustom) {},
-	      onSlideNextStart: function onSlideNextStart(swipercustom) {
-	        localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
-	      },
-	      onSlidePrevStart: function onSlidePrevStart(swipercustom) {
-	        localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
-	      },
 	      onInit: function onInit(swipercustom) {
 	        if (that.props.slides[0].loadNextAutomatically) {
 	          setTimeout(function () {
@@ -31871,17 +31865,8 @@
 	          }, 500);
 	        }
 	      }
-	      // onTransitionStart : function (swipercustom) {
-	      //   console.log('trans start');
-	      // },
 
 	    });
-
-	    //IF THE SECOND SLIDE NEEDS TO BE LOADED MANUALLY - DO IT
-	    // if (this.props.slides[0].loadNextAutomatically) {
-	    //   console.log('APPENd');
-	    //   this.appendSlide(this.props.slides[1]);
-	    // }
 	  },
 	  slideTo: function slideTo(index) {
 	    this.swipercustom.slideTo(index);
@@ -31923,55 +31908,52 @@
 	    console.log(nextProps, 'NEXT PROPS!!!');
 	    var index = this.swipercustom.activeIndex;
 
-	    //IF WE ARE IN THE ACTIVE CONTAINER
-	    if (this.props.container === this.props.activeContainer) {
-	      //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
-	      if (this.props.slides[index].slide !== nextProps.activeSlide) {
-	        //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
-	        var found = this.state.renderedSlides.filter(function (slide) {
-	          return slide.slide === nextProps.activeSlide;
-	        });
-	        if (found && found[0]) {
-	          console.log(found, 'FOUND SHIT SO SLIDE TO');
-	          //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
-	          var position = this.state.renderedSlides.map(function (slide) {
-	            return slide.slide;
-	          }).indexOf(nextProps.activeSlide);
-	          this.slideTo(position);
-	        } else {
-	          var that;
+	    //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
+	    if (this.props.slides[index].slide !== nextProps.activeSlide) {
+	      //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
+	      var found = this.state.renderedSlides.filter(function (slide) {
+	        return slide.slide === nextProps.activeSlide;
+	      });
+	      if (found && found[0]) {
+	        console.log(found, 'FOUND SHIT SO SLIDE TO');
+	        //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
+	        var position = this.state.renderedSlides.map(function (slide) {
+	          return slide.slide;
+	        }).indexOf(nextProps.activeSlide);
+	        this.slideTo(position);
+	      } else {
+	        var that;
 
-	          (function () {
-	            //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
-	            console.log('WE AINT FOUND  SHIT', _this.props.slides);
-	            var slideItem = _this.props.slides.filter(function (slide) {
-	              return slide.slide === nextProps.activeSlide;
-	            });
-	            console.log(slideItem, 'SLIDE ITEM');
-	            var itemSingle = slideItem[0];
+	        (function () {
+	          //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
+	          console.log('WE AINT FOUND  SHIT', _this.props.slides);
+	          var slideItem = _this.props.slides.filter(function (slide) {
+	            return slide.slide === nextProps.activeSlide;
+	          });
+	          console.log(slideItem, 'SLIDE ITEM');
+	          var itemSingle = slideItem[0];
 
-	            if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
-	              (function () {
-	                //APPEND THE NEW SLIDE
-	                that = _this;
-
-	                that.appendSlideAndTransition(slideItem);
-	                var nextItem = _this.props.slides.filter(function (slide) {
-	                  return slide.slide === itemSingle.nextSlide;
-	                });
-	                if (nextItem) {
-	                  console.log(nextItem, "NE$XT");
-	                  setTimeout(function () {
-	                    that.appendSlide(nextItem);
-	                  }, 3000);
-	                }
-	              })();
-	            } else {
+	          if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
+	            (function () {
 	              //APPEND THE NEW SLIDE
-	              _this.appendSlideAndTransition(slideItem);
-	            }
-	          })();
-	        }
+	              that = _this;
+
+	              that.appendSlideAndTransition(slideItem);
+	              var nextItem = _this.props.slides.filter(function (slide) {
+	                return slide.slide === itemSingle.nextSlide;
+	              });
+	              if (nextItem) {
+	                console.log(nextItem, "NE$XT");
+	                setTimeout(function () {
+	                  that.appendSlide(nextItem);
+	                }, 3000);
+	              }
+	            })();
+	          } else {
+	            //APPEND THE NEW SLIDE
+	            _this.appendSlideAndTransition(slideItem);
+	          }
+	        })();
 	      }
 	    }
 	  },
@@ -32025,19 +32007,19 @@
 
 	var _Messaging2 = _interopRequireDefault(_Messaging);
 
-	var _Splash = __webpack_require__(304);
+	var _Splash = __webpack_require__(306);
 
 	var _Splash2 = _interopRequireDefault(_Splash);
 
-	var _Intro = __webpack_require__(308);
+	var _Intro = __webpack_require__(310);
 
 	var _Intro2 = _interopRequireDefault(_Intro);
 
-	var _EmbeddedSlider = __webpack_require__(323);
+	var _EmbeddedSlider = __webpack_require__(325);
 
 	var _EmbeddedSlider2 = _interopRequireDefault(_EmbeddedSlider);
 
-	var _Audio = __webpack_require__(326);
+	var _Audio = __webpack_require__(328);
 
 	var _Audio2 = _interopRequireDefault(_Audio);
 
@@ -32067,13 +32049,8 @@
 	    }
 	  },
 	  deckIsActive: function deckIsActive(slide) {
-	    if (this.props.activeSlide == slide.slide) {
+	    if (this.props.activeSlide === slide.slide && this.props.container === this.props.activeContainer) {
 	      console.log('yuop');
-	      return true;
-	    }
-	  },
-	  deckIsHorizontallyActive: function deckIsHorizontallyActive(slide) {
-	    if (this.props.activeSlideHorizontal == slide.order) {
 	      return true;
 	    }
 	  },
@@ -32091,7 +32068,7 @@
 	    } else if (this.bifurcate(this.props.slide)) {
 	      slideType = _react2.default.createElement(_EmbeddedSlider2.default, { slides: this.props.slide.sections, activeSlide: this.props.activeSlide, initial: '1', 'class': '.swiper-container-hor', deck: this.props, active: this.deckIsActive(this.props.slide), side: this.props.side, container: this.props.slide.container });
 	    } else if (this.isAudio(this.props.slide)) {
-	      slideType = _react2.default.createElement(_Audio2.default, { header: this.props.slide.header, classExtra: this.props.slide.gender, activeSlide: this.props.activeSlide });
+	      slideType = _react2.default.createElement(_Audio2.default, { header: this.props.slide.header, file: this.props.slide.audioFile, classExtra: this.props.slide.gender, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide) });
 	    } else {
 	      slideType = _react2.default.createElement(_Messaging2.default, { deck: this.props.slide, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide), classExtra: this.props.slide.charmsg, key: this.id, activeContainer: this.props.activeContainer, parentContainer: this.props.container });
 	    }
@@ -32136,7 +32113,7 @@
 
 	var _Message2 = _interopRequireDefault(_Message);
 
-	var _PromptList = __webpack_require__(303);
+	var _PromptList = __webpack_require__(305);
 
 	var _PromptList2 = _interopRequireDefault(_PromptList);
 
@@ -32284,7 +32261,7 @@
 	              //EXECUTE MESSAGING NORMALLY
 	              that.executeMessaging(message.messagesToLoad);
 	            }
-	          }, 500);
+	          }, 1000);
 	        }
 	      }
 
@@ -32484,6 +32461,14 @@
 	    var last = this.props.lastinblock ? 'last__msg' : '';
 	    return 'message ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
 	  },
+	  indicatorClass: function indicatorClass() {
+	    var sender = this.props.sender;
+	    var extra = this.props.classExtra ? this.props.classExtra : '';
+	    var delay = this.state.longerMessageDelay ? 'textmessage' : 'hidden';
+	    var avatarMsg = this.props.displayAvatar ? 'avatar__msg' : '';
+	    var last = this.props.lastinblock ? 'last__msg' : '';
+	    return 'message indicator ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
+	  },
 	  wrapperClass: function wrapperClass() {
 	    var sender = this.props.sender;
 	    var wrapper__class = 'message__wrapper non-user ' + sender;
@@ -32519,7 +32504,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { id: 'indicator', className: 'message indicator ' + this.props.sender + ' ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden') },
+	        { id: 'indicator', className: this.indicatorClass() },
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'bubble' },
@@ -48981,7 +48966,7 @@
 
 
 	// module
-	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : rgba(241, 99, 117, .25);\n  padding    : 0 5%;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : rgba(60, 163, 187, .25);\n  padding    : 0 5%;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #E9E4EC;\n  color           : #734E86;\n  border          : #734E86 2px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : -1px;\n  right        : -9px;\n  border-top   : 8px solid #F16375;\n  border-right : 8px solid transparent;\n}\n\n.message__wrapper > .message.john.avatar__msg:after {\n  position    : absolute;\n  width       : 0;\n  height      : 0;\n  content     : \"\";\n  top         : -1px;\n  left        : -9px;\n  border-top  : 8px solid #F16375;\n  border-left : 8px solid transparent;\n}\n\n.message__wrapper > .message.user {\n  background    : #4F3065;\n  color         : white;\n  border-radius : 20px 0 20px 20px;\n  float         : right;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n.message__wrapper.non-user:first-child > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(301) + ");\n}\n\n.message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(302) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 15px;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #CCC;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
+	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : rgba(241, 99, 117, .25);\n  padding    : 5px 5% 0;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : rgba(60, 163, 187, .25);\n  padding    : 5px 5% 0;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #E9E4EC;\n  color           : #734E86;\n  border          : #734E86 2px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : -1px;\n  right        : -9px;\n  border-top   : 8px solid #F16375;\n  border-right : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg:after {\n  position    : absolute;\n  width       : 0;\n  height      : 0;\n  content     : \"\";\n  top         : -1px;\n  left        : -9px;\n  border-top  : 8px solid #F16375;\n  border-left : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background    : #4F3065;\n  color         : white;\n  border-radius : 20px 0 20px 20px;\n  float         : right;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border : 1px solid #3CA3BB;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : #F3F9FB;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n  /*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(301) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(302) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(303) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(304) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 15px;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #CCC;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
 
 	// exports
 
@@ -49000,6 +48985,18 @@
 
 /***/ },
 /* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "9b012aff5e046a530f7e1ae8313977d2.png";
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "42d6472a920a49a07716ca15aaa9b1e1.png";
+
+/***/ },
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49030,7 +49027,6 @@
 	  },
 	  render: function render() {
 	    var that = this;
-	    console.log(that, 'THAT');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'prompt-line', key: this.promptLineId },
@@ -49055,7 +49051,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 304 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49072,7 +49068,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(305);
+	__webpack_require__(307);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Splash',
@@ -49126,13 +49122,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 305 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(306);
+	var content = __webpack_require__(308);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(291)(content, {});
@@ -49141,8 +49137,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(306, function() {
-				var newContent = __webpack_require__(306);
+			module.hot.accept(308, function() {
+				var newContent = __webpack_require__(308);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49152,7 +49148,7 @@
 	}
 
 /***/ },
-/* 306 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(290)();
@@ -49160,19 +49156,19 @@
 
 
 	// module
-	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(307) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 18px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position : absolute;\n  bottom   : 20px;\n  margin   : auto;\n  width    : 100%;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
+	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(309) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 18px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position : absolute;\n  bottom   : 20px;\n  margin   : auto;\n  width    : 100%;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 307 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a8b5e250ee241b39a437437549341584.gif";
 
 /***/ },
-/* 308 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49191,16 +49187,16 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DisplayItem = __webpack_require__(309);
+	var _DisplayItem = __webpack_require__(311);
 
 	var _DisplayItem2 = _interopRequireDefault(_DisplayItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ReactCSSTransitionGroup = __webpack_require__(313);
+	var ReactCSSTransitionGroup = __webpack_require__(315);
 
 
-	__webpack_require__(320);
+	__webpack_require__(322);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Intro',
@@ -49309,7 +49305,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 309 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49328,9 +49324,9 @@
 
 	var _ = __webpack_require__(298);
 
-	var johnAvatar = __webpack_require__(310);
-	var sueAvatar = __webpack_require__(311);
-	var swipeGraphic = __webpack_require__(312);
+	var johnAvatar = __webpack_require__(312);
+	var sueAvatar = __webpack_require__(313);
+	var swipeGraphic = __webpack_require__(314);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'DisplayItem',
@@ -49379,31 +49375,31 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 310 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d47782dbd239bc2b17622fe7e020b7e6.png";
 
 /***/ },
-/* 311 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5f8522bbe44f92be7e820687dbd24794.png";
 
 /***/ },
-/* 312 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b06d63fa6195c8ac08a5f231903f3df4.png";
 
 /***/ },
-/* 313 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(314);
+	module.exports = __webpack_require__(316);
 
 /***/ },
-/* 314 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49423,8 +49419,8 @@
 
 	var React = __webpack_require__(153);
 
-	var ReactTransitionGroup = __webpack_require__(315);
-	var ReactCSSTransitionGroupChild = __webpack_require__(317);
+	var ReactTransitionGroup = __webpack_require__(317);
+	var ReactCSSTransitionGroupChild = __webpack_require__(319);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -49495,7 +49491,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 315 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49515,7 +49511,7 @@
 
 	var React = __webpack_require__(153);
 	var ReactInstanceMap = __webpack_require__(123);
-	var ReactTransitionChildMapping = __webpack_require__(316);
+	var ReactTransitionChildMapping = __webpack_require__(318);
 
 	var emptyFunction = __webpack_require__(108);
 
@@ -49747,7 +49743,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 316 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49856,7 +49852,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 317 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49875,8 +49871,8 @@
 	var React = __webpack_require__(153);
 	var ReactDOM = __webpack_require__(169);
 
-	var CSSCore = __webpack_require__(318);
-	var ReactTransitionEvents = __webpack_require__(319);
+	var CSSCore = __webpack_require__(320);
+	var ReactTransitionEvents = __webpack_require__(321);
 
 	var onlyChild = __webpack_require__(167);
 
@@ -50028,7 +50024,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 318 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50155,7 +50151,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 319 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50233,13 +50229,13 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 320 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(321);
+	var content = __webpack_require__(323);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(291)(content, {});
@@ -50248,8 +50244,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(321, function() {
-				var newContent = __webpack_require__(321);
+			module.hot.accept(323, function() {
+				var newContent = __webpack_require__(323);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50259,7 +50255,7 @@
 	}
 
 /***/ },
-/* 321 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(290)();
@@ -50267,19 +50263,19 @@
 
 
 	// module
-	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(322) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size   : 30px;\n  line-height : 50px;\n  width       : 75%;\n  margin      : auto;\n  display     : -webkit-box;\n  display     : -ms-flexbox;\n  display     : flex;\n  -webkit-box-align : center;\n      -ms-flex-align : center;\n          align-items : center;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > p.avatar.john {\n  margin       : 0;\n  text-align   : left;\n  display      : -webkit-inline-box;\n  display      : -ms-inline-flexbox;\n  display      : inline-flex;\n  padding-left : 25px;\n  font-size    : 20px;\n  line-height  : 30px;\n}\n\n.display-item > p.avatar.sue {\n  margin        : 15px 0 0 0;\n  text-align    : right;\n  display       : -webkit-inline-box;\n  display       : -ms-inline-flexbox;\n  display       : inline-flex;\n  padding-right : 25px;\n  font-size     : 20px;\n  line-height   : 30px;\n}\n\n.display-item > img.avatar.john {\n  float : left;\n}\n\n.display-item > img.avatar.sue {\n  float      : right;\n  display    : -webkit-inline-box;\n  display    : -ms-inline-flexbox;\n  display    : inline-flex;\n  -webkit-box-ordinal-group      : 3;\n      -ms-flex-order      : 2;\n          order      : 2;\n  margin-top : 15px;\n}\n\n.display-item > img.swipe-choice {\n  width      : 100%;\n  margin-top : 30px;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
+	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(324) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size   : 30px;\n  line-height : 50px;\n  width       : 75%;\n  margin      : auto;\n  display     : -webkit-box;\n  display     : -ms-flexbox;\n  display     : flex;\n  -webkit-box-align : center;\n      -ms-flex-align : center;\n          align-items : center;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > p.avatar.john {\n  margin       : 0;\n  text-align   : left;\n  display      : -webkit-inline-box;\n  display      : -ms-inline-flexbox;\n  display      : inline-flex;\n  padding-left : 25px;\n  font-size    : 20px;\n  line-height  : 30px;\n}\n\n.display-item > p.avatar.sue {\n  margin        : 15px 0 0 0;\n  text-align    : right;\n  display       : -webkit-inline-box;\n  display       : -ms-inline-flexbox;\n  display       : inline-flex;\n  padding-right : 25px;\n  font-size     : 20px;\n  line-height   : 30px;\n}\n\n.display-item > img.avatar.john {\n  float : left;\n}\n\n.display-item > img.avatar.sue {\n  float      : right;\n  display    : -webkit-inline-box;\n  display    : -ms-inline-flexbox;\n  display    : inline-flex;\n  -webkit-box-ordinal-group      : 3;\n      -ms-flex-order      : 2;\n          order      : 2;\n  margin-top : 15px;\n}\n\n.display-item > img.swipe-choice {\n  width      : 100%;\n  margin-top : 30px;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 322 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "87f48860e1afd1bd73a888636141fb3a.gif";
 
 /***/ },
-/* 323 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50307,7 +50303,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// import store from '../components/shared/store.js';
-	__webpack_require__(324);
+	__webpack_require__(326);
 	var _ = __webpack_require__(298);
 
 	var EmbeddedSlider = _react2.default.createClass({
@@ -50405,13 +50401,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 324 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(325);
+	var content = __webpack_require__(327);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(291)(content, {});
@@ -50420,8 +50416,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(325, function() {
-				var newContent = __webpack_require__(325);
+			module.hot.accept(327, function() {
+				var newContent = __webpack_require__(327);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50431,7 +50427,7 @@
 	}
 
 /***/ },
-/* 325 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(290)();
@@ -50439,13 +50435,13 @@
 
 
 	// module
-	exports.push([module.id, ".swiper-container {\n  width  : 100%;\n  height : 100%;\n}\n\n.swiper-slide {\n  text-align      : center;\n  font-size       : 18px;\n  background      : #F4F2F6;\n  /* Center slide text vertically */\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  -webkit-box-align     : baseline;\n      -ms-flex-align     : baseline;\n          align-items     : baseline;\n  overflow        : auto;\n}\n\n.swiper-container-hor {\n  width  : 100%;\n  height : 100%;\n  background: #4F3065;\n}", ""]);
+	exports.push([module.id, ".swiper-container {\n  width  : 100%;\n  height : 100%;\n}\n\n.swiper-slide {\n  text-align      : center;\n  font-size       : 18px;\n  background      : #F4F2F6;\n  /* Center slide text vertically */\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  -webkit-box-align     : baseline;\n      -ms-flex-align     : baseline;\n          align-items     : baseline;\n  overflow        : hidden;\n}\n\n.swiper-container-hor {\n  width  : 100%;\n  height : 100%;\n  background: #4F3065;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 326 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50460,17 +50456,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _waveform = __webpack_require__(327);
+	var _waveform = __webpack_require__(329);
 
 	var _waveform2 = _interopRequireDefault(_waveform);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(328);
+	__webpack_require__(330);
 	var _ = __webpack_require__(298);
-	var hisAudio = __webpack_require__(335);
-	var herAudio = __webpack_require__(336);
-	var classNames = __webpack_require__(337);
+	var hisAudioForImpressions = __webpack_require__(337);
+	var herAudioForImpressions = __webpack_require__(338);
+	var classNames = __webpack_require__(339);
 	exports.default = _react2.default.createClass({
 	  displayName: 'Audio',
 
@@ -50488,13 +50484,20 @@
 	    this.id = _.uniqueId('audio_');
 	  },
 	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.active) {
+	      this.play();
+	    } else {
+	      this.stop();
+	    }
+	  },
+
 	  audioClass: function audioClass() {
 	    var extra = this.props.classExtra ? this.props.classExtra : '';
 	    return 'audio-container ' + extra;
 	  },
 
 	  handleTogglePlay: function handleTogglePlay() {
-	    console.log(this.state, "STATE");
 	    if (this.state.finished) {
 	      console.log('STATE FINISHED');
 	      this.setState({
@@ -50506,6 +50509,18 @@
 	        playing: !this.state.playing
 	      });
 	    }
+	  },
+
+	  play: function play() {
+	    this.setState({
+	      playing: true
+	    });
+	  },
+
+	  stop: function stop() {
+	    this.setState({
+	      playing: false
+	    });
 	  },
 
 	  handlePosChange: function handlePosChange(e) {
@@ -50528,6 +50543,15 @@
 	  waveClass: function waveClass() {
 	    var extra = this.props.classExtra ? this.props.classExtra : '';
 	    return 'waveform-' + extra;
+	  },
+
+	  audioSelection: function audioSelection() {
+	    switch (this.props.file) {
+	      case 'First_Impressions_She':
+	        return herAudioForImpressions;
+	      case 'First_Impressions_He':
+	        return hisAudioForImpressions;
+	    }
 	  },
 	  render: function render() {
 	    var _this = this;
@@ -50580,7 +50604,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'audio-element' },
-	            _react2.default.createElement(_waveform2.default, { audioFile: herAudio, pos: this.state.pos, onPosChange: this.handlePosChange, onPlayChange: this.handlePlayChange, playing: this.state.playing, options: options })
+	            _react2.default.createElement(_waveform2.default, { audioFile: this.audioSelection(), pos: this.state.pos, onPosChange: this.handlePosChange, onPlayChange: this.handlePlayChange, playing: this.state.playing, options: options })
 	          )
 	        )
 	      ),
@@ -50602,7 +50626,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 327 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50731,7 +50755,6 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      console.log('recieve', nextProps);
 	      if (this.props.audioFile !== nextProps.audioFile) {
 	        this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
 	      }
@@ -50866,13 +50889,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 328 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(329);
+	var content = __webpack_require__(331);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(291)(content, {});
@@ -50881,8 +50904,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(329, function() {
-				var newContent = __webpack_require__(329);
+			module.hot.accept(331, function() {
+				var newContent = __webpack_require__(331);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50892,7 +50915,7 @@
 	}
 
 /***/ },
-/* 329 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(290)();
@@ -50900,55 +50923,55 @@
 
 
 	// module
-	exports.push([module.id, ".audio-wrapper {\n  height    : 256px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(330) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(331) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 60%;\n  text-align : left;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.audio-container > .content-wrap > .start-btn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(332) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(333) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(334) + ");\n}", ""]);
+	exports.push([module.id, ".audio-wrapper {\n  height    : 256px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(332) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(333) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 60%;\n  text-align : left;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.audio-container > .content-wrap > .start-btn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(334) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(335) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(336) + ");\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 330 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "47486c3739e671bbb06ee413646fc472.jpg";
 
 /***/ },
-/* 331 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "415b9cad88541a998a0316a2e1b73fc6.jpg";
 
 /***/ },
-/* 332 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7a1b8a284fcb096fb9c9c527345ee154.png";
 
 /***/ },
-/* 333 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4ec74574ccb88c53d9ce9b812f8838b4.png";
 
 /***/ },
-/* 334 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "093f62676d9495453e11704980ab59ed.png";
 
 /***/ },
-/* 335 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "661b71cdbf3069ed8bc83e83c195ad2b.mp3";
 
 /***/ },
-/* 336 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b3dcec80fa7e1f4996f9a300d3593eda.mp3";
 
 /***/ },
-/* 337 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -51002,7 +51025,7 @@
 
 
 /***/ },
-/* 338 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51013,11 +51036,11 @@
 	  value: true
 	});
 
-	var _sue = __webpack_require__(339);
+	var _sue = __webpack_require__(341);
 
 	var _sue2 = _interopRequireDefault(_sue);
 
-	var _john = __webpack_require__(340);
+	var _john = __webpack_require__(342);
 
 	var _john2 = _interopRequireDefault(_john);
 
@@ -51042,7 +51065,8 @@
 	    sender: 'narrator',
 	    content: 'Hello!',
 	    skipDelay: true,
-	    delay: 1000
+	    delay: 1000,
+	    lastMsgInBlock: true
 	  }],
 	  reaction: true,
 	  reactionType: 'buttons',
@@ -51066,7 +51090,8 @@
 	      content: "I suggest using headphones for the next 4-5 minutes :)"
 	    }, {
 	      sender: 'narrator',
-	      content: "Let's get started, shall we?"
+	      content: "Let's get started, shall we?",
+	      lastMsgInBlock: true
 	    }],
 	    additionalPrompt: true,
 	    promptFollowUp: [{
@@ -51143,7 +51168,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 339 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51160,8 +51185,9 @@
 	  description: 'okay-sues-side',
 	  messages: [{
 	    sender: 'narrator',
-	    content: "Howdy!",
-	    delay: 2000
+	    content: "Hi there!",
+	    delay: 2000,
+	    skipDelay: true
 	  }, {
 	    sender: 'narrator',
 	    content: "Here is my side of the story",
@@ -51169,7 +51195,8 @@
 	  }, {
 	    sender: 'narrator',
 	    content: "(You can switch to John's side at any point by swiping right)",
-	    delay: 2000
+	    delay: 2000,
+	    lastMsgInBlock: true
 	  }],
 	  reaction: true,
 	  reactionType: 'buttons',
@@ -51185,7 +51212,7 @@
 	  special: true,
 	  specialType: 'audio',
 	  header: 'Number Exchange',
-	  audioFile: 'file',
+	  audioFile: 'First_Impressions_She',
 	  gender: 'she',
 	  lockHorizontal: true,
 	  loadNextAutomatically: true,
@@ -51200,7 +51227,8 @@
 	    content: 'Sue',
 	    skipDelay: true,
 	    delay: 1000,
-	    displayAvatar: true
+	    displayAvatar: true,
+	    lastMsgInBlock: true
 	  }, {
 	    sender: 'sue',
 	    content: 'John',
@@ -51323,7 +51351,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 340 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51341,7 +51369,8 @@
 	  messages: [{
 	    sender: 'narrator',
 	    content: "Howdy!",
-	    delay: 2000
+	    delay: 2000,
+	    skipDelay: true
 	  }, {
 	    sender: 'narrator',
 	    content: "Here is my side of the story",
@@ -51349,7 +51378,8 @@
 	  }, {
 	    sender: 'narrator',
 	    content: "(You can switch to Sues's side at any point by swiping right)",
-	    delay: 2000
+	    delay: 2000,
+	    lastMsgInBlock: true
 	  }],
 	  reaction: true,
 	  reactionType: 'buttons',
@@ -51365,21 +51395,22 @@
 	  special: true,
 	  specialType: 'audio',
 	  header: 'Number Exchange',
-	  audioFile: 'file',
-	  gender: 'she',
+	  audioFile: 'First_Impressions_He',
+	  gender: 'he',
 	  lockHorizontal: true,
 	  autoLoadNextSlide: true
 	}, {
 	  deck: '6',
 	  slide: 'D4.2',
 	  description: 'sue-and-john-exchange',
-	  charmsg: 'she',
+	  charmsg: 'he',
 	  messages: [{
 	    sender: 'john',
 	    content: 'Sue',
 	    skipDelay: true,
 	    delay: 1000,
-	    displayAvatar: true
+	    displayAvatar: true,
+	    lastMsgInBlock: true
 	  }, {
 	    sender: 'sue',
 	    content: 'John',
@@ -51502,13 +51533,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 341 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(342);
+	var content = __webpack_require__(344);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(291)(content, {});
@@ -51517,8 +51548,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(342, function() {
-				var newContent = __webpack_require__(342);
+			module.hot.accept(344, function() {
+				var newContent = __webpack_require__(344);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51528,7 +51559,7 @@
 	}
 
 /***/ },
-/* 342 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(290)();
