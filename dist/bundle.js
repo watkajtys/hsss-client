@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b641f04d1556d85d88f4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5ebf7692c6d719c0941d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -31108,7 +31108,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var store = (0, _redux.createStore)(_reducers2.default);
+	// const store = createStore(reducers);
+	var store = (0, _redux.createStore)(_reducers2.default, window.devToolsExtension && window.devToolsExtension());
 	exports.default = store;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "store.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -31381,7 +31382,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'content' },
-	        _react2.default.createElement(_CustomizableSlider2.default, { slides: _shared2.default, direction: 'vertical', initial: '0' })
+	        _react2.default.createElement(_CustomizableSlider2.default, { slides: _shared2.default, direction: 'vertical', initial: '0', container: 'INTRO' })
 	      )
 	    );
 	  }
@@ -31827,7 +31828,7 @@
 	    console.log('%cINIT CSWIPER', 'font-size: 14px; color: orange; background: black');
 	    var firstSlide = this.props.slides[0];
 	    if (firstSlide) {
-	      console.log(firstSlide);
+	      console.log('FIRST ACTION', firstSlide);
 	      this.setState({ renderedSlides: this.state.renderedSlides.concat(firstSlide) });
 	      var firstAction = {
 	        type: 'CHANGE_SLIDE',
@@ -31842,17 +31843,19 @@
 	      calculateHeight: true,
 	      spaceBetween: 400,
 	      initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
-	      onSlideChangeEnd: function onSlideChangeEnd(swipercustom) {},
-	      onSlideChangeStart: function onSlideChangeStart(swipercustom) {
-	        console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
-	        var index = swipercustom.activeIndex;
-	        console.log(index, that.props.slides[index]);
-	        var action = {
-	          type: 'CHANGE_SLIDE',
-	          activeSlide: that.props.slides[index].slide
-	        };
-	        _store2.default.dispatch(action);
+	      onSlideChangeEnd: function onSlideChangeEnd(swipercustom) {
+	        if (that.props.container == that.props.activeContainer) {
+	          console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
+	          var index = swipercustom.activeIndex;
+	          console.log(index, that.props.slides[index]);
+	          var action = {
+	            type: 'CHANGE_SLIDE',
+	            activeSlide: that.props.slides[index].slide
+	          };
+	          _store2.default.dispatch(action);
+	        }
 	      },
+	      onSlideChangeStart: function onSlideChangeStart(swipercustom) {},
 	      onSlideNextStart: function onSlideNextStart(swipercustom) {
 	        localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
 	      },
@@ -31884,8 +31887,15 @@
 	    this.swipercustom.slideTo(index);
 	  },
 	  appendSlide: function appendSlide(slide) {
+	    console.log('appending', slide);
 	    //ADDING THE NEXT SLIDE TO INTERNAL STATE AND RENDING IT
 	    this.setState({ renderedSlides: this.state.renderedSlides.concat(slide) });
+	    var that = this;
+	    //BRIEF TIMEOUT FOR A DELAY AND ALLOW REACT TO RENDER
+	    setTimeout(function () {
+	      //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
+	      that.swipercustom.update(true);
+	    }, 500);
 	  },
 	  appendSlideAndTransition: function appendSlideAndTransition(slide) {
 	    console.log('appending and sliding', slide);
@@ -31903,39 +31913,71 @@
 	  componentWillUnmount: function componentWillUnmount() {
 	    localStorage.removeItem('activeVerticalSlide');
 	  },
-	  getSlides: function getSlides() {
-	    console.log('GET SLIDES', this.props.slides);
-	    return this.props.slides || [];
-	  },
 	  generateClassList: function generateClassList() {
 	    console.log('GENERATE');
 	    return 'slide_container swiper-container ' + this.props.customClass;
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+
 	    console.log(nextProps, 'NEXT PROPS!!!');
 	    var index = this.swipercustom.activeIndex;
-	    if (this.props.slides[index].slide !== nextProps.activeSlide) {
-	      var found = this.state.renderedSlides.filter(function (slide) {
-	        return slide.slide === nextProps.activeSlide;
-	      });
-	      if (found && found[0]) {
-	        console.log(found, 'FOUND SHIT SO SLIDE TO');
-	        position = this.state.renderedSlides.map(function (slide) {
-	          return slide.slide;
-	        }).indexOf(nextProps.activeSlide);
-	        this.slideTo(position);
-	      } else {
-	        console.log('WE AINT FOUND  SHIT', this.props.slides);
-	        var slideItem = this.props.slides.filter(function (slide) {
+
+	    //IF WE ARE IN THE ACTIVE CONTAINER
+	    if (this.props.container === this.props.activeContainer) {
+	      //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
+	      if (this.props.slides[index].slide !== nextProps.activeSlide) {
+	        //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
+	        var found = this.state.renderedSlides.filter(function (slide) {
 	          return slide.slide === nextProps.activeSlide;
 	        });
-	        this.appendSlideAndTransition(slideItem);
+	        if (found && found[0]) {
+	          console.log(found, 'FOUND SHIT SO SLIDE TO');
+	          //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
+	          var position = this.state.renderedSlides.map(function (slide) {
+	            return slide.slide;
+	          }).indexOf(nextProps.activeSlide);
+	          this.slideTo(position);
+	        } else {
+	          var that;
+
+	          (function () {
+	            //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
+	            console.log('WE AINT FOUND  SHIT', _this.props.slides);
+	            var slideItem = _this.props.slides.filter(function (slide) {
+	              return slide.slide === nextProps.activeSlide;
+	            });
+	            console.log(slideItem, 'SLIDE ITEM');
+	            var itemSingle = slideItem[0];
+
+	            if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
+	              (function () {
+	                //APPEND THE NEW SLIDE
+	                that = _this;
+
+	                that.appendSlideAndTransition(slideItem);
+	                var nextItem = _this.props.slides.filter(function (slide) {
+	                  return slide.slide === itemSingle.nextSlide;
+	                });
+	                if (nextItem) {
+	                  console.log(nextItem, "NE$XT");
+	                  setTimeout(function () {
+	                    that.appendSlide(nextItem);
+	                  }, 3000);
+	                }
+	              })();
+	            } else {
+	              //APPEND THE NEW SLIDE
+	              _this.appendSlideAndTransition(slideItem);
+	            }
+	          })();
+	        }
 	      }
 	    }
 	  },
 
 	  render: function render() {
-	    var _this = this;
+	    var _this2 = this;
 
 	    return _react2.default.createElement(
 	      'div',
@@ -31944,7 +31986,7 @@
 	        'div',
 	        { className: 'swiper-wrapper' },
 	        this.state.renderedSlides.map(function (slide) {
-	          return _react2.default.createElement(_Slide2.default, { key: slide.description, slide: slide, activeSlide: _this.props.activeSlide });
+	          return _react2.default.createElement(_Slide2.default, { key: slide.description, slide: slide, activeSlide: _this2.props.activeSlide, activeContainer: _this2.props.activeContainer, container: _this2.props.container });
 	        })
 	      )
 	    );
@@ -31995,10 +32037,6 @@
 
 	var _EmbeddedSlider2 = _interopRequireDefault(_EmbeddedSlider);
 
-	var _CustomizableSlider = __webpack_require__(292);
-
-	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
-
 	var _Audio = __webpack_require__(326);
 
 	var _Audio2 = _interopRequireDefault(_Audio);
@@ -32029,7 +32067,6 @@
 	    }
 	  },
 	  deckIsActive: function deckIsActive(slide) {
-	    console.log(slide, "DECK SLIDE");
 	    if (this.props.activeSlide == slide.slide) {
 	      console.log('yuop');
 	      return true;
@@ -32045,16 +32082,6 @@
 	      return true;
 	    }
 	  },
-	  sheContainer: function sheContainer(slide) {
-	    if (slide.container && slide.container === 'sue') {
-	      return true;
-	    }
-	  },
-	  heContainer: function heContainer(slide) {
-	    if (slide.container && slide.container === 'john') {
-	      return true;
-	    }
-	  },
 	  render: function render() {
 	    var slideType;
 	    if (this.isSplash(this.props.slide)) {
@@ -32062,15 +32089,11 @@
 	    } else if (this.isIntro(this.props.slide)) {
 	      slideType = _react2.default.createElement(_Intro2.default, { deck: this.props.slide, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide) });
 	    } else if (this.bifurcate(this.props.slide)) {
-	      slideType = _react2.default.createElement(_EmbeddedSlider2.default, { slides: this.props.slide.sections, activeSlide: this.props.activeSlide, initial: '1', 'class': '.swiper-container-hor', deck: this.props, active: this.deckIsActive(this.props.slide), side: this.props.side });
-	    } else if (this.sheContainer(this.props.slide)) {
-	      slideType = _react2.default.createElement(_CustomizableSlider2.default, { slides: this.props.slide.characterSlides, customClass: 'sheSlider', direction: 'vertical', index: this.props.indexToTrigger, activeSlide: this.props.activeSlide });
-	    } else if (this.heContainer(this.props.slide)) {
-	      slideType = _react2.default.createElement(_CustomizableSlider2.default, { slides: this.props.slide.characterSlides, customClass: 'heSlider', direction: 'vertical', index: this.props.indexToTrigger, key: _.uniqueId('slide-wrap_'), activeSlide: this.props.activeSlide });
+	      slideType = _react2.default.createElement(_EmbeddedSlider2.default, { slides: this.props.slide.sections, activeSlide: this.props.activeSlide, initial: '1', 'class': '.swiper-container-hor', deck: this.props, active: this.deckIsActive(this.props.slide), side: this.props.side, container: this.props.slide.container });
 	    } else if (this.isAudio(this.props.slide)) {
 	      slideType = _react2.default.createElement(_Audio2.default, { header: this.props.slide.header, classExtra: this.props.slide.gender, activeSlide: this.props.activeSlide });
 	    } else {
-	      slideType = _react2.default.createElement(_Messaging2.default, { deck: this.props.slide, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide), classExtra: this.props.slide.charmsg, key: this.id });
+	      slideType = _react2.default.createElement(_Messaging2.default, { deck: this.props.slide, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide), classExtra: this.props.slide.charmsg, key: this.id, activeContainer: this.props.activeContainer, parentContainer: this.props.container });
 	    }
 	    return _react2.default.createElement(
 	      'div',
@@ -32266,11 +32289,14 @@
 	      }
 
 	      if (message.slideLoad) {
-	        var action = {
-	          type: 'CHANGE_SLIDE',
-	          activeSlide: message.slideToLoad
-	        };
-	        _store2.default.dispatch(action);
+	        console.log('CALLING SLIDELOAD');
+	        if (this.props.parentContainer === this.props.activeContainer) {
+	          var action = {
+	            type: 'CHANGE_SLIDE',
+	            activeSlide: message.slideToLoad
+	          };
+	          _store2.default.dispatch(action);
+	        }
 	      }
 	    }
 
@@ -32493,7 +32519,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { id: 'indicator', className: 'message indicator ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden') },
+	        { id: 'indicator', className: 'message indicator ' + this.props.sender + ' ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden') },
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'bubble' },
@@ -48964,13 +48990,13 @@
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "d4e1fbf41185bcb8f25e984c52c13f04.png";
+	module.exports = __webpack_require__.p + "29c52f657d4754bef86668b4302368f5.png";
 
 /***/ },
 /* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "07a33cd1520c7a0c4d98a728917019fb.png";
+	module.exports = __webpack_require__.p + "0fa26ea7f8478459b819b152c0ff2704.png";
 
 /***/ },
 /* 303 */
@@ -50268,9 +50294,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Slide = __webpack_require__(293);
+	var _CustomizableSlider = __webpack_require__(292);
 
-	var _Slide2 = _interopRequireDefault(_Slide);
+	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
 	var _reactRedux = __webpack_require__(257);
 
@@ -50287,6 +50313,12 @@
 	var EmbeddedSlider = _react2.default.createClass({
 	  displayName: 'EmbeddedSlider',
 
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      rendered: []
+	    };
+	  },
 	  componentWillMount: function componentWillMount() {
 	    this.id = _.uniqueId('slide-wrap-hor_');
 	  },
@@ -50340,14 +50372,20 @@
 	    return this.props.slides || [];
 	  },
 	  render: function render() {
+	    var _this = this;
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'slide_container swiper-container swiper-container-hor' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'swiper-wrapper' },
-	        this.getSlides().map(function (slide) {
-	          return _react2.default.createElement(_Slide2.default, { key: slide.description, slide: slide });
+	        this.getSlides().map(function (slide, index) {
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'slide swiper-slide' },
+	            _react2.default.createElement(_CustomizableSlider2.default, { slides: slide.characterSlides, customClass: slide.customClass, direction: 'vertical', index: _this.props.indexToTrigger, activeSlide: _this.props.activeSlide, container: slide.container, key: index })
+	          );
 	        })
 	      )
 	    );
@@ -51087,12 +51125,14 @@
 	  specialType: 'bifurcate',
 	  slide: 'D3',
 	  sections: [{
-	    container: 'john',
+	    container: 'JOHN',
 	    description: 'john-container',
+	    customClass: 'heSlider',
 	    characterSlides: _john2.default
 	  }, {
-	    container: 'sue',
+	    container: 'SUE',
 	    description: 'sue-container',
+	    customClass: 'sheSlider',
 	    characterSlides: _sue2.default
 	  }]
 	}];
@@ -51148,7 +51188,8 @@
 	  audioFile: 'file',
 	  gender: 'she',
 	  lockHorizontal: true,
-	  autoLoadNextSlide: true
+	  loadNextAutomatically: true,
+	  nextSlide: 'D4.2'
 	}, {
 	  deck: '6',
 	  slide: 'D4.2',
