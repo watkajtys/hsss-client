@@ -12,7 +12,6 @@ export default React.createClass({
   },
   render : function () {
     var that = this;
-    console.log(that, 'THAT');
     return (
       <div className="prompt-line" key={this.promptLineId}>
         {that.props.prompts.map((prompt, index) =>

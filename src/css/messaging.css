@@ -1,20 +1,20 @@
 .messaging-container {
   width              : 90%;
   height             : 100%;
-  overflow-y         : scroll;
+  overflow-y         : hidden;
   overflow-scrolling : touch;
 }
 
 .messaging-container.she {
   width      : 100%;
   background : rgba(241, 99, 117, .25);
-  padding    : 0 5%;
+  padding    : 5px 5% 0;
 }
 
 .messaging-container.he {
   width      : 100%;
   background : rgba(60, 163, 187, .25);
-  padding    : 0 5%;
+  padding    : 5px 5% 0;
 }
 
 .message__wrapper {
@@ -64,6 +64,10 @@
   border-right : 8px solid transparent;
 }
 
+.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {
+  border-top : 8px solid #3CA3BB;
+}
+
 .message__wrapper > .message.john.avatar__msg:after {
   position    : absolute;
   width       : 0;
@@ -73,6 +77,10 @@
   left        : -9px;
   border-top  : 8px solid #F16375;
   border-left : 8px solid transparent;
+}
+
+.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {
+  border-top : 8px solid #3CA3BB;
 }
 
 .message__wrapper > .message.user {
@@ -86,6 +94,15 @@
   margin-left : 10px;
   color       : #333;
   border      : 1px solid #F16375;
+}
+
+.messaging-container.he > .message__wrapper > .message.sue {
+  border : 1px solid #3CA3BB;
+}
+
+.messaging-container.he > .message__wrapper > .message.john {
+  border     : 1px solid #3CA3BB;
+  background : #F3F9FB;
 }
 
 .message__wrapper > .message.john > p {
@@ -109,9 +126,9 @@
   border-bottom-right-radius : 20px;
 }
 
-.message__wrapper.non-user:first-child > .message {
-  border-bottom-left-radius : 20px;
-}
+/*.message__wrapper.non-user:first-child > .message {*/
+  /*border-bottom-left-radius : 20px;*/
+/*}*/
 
 .message__wrapper.non-user:nth-last-child(2) > .message {
   border-bottom-left-radius : 20px;
@@ -135,12 +152,20 @@
   height : 40px;
 }
 
-.message__wrapper > .avatar.john {
+.messaging-container.she > .message__wrapper > .avatar.john {
   background-image : url('../images/inline_avatars/john_red.png');
 }
 
-.message__wrapper > .avatar.sue {
+.messaging-container.she > .message__wrapper > .avatar.sue {
   background-image : url('../images/inline_avatars/sue_red.png');
+}
+
+.messaging-container.he > .message__wrapper > .avatar.john {
+  background-image : url('../images/inline_avatars/john_blue.png');
+}
+
+.messaging-container.he > .message__wrapper > .avatar.sue {
+  background-image : url('../images/inline_avatars/sue_blue.png');
 }
 
 .message > p {

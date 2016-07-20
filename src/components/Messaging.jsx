@@ -150,12 +150,12 @@ export default React.createClass({
               that.executeMessaging(message.messagesToLoad);
             }
 
-          }, 500);
+          }, 1000);
         }
       }
 
       if (message.slideLoad) {
-        console.log('CALLING SLIDELOAD')
+        console.log('CALLING SLIDELOAD');
         if (this.props.parentContainer === this.props.activeContainer) {
           const action = {
             type: 'CHANGE_SLIDE',

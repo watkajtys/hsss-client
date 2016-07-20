@@ -21,10 +21,11 @@ let intro_script = [{
     description     : 'hello',
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'Hello!',
-        skipDelay : true,
-        delay     : 1000
+        sender         : 'narrator',
+        content        : 'Hello!',
+        skipDelay      : true,
+        delay          : 1000,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -54,8 +55,9 @@ let intro_script = [{
             content : "I suggest using headphones for the next 4-5 minutes :)"
           },
           {
-            sender  : 'narrator',
-            content : "Let's get started, shall we?"
+            sender         : 'narrator',
+            content        : "Let's get started, shall we?",
+            lastMsgInBlock : true
           }
         ],
         additionalPrompt : true,

@@ -1,8 +1,8 @@
 import React from 'react';
 require('../css/audio.css');
 let _ = require('lodash');
-var hisAudio = require('../audio/First_Impressions_He_ALT_1-2.mp3');
-var herAudio = require('../audio/First_Impressions_She_ALT_1-2.mp3');
+var hisAudioForImpressions = require('../audio/First_Impressions_He_ALT_1-2.mp3');
+var herAudioForImpressions = require('../audio/First_Impressions_She_ALT_1-2.mp3');
 let classNames = require('classnames');
 import Waveform from './shared/waveform';
 
@@ -21,7 +21,13 @@ export default React.createClass({
     this.id = _.uniqueId('audio_');
   },
   componentDidMount : function () {
-
+  },
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.active) {
+      this.play();
+    } else {
+      this.stop();
+    }
   },
   audioClass: function () {
     let extra = this.props.classExtra ? this.props.classExtra : '';
@@ -29,7 +35,6 @@ export default React.createClass({
   },
 
   handleTogglePlay: function () {
-    console.log(this.state, "STATE");
     if (this.state.finished) {
       console.log('STATE FINISHED')
       this.setState({
@@ -41,6 +46,18 @@ export default React.createClass({
         playing: !this.state.playing
       });
     }
+  },
+
+  play : function() {
+    this.setState({
+      playing: true
+    });
+  },
+
+  stop : function() {
+    this.setState({
+      playing: false
+    });
   },
 
   handlePosChange(e) {
@@ -63,6 +80,15 @@ export default React.createClass({
   waveClass: function() {
     let extra = this.props.classExtra ? this.props.classExtra : '';
     return 'waveform-' + extra;
+  },
+  
+  audioSelection: function () {
+    switch(this.props.file) {
+      case 'First_Impressions_She' :
+        return herAudioForImpressions;
+      case 'First_Impressions_He' :
+        return hisAudioForImpressions;
+    }
   },
   render: function () {
     const options = {
@@ -92,7 +118,7 @@ export default React.createClass({
           </div>
           <div className="audio-wrapper">
             <div className="audio-element">
-              <Waveform audioFile={herAudio} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} playing={this.state.playing} options={options}/>
+              <Waveform audioFile={this.audioSelection()} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} playing={this.state.playing} options={options}/>
             </div>
           </div>
         </div>
