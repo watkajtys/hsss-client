@@ -20,7 +20,7 @@ const CustomizableSlider = React.createClass({
     console.log('%cINIT CSWIPER', 'font-size: 14px; color: orange; background: black');
     let firstSlide = this.props.slides[0];
     if (firstSlide) {
-      console.log(firstSlide);
+      console.log('FIRST ACTION', firstSlide);
       this.setState({renderedSlides: this.state.renderedSlides.concat(firstSlide)});
       const firstAction = {
         type: 'CHANGE_SLIDE',
@@ -36,17 +36,19 @@ const CustomizableSlider = React.createClass({
       spaceBetween: 400,
       initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
       onSlideChangeEnd: function (swipercustom) {
-
+        if (that.props.container == that.props.activeContainer) {
+          console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
+          let index = swipercustom.activeIndex;
+          console.log(index, that.props.slides[index]);
+          const action = {
+            type: 'CHANGE_SLIDE',
+            activeSlide: that.props.slides[index].slide
+          };
+          store.dispatch(action)
+        }
       },
       onSlideChangeStart: function (swipercustom) {
-        console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
-        let index = swipercustom.activeIndex;
-        console.log(index, that.props.slides[index]);
-        const action = {
-          type: 'CHANGE_SLIDE',
-          activeSlide: that.props.slides[index].slide
-        };
-        store.dispatch(action)
+
       },
       onSlideNextStart: function (swipercustom) {
         localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
