@@ -45,7 +45,7 @@ export default React.createClass({
     } else if (this.bifurcate(this.props.slide)) {
       slideType = <EmbeddedSlider slides={this.props.slide.sections} activeSlide={this.props.activeSlide} initial="1" class=".swiper-container-hor" deck={this.props} active={this.deckIsActive(this.props.slide)} side={this.props.side} container={this.props.slide.container}/>
     } else if (this.isAudio(this.props.slide)) {
-      slideType = <Audio header={this.props.slide.header} file={this.props.slide.audioFile} classExtra={this.props.slide.gender} activeSlide={this.props.activeSlide}/>
+      slideType = <Audio header={this.props.slide.header} file={this.props.slide.audioFile} classExtra={this.props.slide.gender} activeSlide={this.props.activeSlide} active={this.deckIsActive(this.props.slide)}/>
     } else {
       slideType = <Messaging deck={this.props.slide} activeSlide={this.props.activeSlide} active={this.deckIsActive(this.props.slide)} classExtra={this.props.slide.charmsg} key={this.id} activeContainer={this.props.activeContainer} parentContainer={this.props.container}/>;
     }
