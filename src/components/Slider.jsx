@@ -11,6 +11,9 @@ export default React.createClass({
     this.id = _.uniqueId('slide-wrap_');
   },
   componentDidMount: function () {
+
+    
+
     let that = this;
     var swiper = new Swiper('.swiper-container-vert', {
       direction: that.props.direction,
@@ -20,20 +23,11 @@ export default React.createClass({
       onSlideChangeEnd: function (swiper) {
         console.log('%cslide change end - after %d', 'font-size: 12px; color: cyan; background: black;', swiper.activeIndex);
         that.setState({activeSlide: swiper.activeIndex});
-      },
-      onSlideNextStart: function (swiper) {
-        localStorage.setItem('activeVerticalSlide', swiper.activeIndex);
-      },
-      onSlidePrevStart : function (swiper) {
-        localStorage.setItem('activeVerticalSlide', swiper.activeIndex);
       }
     });
   },
   componentWillUnmount: function () {
     localStorage.removeItem('activeVerticalSlide');
-  },
-  getSlides: function () {
-    return this.props.slides || [];
   },
   render: function () {
     return (
