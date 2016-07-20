@@ -90,7 +90,6 @@ class Waveform extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('recieve', nextProps);
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
