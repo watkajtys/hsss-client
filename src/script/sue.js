@@ -6,9 +6,10 @@ let sue_slides = [
     description     : 'okay-sues-side',
     messages        : [
       {
-        sender  : 'narrator',
-        content : "Howdy!",
-        delay   : 2000
+        sender    : 'narrator',
+        content   : "Hi there!",
+        delay     : 2000,
+        skipDelay : true
       },
       {
         sender  : 'narrator',
@@ -16,9 +17,10 @@ let sue_slides = [
         delay   : 2000
       },
       {
-        sender  : 'narrator',
-        content : "(You can switch to John's side at any point by swiping right)",
-        delay   : 2000
+        sender         : 'narrator',
+        content        : "(You can switch to John's side at any point by swiping right)",
+        delay          : 2000,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -38,7 +40,7 @@ let sue_slides = [
     special               : true,
     specialType           : 'audio',
     header                : 'Number Exchange',
-    audioFile             : 'file',
+    audioFile             : 'First_Impressions_She',
     gender                : 'she',
     lockHorizontal        : true,
     loadNextAutomatically : true,
@@ -51,11 +53,12 @@ let sue_slides = [
     charmsg     : 'she',
     messages    : [
       {
-        sender        : 'john',
-        content       : 'Sue',
-        skipDelay     : true,
-        delay         : 1000,
-        displayAvatar : true
+        sender         : 'john',
+        content        : 'Sue',
+        skipDelay      : true,
+        delay          : 1000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       },
       {
         sender        : 'sue',

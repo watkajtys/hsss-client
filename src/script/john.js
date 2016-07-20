@@ -6,9 +6,10 @@ let john_slides = [
     description     : 'okay-john-side',
     messages        : [
       {
-        sender  : 'narrator',
-        content : "Howdy!",
-        delay   : 2000
+        sender    : 'narrator',
+        content   : "Howdy!",
+        delay     : 2000,
+        skipDelay : true
       },
       {
         sender  : 'narrator',
@@ -16,9 +17,10 @@ let john_slides = [
         delay   : 2000
       },
       {
-        sender  : 'narrator',
-        content : "(You can switch to Sues's side at any point by swiping right)",
-        delay   : 2000
+        sender         : 'narrator',
+        content        : "(You can switch to Sues's side at any point by swiping right)",
+        delay          : 2000,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -38,8 +40,8 @@ let john_slides = [
     special           : true,
     specialType       : 'audio',
     header            : 'Number Exchange',
-    audioFile         : 'file',
-    gender            : 'she',
+    audioFile         : 'First_Impressions_He',
+    gender            : 'he',
     lockHorizontal    : true,
     autoLoadNextSlide : true
   },
@@ -47,14 +49,15 @@ let john_slides = [
     deck        : '6',
     slide       : 'D4.2',
     description : 'sue-and-john-exchange',
-    charmsg     : 'she',
+    charmsg     : 'he',
     messages    : [
       {
-        sender        : 'john',
-        content       : 'Sue',
-        skipDelay     : true,
-        delay         : 1000,
-        displayAvatar : true
+        sender         : 'john',
+        content        : 'Sue',
+        skipDelay      : true,
+        delay          : 1000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       },
       {
         sender        : 'sue',
