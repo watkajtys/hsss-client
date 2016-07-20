@@ -107,10 +107,6 @@ const CustomizableSlider = React.createClass({
   componentWillUnmount: function () {
     localStorage.removeItem('activeVerticalSlide');
   },
-  getSlides: function () {
-    console.log('GET SLIDES', this.props.slides);
-    return this.props.slides || [];
-  },
   generateClassList : function () {
     console.log('GENERATE');
     return 'slide_container swiper-container ' + this.props.customClass; 
