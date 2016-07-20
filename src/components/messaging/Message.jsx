@@ -63,7 +63,7 @@ export default React.createClass({
         <div className={this.messageClass()}>
           <p>{this.props.msg.content}</p>
         </div>
-        <div id="indicator" className={'message indicator ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden')}>
+        <div id="indicator" className={'message indicator ' + this.props.sender + ' ' + (this.state.longerMessageDelay ? 'textmessage' : 'hidden')}>
           <span className="bubble">
             <i className="point"></i>
             <i className="point"></i>
