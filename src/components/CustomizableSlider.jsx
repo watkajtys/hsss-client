@@ -36,6 +36,7 @@ const CustomizableSlider = React.createClass({
       spaceBetween: 400,
       initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
       onSlideChangeEnd: function (swipercustom) {
+        //WE ONLY WANT THE ACTIVE CONTAINER TO REPORT SLIDE CHANGES
         if (that.props.container == that.props.activeContainer) {
           console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
           let index = swipercustom.activeIndex;
@@ -47,15 +48,6 @@ const CustomizableSlider = React.createClass({
           store.dispatch(action)
         }
       },
-      onSlideChangeStart: function (swipercustom) {
-
-      },
-      onSlideNextStart: function (swipercustom) {
-        localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
-      },
-      onSlidePrevStart : function (swipercustom) {
-        localStorage.setItem('activeVerticalSlide', swipercustom.activeIndex);
-      },
       onInit : function (swipercustom) {
         if (that.props.slides[0].loadNextAutomatically) {
           setTimeout(function(){
@@ -65,17 +57,8 @@ const CustomizableSlider = React.createClass({
           }, 500)
         }
       }
-      // onTransitionStart : function (swipercustom) {
-      //   console.log('trans start');
-      // },
 
     });
-
-    //IF THE SECOND SLIDE NEEDS TO BE LOADED MANUALLY - DO IT
-    // if (this.props.slides[0].loadNextAutomatically) {
-    //   console.log('APPENd');
-    //   this.appendSlide(this.props.slides[1]);
-    // }
   },
   slideTo : function (index) {
     this.swipercustom.slideTo(index);
