@@ -2,19 +2,19 @@ import sue_slides from './sue';
 import john_slides from './john'
 
 let intro_script = [{
-    deck        : '0',
-    slide       : 'D1',
-    description : 'start',
-    special     : true,
-    specialType : 'splash',
-    loadNextAutomatically: true,
-    messages    : [
-      {
-        sender  : 'narrator',
-        content : 'An interactive story about dating in the digital age'
-      }
-    ]
-  },
+  deck                  : '0',
+  slide                 : 'D1',
+  description           : 'start',
+  special               : true,
+  specialType           : 'splash',
+  loadNextAutomatically : true,
+  messages              : [
+    {
+      sender  : 'narrator',
+      content : 'An interactive story about dating in the digital age'
+    }
+  ]
+},
   {
     deck            : '1',
     slide           : 'D2.1',
@@ -61,7 +61,7 @@ let intro_script = [{
         additionalPrompt : true,
         promptFollowUp   : [
           {
-            prompt     : 'Ok!',
+            prompt      : 'Ok!',
             slideLoad   : true,
             slideToLoad : 'D2.2'
           }
@@ -70,17 +70,17 @@ let intro_script = [{
     ]
   },
   {
-    container   : 'story',
-    description : 'story-container',
-    slide       : 'D2.2',
-    episodeToStart: 'D3',
-    deck        : '2',
-    order       : 1,
-    tense       : 'present',
-    special     : true,
-    specialType : 'intro',
-    loadNextAutomatically: true,
-    textBlock   : [
+    container             : 'story',
+    description           : 'story-container',
+    slide                 : 'D2.2',
+    episodeToStart        : 'D3',
+    deck                  : '2',
+    order                 : 1,
+    tense                 : 'present',
+    special               : true,
+    specialType           : 'intro',
+    loadNextAutomatically : true,
+    textBlock             : [
       [
         {
           sender  : 'narrator',
@@ -137,13 +137,15 @@ let intro_script = [{
     slide       : 'D3',
     sections    : [
       {
-        container       : 'john',
+        container       : 'JOHN',
         description     : 'john-container',
+        customClass     : 'heSlider',
         characterSlides : john_slides
       },
       {
-        container       : 'sue',
+        container       : 'SUE',
         description     : 'sue-container',
+        customClass     : 'sheSlider',
         characterSlides : sue_slides
       }
     ]

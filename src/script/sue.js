@@ -33,15 +33,16 @@ let sue_slides = [
     ]
   },
   {
-    slide             : 'D4.1',
-    description       : 'sues-number-exchange',
-    special           : true,
-    specialType       : 'audio',
-    header            : 'Number Exchange',
-    audioFile         : 'file',
-    gender            : 'she',
-    lockHorizontal    : true,
-    autoLoadNextSlide : true
+    slide                 : 'D4.1',
+    description           : 'sues-number-exchange',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Number Exchange',
+    audioFile             : 'file',
+    gender                : 'she',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : 'D4.2'
   },
   {
     deck        : '6',
