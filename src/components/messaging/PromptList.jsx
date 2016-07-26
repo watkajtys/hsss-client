@@ -1,4 +1,5 @@
 import React from 'react';
+import Prompt from './Prompt';
 
 var _ = require('lodash');
 
@@ -15,7 +16,7 @@ export default React.createClass({
     return (
       <div className="prompt-line" key={this.promptLineId}>
         {that.props.prompts.map((prompt, index) =>
-          <div className="prompt" onClick={ () => {that.props.addMessage(prompt)}} key={index}><p>{prompt.prompt}</p></div>
+          <Prompt prompt={prompt} key={index} addMessage={this.props.addMessage}/>
         )}
       </div>
     )
