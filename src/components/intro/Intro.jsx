@@ -1,12 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import store from '../shared/store';
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 import DisplayItem from '../intro/DisplayItem';
 
 require('../../css/intro.css');
 
-export default React.createClass({
-  getInitialState: function () {
+const Intro = React.createClass({
+  getInitialState   : function () {
     return {data: []}
   },
   componentDidMount: function() {
@@ -97,7 +98,7 @@ export default React.createClass({
   render: function () {
     var items = this.state.data.map(function(item, i) {
       return (
-        <DisplayItem msg={item.content} item={item} key={i}/>
+        <DisplayItem msg={item.content} item={item} key={i} episode={this.props.episode} launchSide={this.props.launchSide} handleEpisodeLaunch={this.pickEpisode}/>
       )
     }.bind(this));
     return (
@@ -108,4 +109,13 @@ export default React.createClass({
       </div>
     )
   }
-})
+});
+
+const mapStateToProps = function (store) {
+  return {
+    episode    : store.episodeState.episode,
+    launchSide : store.episodeState.launchSide
+  }
+};
+
+export default connect(mapStateToProps)(Intro);
