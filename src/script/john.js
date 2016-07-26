@@ -28,6 +28,7 @@ let john_slides = [
     reactionOptions : [
       {
         prompt       : 'Thumbs Up',
+        emoji        : 'thumbs_up',
         slideLoad    : true,
         slideToLoad  : 'D4.1',
         reactionType : 'buttons'
