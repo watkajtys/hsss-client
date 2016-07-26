@@ -137,6 +137,10 @@ export default React.createClass({
         content   : message.prompt,
         skipDelay : true
       };
+      //IF WE HAVE AN EMOJI - ADD TO OBJECT
+      if (message.emoji) {
+        obj.emoji = message.emoji;
+      }
       this.setState({data : this.state.data.concat([obj])});
 
       if (message.loadMore) {
