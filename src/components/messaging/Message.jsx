@@ -1,6 +1,8 @@
 import React from 'react';
+import {emojiAssign} from '../shared/media/emoji';
 var _ = require('lodash');
 require('../../css/messaging.css');
+
 
 export default React.createClass({
 
@@ -65,11 +67,20 @@ export default React.createClass({
       avatar = <div className="avatar non__user"></div>
     }
 
+    let messageContent;
+    if (this.props.msg.emoji) {
+      let emoji = emojiAssign(this.props.msg.emoji);
+      messageContent = <p><img className="emoji" src={emoji} alt={emoji}/></p>;
+    } else {
+      messageContent = <p>{this.props.msg.content}</p>
+    }
+
+
     return (
       <div className={this.wrapperClass()} key={this.id}>
         {avatar}
         <div className={this.messageClass()}>
-          <p>{this.props.msg.content}</p>
+          {messageContent}
         </div>
         <div id="indicator" className={this.indicatorClass()}>
           <span className="bubble">

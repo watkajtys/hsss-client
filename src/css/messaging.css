@@ -199,6 +199,10 @@
   margin : 0;
 }
 
+.emoji {
+  height : 25px;
+}
+
 @keyframes typing1 {
   0% {
     width  : 12px;
