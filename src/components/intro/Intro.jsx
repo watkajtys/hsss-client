@@ -10,16 +10,25 @@ const Intro = React.createClass({
   getInitialState   : function () {
     return {data: []}
   },
-  componentDidMount: function() {
+  componentDidMount : function() {
 
     if (this.props.activeSlide === this.props.deck.slide && !this.triggered) {
       this.triggered = true;
       this.getAndDisplayData();
     }
   },
-  launchEpisode: function () {
-    //THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
-    //IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+  pickEpisode       : function (launchSide) {
+    // THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
+    // IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+    const action = {
+      type       : 'LAUNCH_EPISODE',
+      episode    : this.props.episode,
+      launchSide : launchSide
+    };
+    store.dispatch(action);
+    this.launchEpisode();
+  },
+  launchEpisode     : function () {
     const action = {
       type: 'CHANGE_SLIDE',
       activeSlide: this.props.deck.episodeToStart
@@ -79,7 +88,7 @@ const Intro = React.createClass({
         if (i === allMessageDecks.length-1) {
           console.log('%cLast Item', 'color: orange; background: black;');
           //LAST ITERATION SO TRIGGER NEXT SLIDE
-          that.launchEpisode();
+          // that.pickEpisode();
         } else {
           that.setState({data: []});
         }
@@ -96,6 +105,7 @@ const Intro = React.createClass({
 
   },
   render: function () {
+  render            : function () {
     var items = this.state.data.map(function(item, i) {
       return (
         <DisplayItem msg={item.content} item={item} key={i} episode={this.props.episode} launchSide={this.props.launchSide} handleEpisodeLaunch={this.pickEpisode}/>

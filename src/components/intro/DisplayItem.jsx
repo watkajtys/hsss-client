@@ -18,6 +18,7 @@ export default React.createClass({
   render             : function () {
     let imgSrc;
     let avatarIdent;
+    var swipeContainer = null;
     let classLine = 'display-item';
     if (this.hasAvatar(this.props.item)) {
 
@@ -30,15 +31,18 @@ export default React.createClass({
       }
     }
     if (this.props.item.swipe) {
-      imgSrc = swipeGraphic;
-      classLine+= ' vert';
+      classLine += ' vert';
+      swipeContainer = <div className="swipe-choice-container">
+        <img className="swipe-choice" src={johnSwipe} onClick={(event) => this.props.handleEpisodeLaunch('HE')} alt="john"/>
+        <img className="swipe-choice" src={sueSwipe} onClick={(event) => this.props.handleEpisodeLaunch('SHE')} alt="Sue"/>
+      </div>
     }
     return (
 
       <div className={classLine} id={this.id}>
         {this.hasAvatar(this.props.item) ? <img className={avatarIdent} src={imgSrc} alt={avatarIdent}/> : null}
         <p className={avatarIdent}>{this.props.msg}</p>
-        {this.props.item.swipe ? <img className="swipe-choice" src={imgSrc}/> : null}
+        {swipeContainer}
       </div>
 
     )
