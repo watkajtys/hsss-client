@@ -18,9 +18,10 @@ const EmbeddedSlider =  React.createClass({
   },
   componentDidMount: function () {
     var that = this;
+    var initial = this.determineLaunchSide(this.props.launchSide);
     this.horizontalSlider = new Swiper('.swiper-container-hor', {
       direction: 'horizontal',
-      initialSlide: 1,
+      initialSlide: initial,
       spaceBetween: 150,
       onSlideChangeEnd: function (horizontalSlider) {
         console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
@@ -53,9 +54,17 @@ const EmbeddedSlider =  React.createClass({
       this.toggleSide(nextProps.side);
     }
   },
+  determineLaunchSide : function (side) {
+    let index = 1;
+    if (side === 'SHE') {
+      return 1
+    } else {
+      return 0
+    }
+  },
   toggleSide : function (side) {
     let index = 1;
-    if (side === 'she') {
+    if (side === 'SHE') {
       index = 1;
     } else {
       index = 0;
@@ -82,9 +91,11 @@ const EmbeddedSlider =  React.createClass({
 
 const mapStateToProps = function (store) {
   return {
-    activeSide : store.slideState.activeSide,
-    activeContainer: store.slideState.activeContainer
+    activeSide      : store.slideState.activeSide,
+    activeContainer : store.slideState.activeContainer,
+    episode         : store.episodeState.episode,
+    launchSide      : store.episodeState.launchSide
   }
 };
 
-export default connect(mapStateToProps)(EmbeddedSlider)
+export default connect(mapStateToProps)(EmbeddedSlider);
