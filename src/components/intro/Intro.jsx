@@ -104,7 +104,6 @@ const Intro = React.createClass({
 
 
   },
-  render: function () {
   render            : function () {
     var items = this.state.data.map(function(item, i) {
       return (
