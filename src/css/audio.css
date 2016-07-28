@@ -72,19 +72,19 @@
   height           : 100%;
   width            : 100%;
   background-size  : cover;
-  background-image : url('../images/play.png');
+  background-image : url('../images/shared/play.png');
 }
 
 .audio-container > .content-wrap > .play-pause > .pause {
   height           : 100%;
   width            : 100%;
   background-size  : cover;
-  background-image : url('../images/pause.png');
+  background-image : url('../images/shared/pause.png');
 }
 
 .audio-container > .content-wrap > .play-pause > .replay {
   height           : 100%;
   width            : 100%;
   background-size  : cover;
-  background-image : url('../images/replay.png');
+  background-image : url('../images/shared/replay.png');
 }

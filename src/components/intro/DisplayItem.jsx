@@ -1,10 +1,10 @@
 import React from 'react';
 var _ = require('lodash');
 
-var johnAvatar = require('../../images/john_avatar.png');
-var sueAvatar  = require('../../images/sue_avatar.png');
-var johnSwipe  = require('../../images/swipe_choice_john.png');
-var sueSwipe   = require('../../images/swipe_choice_sue.png');
+var johnAvatar = require('../../images/shared/john_avatar.png');
+var sueAvatar  = require('../../images/shared/sue_avatar.png');
+var johnSwipe  = require('../../images/intro/swipe_choice_john.png');
+var sueSwipe   = require('../../images/intro/swipe_choice_sue.png');
 
 export default React.createClass({
   componentWillMount : function () {
