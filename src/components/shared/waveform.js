@@ -17,6 +17,9 @@ class Waveform extends Component {
     this._isReady    = false;
     this._loadAudio  = this._loadAudio.bind(this);
     this._seekTo     = this._seekTo.bind(this);
+    //THROTTLE THE _CALCTIME CALL BY 500ms, RETURNING AND ASSIGNING
+    //THE THROTTLED FUNCTION
+    this._calcTime   = _.throttle(this._calcTime, 500);
   }
 
   componentWillMount() {
@@ -42,17 +45,8 @@ class Waveform extends Component {
     });
 
     this._wavesurfer.on('audioprocess', (pos) => {
-      var currentTimeInSeconds = Math.floor(this._wavesurfer.getCurrentTime());
-      var formattedTime = this._toMSS(currentTimeInSeconds);
-      this.setState({
-        pos,
-        elapsed : formattedTime
-      });
-
-      this.props.onPosChange({
-        wavesurfer   : this._wavesurfer,
-        originalArgs : [pos, formattedTime]
-      });
+      this.pos = pos;
+      this._calcTime();
     });
 
     //audioprocess not fired when seeking
@@ -104,6 +98,21 @@ class Waveform extends Component {
     }
   }
 
+  _calcTime() {
+    //THROTTLED FUNCTION
+    var currentTimeInSeconds = Math.floor(this._wavesurfer.getCurrentTime());
+    var formattedTime        = this._toMSS(currentTimeInSeconds);
+    this.setState({
+      pos     : this.pos,
+      elapsed : formattedTime
+    });
+
+    this.props.onPosChange({
+      wavesurfer   : this._wavesurfer,
+      originalArgs : [this.pos, formattedTime]
+    });
+  }
+
   componentWillUnmount() {
     this._wavesurfer.destroy();
   }
@@ -116,7 +125,7 @@ class Waveform extends Component {
     var sec_num = parseInt(secs, 10);
     var minutes = Math.floor(sec_num / 60) % 60;
     var seconds = sec_num % 60;
-    return (minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+    return (minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
   }
 
   //recieves position as float and transforms to seconds
