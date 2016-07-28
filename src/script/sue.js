@@ -6,18 +6,19 @@ let sue_slides = [
     description     : 'okay-sues-side',
     messages        : [
       {
-        sender    : 'narrator',
-        content   : "Hi there!",
-        delay     : 2000,
-        skipDelay : true
+        sender        : 'sue',
+        content       : "Hi there!",
+        delay         : 2000,
+        skipDelay     : true,
+        displayAvatar : true
       },
       {
-        sender  : 'narrator',
+        sender  : 'sue',
         content : "Here is my side of the story",
         delay   : 2000
       },
       {
-        sender         : 'narrator',
+        sender         : 'sue',
         content        : "(You can switch to John's side at any point by swiping right)",
         delay          : 2000,
         lastMsgInBlock : true

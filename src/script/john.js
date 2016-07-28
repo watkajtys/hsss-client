@@ -6,18 +6,19 @@ let john_slides = [
     description     : 'okay-john-side',
     messages        : [
       {
-        sender    : 'narrator',
-        content   : "Howdy!",
-        delay     : 2000,
-        skipDelay : true
+        sender        : 'john',
+        content       : "Howdy!",
+        delay         : 2000,
+        skipDelay     : true,
+        displayAvatar : true
       },
       {
-        sender  : 'narrator',
+        sender  : 'john',
         content : "Here is my side of the story",
         delay   : 2000
       },
       {
-        sender         : 'narrator',
+        sender         : 'john',
         content        : "(You can switch to Sues's side at any point by swiping right)",
         delay          : 2000,
         lastMsgInBlock : true
