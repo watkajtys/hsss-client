@@ -1,5 +1,5 @@
 .audio-wrapper {
-  height    : 256px;
+  height    : 193px;
   overflow  : hidden;
   transform : rotateX(180deg);
 }
@@ -15,7 +15,11 @@
   align-items        : center;
   justify-content    : center;
   flex-direction     : column;
+}
 
+.audio-element {
+  width : 90%;
+  margin :auto;
 }
 
 .audio-container.he {
@@ -28,6 +32,7 @@
 
 .audio-container > .content-wrap {
   padding : 0 5%;
+  overflow: hidden;
 }
 
 .audio-container > .content-wrap > .header-container {
