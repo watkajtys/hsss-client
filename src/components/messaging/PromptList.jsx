@@ -1,7 +1,8 @@
 import React from 'react';
 import Prompt from './Prompt';
 
-var _ = require('lodash');
+var _          = require('lodash');
+var classNames = require('classnames');
 
 export default React.createClass({
   componentWillMount: function () {
@@ -12,10 +13,13 @@ export default React.createClass({
     console.log(this.props.messages, 'MOUNTED');
   },
   render : function () {
-    var that = this;
+    var promptClass = classNames({
+      'prompt-line': true,
+      'visible': this.props.prompts.length > 0
+    });
     return (
-      <div className="prompt-line" key={this.promptLineId}>
-        {that.props.prompts.map((prompt, index) =>
+      <div className={promptClass} key={this.promptLineId}>
+        {this.props.prompts.map((prompt, index) =>
           <Prompt prompt={prompt} key={index} addMessage={this.props.addMessage}/>
         )}
       </div>
