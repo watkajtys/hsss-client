@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e4f3d48265a59ed412df"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5328857d6cc5b8f659bb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8198,13 +8198,13 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _App = __webpack_require__(286);
+	var _App = __webpack_require__(287);
 
 	var _App2 = _interopRequireDefault(_App);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(343);
+	__webpack_require__(357);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -31133,15 +31133,20 @@
 
 	var _deckReducer2 = _interopRequireDefault(_deckReducer);
 
+	var _episodeReducer = __webpack_require__(286);
+
+	var _episodeReducer2 = _interopRequireDefault(_episodeReducer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//COMBINE REDUCERS
 
-	var reducers = (0, _redux.combineReducers)({
-	  slideState: _deckReducer2.default
-	});
-
 	//REDUCERS
+
+	var reducers = (0, _redux.combineReducers)({
+	  slideState: _deckReducer2.default,
+	  episodeState: _episodeReducer2.default
+	});
 
 	exports.default = reducers;
 
@@ -31210,6 +31215,9 @@
 
 	//CONTAINER
 	var UPDATE_ACTIVE_CONTAINER = exports.UPDATE_ACTIVE_CONTAINER = 'UPDATE_ACTIVE_CONTAINER';
+
+	//EPISODE
+	var LAUNCH_EPISODE = exports.LAUNCH_EPISODE = 'LAUNCH_EPISODE';
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "action-types.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -31353,19 +31361,61 @@
 	  value: true
 	});
 
+	var _actionTypes = __webpack_require__(282);
+
+	var types = _interopRequireWildcard(_actionTypes);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	var initialState = {
+	  episode: '1',
+	  launchSide: 'SHE'
+	};
+
+	var episodeReducer = function episodeReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case types.LAUNCH_EPISODE:
+	      return Object.assign({}, state, {
+	        episode: action.episode,
+	        launchSide: action.launchSide
+	      });
+	  }
+	  return state;
+	};
+
+	exports.default = episodeReducer;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "episode-reducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _react = __webpack_require__(152);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Header = __webpack_require__(287);
+	var _Header = __webpack_require__(288);
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _CustomizableSlider = __webpack_require__(292);
+	var _CustomizableSlider = __webpack_require__(293);
 
 	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
-	var _shared = __webpack_require__(340);
+	var _shared = __webpack_require__(354);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
@@ -31392,7 +31442,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31409,7 +31459,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(288);
+	__webpack_require__(289);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Header',
@@ -31433,23 +31483,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(289);
+	var content = __webpack_require__(290);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(289, function() {
-				var newContent = __webpack_require__(289);
+			module.hot.accept(290, function() {
+				var newContent = __webpack_require__(290);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31459,10 +31509,10 @@
 	}
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
@@ -31473,7 +31523,7 @@
 
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports) {
 
 	/*
@@ -31529,7 +31579,7 @@
 
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31781,7 +31831,7 @@
 
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31802,14 +31852,14 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _Slide = __webpack_require__(293);
+	var _Slide = __webpack_require__(294);
 
 	var _Slide2 = _interopRequireDefault(_Slide);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(326);
-	var _ = __webpack_require__(298);
+	__webpack_require__(341);
+	var _ = __webpack_require__(310);
 
 	var CustomizableSlider = _react2.default.createClass({
 	  displayName: 'CustomizableSlider',
@@ -31988,7 +32038,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32003,29 +32053,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Messaging = __webpack_require__(294);
+	var _Messaging = __webpack_require__(295);
 
 	var _Messaging2 = _interopRequireDefault(_Messaging);
 
-	var _Splash = __webpack_require__(306);
+	var _Splash = __webpack_require__(320);
 
 	var _Splash2 = _interopRequireDefault(_Splash);
 
-	var _Intro = __webpack_require__(310);
+	var _Intro = __webpack_require__(324);
 
 	var _Intro2 = _interopRequireDefault(_Intro);
 
-	var _EmbeddedSlider = __webpack_require__(325);
+	var _EmbeddedSlider = __webpack_require__(340);
 
 	var _EmbeddedSlider2 = _interopRequireDefault(_EmbeddedSlider);
 
-	var _Audio = __webpack_require__(328);
+	var _Audio = __webpack_require__(343);
 
 	var _Audio2 = _interopRequireDefault(_Audio);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(298);
+	var _ = __webpack_require__(310);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Slide',
@@ -32084,7 +32134,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32105,22 +32155,22 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _deepAssign = __webpack_require__(295);
+	var _deepAssign = __webpack_require__(296);
 
 	var _deepAssign2 = _interopRequireDefault(_deepAssign);
 
-	var _Message = __webpack_require__(297);
+	var _Message = __webpack_require__(298);
 
 	var _Message2 = _interopRequireDefault(_Message);
 
-	var _PromptList = __webpack_require__(305);
+	var _PromptList = __webpack_require__(317);
 
 	var _PromptList2 = _interopRequireDefault(_PromptList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(298);
-	__webpack_require__(299);
+	var _ = __webpack_require__(310);
+	__webpack_require__(311);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Messaging',
@@ -32249,6 +32299,10 @@
 	        content: message.prompt,
 	        skipDelay: true
 	      };
+	      //IF WE HAVE AN EMOJI - ADD TO OBJECT
+	      if (message.emoji) {
+	        obj.emoji = message.emoji;
+	      }
 	      this.setState({ data: this.state.data.concat([obj]) });
 
 	      if (message.loadMore) {
@@ -32319,11 +32373,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var isObj = __webpack_require__(296);
+	var isObj = __webpack_require__(297);
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -32393,7 +32447,7 @@
 
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32404,7 +32458,7 @@
 
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32419,10 +32473,12 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _emoji = __webpack_require__(299);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(298);
-	__webpack_require__(299);
+	var _ = __webpack_require__(310);
+	__webpack_require__(311);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Message',
@@ -32489,6 +32545,22 @@
 	      avatar = _react2.default.createElement('div', { className: 'avatar non__user' });
 	    }
 
+	    var messageContent = void 0;
+	    if (this.props.msg.emoji) {
+	      var emoji = (0, _emoji.emojiAssign)(this.props.msg.emoji);
+	      messageContent = _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement('img', { className: 'emoji', src: emoji, alt: emoji })
+	      );
+	    } else {
+	      messageContent = _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.msg.content
+	      );
+	    }
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: this.wrapperClass(), key: this.id },
@@ -32496,11 +32568,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: this.messageClass() },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.msg.content
-	        )
+	        messageContent
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -32521,7 +32589,121 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 298 */
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var thumbs_up = __webpack_require__(300);
+	var thumbs_down = __webpack_require__(301);
+	var shitty = __webpack_require__(302);
+	var question = __webpack_require__(303);
+	var nope = __webpack_require__(304);
+	var love_eyes_cat = __webpack_require__(305);
+	var interrobang = __webpack_require__(306);
+	var celebration = __webpack_require__(307);
+	var appreciation = __webpack_require__(308);
+	var hundred = __webpack_require__(309);
+
+	function emojiAssign(emoji) {
+	  switch (emoji) {
+	    case 'thumbs_up':
+	      return thumbs_up;
+	    case 'thumbs_down':
+	      return thumbs_down;
+	    case 'shitty':
+	      return shitty;
+	    case 'question':
+	      return question;
+	    case 'nope':
+	      return nope;
+	    case 'love_eyes_cat':
+	      return love_eyes_cat;
+	    case 'interrobang':
+	      return interrobang;
+	    case 'celebration':
+	      return celebration;
+	    case 'appreciation':
+	      return appreciation;
+	    case 'hundred':
+	      return hundred;
+	    default:
+	      return thumbs_up;
+	  }
+	}
+
+	exports.emojiAssign = emojiAssign;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "emoji.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "9f9bab8b62c4bf13e62c9f4cf0e050bf.png";
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fda24c19ac1b45edad8b073d48870259.png";
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b1246a61aa2171161735a8b65e9ebba0.png";
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "47fd617aefa3b44263a5c09bbebc8d0a.png";
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e7c9d519561fe0f8cb4d3debe828bbc2.png";
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "284a24d56a964300b4dcce828cea8849.png";
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "d52bca307a57678bc82a404a92df46fe.png";
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "5b6afb57bedecbf856b003db6c4a4bdb.png";
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "555c6829e91d0812bc6923cedb36a7d9.png";
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "d9f68b1d5368fcc6317542c840128017.png";
+
+/***/ },
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -48932,23 +49114,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module), (function() { return this; }())))
 
 /***/ },
-/* 299 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(300);
+	var content = __webpack_require__(312);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(300, function() {
-				var newContent = __webpack_require__(300);
+			module.hot.accept(312, function() {
+				var newContent = __webpack_require__(312);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48958,45 +49140,45 @@
 	}
 
 /***/ },
-/* 300 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : rgba(241, 99, 117, .25);\n  padding    : 5px 5% 0;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : rgba(60, 163, 187, .25);\n  padding    : 5px 5% 0;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #E9E4EC;\n  color           : #734E86;\n  border          : #734E86 2px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : -1px;\n  right        : -9px;\n  border-top   : 8px solid #F16375;\n  border-right : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg:after {\n  position    : absolute;\n  width       : 0;\n  height      : 0;\n  content     : \"\";\n  top         : -1px;\n  left        : -9px;\n  border-top  : 8px solid #F16375;\n  border-left : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background    : #4F3065;\n  color         : white;\n  border-radius : 20px 0 20px 20px;\n  float         : right;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border : 1px solid #3CA3BB;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : #F3F9FB;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n  /*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(301) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(302) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(303) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(304) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 15px;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #CCC;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
+	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : #FEF3F1;\n  padding    : 5px 2% 0;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : #F1F5F7;\n  padding    : 5px 2% 0;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 60%;\n  font-size       : 12px;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #D7CFDC;\n  color           : #734E86;\n  border          : #734E86 1px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : -1px;\n  right        : -9px;\n  border-top   : 8px solid #F16375;\n  border-right : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg:after {\n  position    : absolute;\n  width       : 0;\n  height      : 0;\n  content     : \"\";\n  top         : -1px;\n  left        : -9px;\n  border-top  : 8px solid #F16375;\n  border-left : 8px solid transparent;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background      : #4F3065;\n  color           : white;\n  border-radius   : 20px 0 20px 20px;\n  float           : right;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  min-width       : 10%;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border : 1px solid #3CA3BB;\n  background: #F1F5F7;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : white;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.messaging-container.she > .message__wrapper > .message.john {\n  background: #FEF3F1;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n/*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(313) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(314) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(315) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(316) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 12pt;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n  box-shadow      : black 0 0 2px;\n  background      : white;\n  visibility      : hidden;\n}\n\n.prompt-line.visible {\n  visibility : visible;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n.emoji {\n  height : 25px;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #CCC;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 301 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "29c52f657d4754bef86668b4302368f5.png";
 
 /***/ },
-/* 302 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "0fa26ea7f8478459b819b152c0ff2704.png";
 
 /***/ },
-/* 303 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b012aff5e046a530f7e1ae8313977d2.png";
 
 /***/ },
-/* 304 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "42d6472a920a49a07716ca15aaa9b1e1.png";
 
 /***/ },
-/* 305 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49011,9 +49193,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Prompt = __webpack_require__(318);
+
+	var _Prompt2 = _interopRequireDefault(_Prompt);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(298);
+	var _ = __webpack_require__(310);
+	var classNames = __webpack_require__(319);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'PromptList',
@@ -49026,22 +49213,17 @@
 	    console.log(this.props.messages, 'MOUNTED');
 	  },
 	  render: function render() {
-	    var that = this;
+	    var _this = this;
+
+	    var promptClass = classNames({
+	      'prompt-line': true,
+	      'visible': this.props.prompts.length > 0
+	    });
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'prompt-line', key: this.promptLineId },
-	      that.props.prompts.map(function (prompt, index) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'prompt', onClick: function onClick() {
-	              that.props.addMessage(prompt);
-	            }, key: index },
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            prompt.prompt
-	          )
-	        );
+	      { className: promptClass, key: this.promptLineId },
+	      this.props.prompts.map(function (prompt, index) {
+	        return _react2.default.createElement(_Prompt2.default, { prompt: prompt, key: index, addMessage: _this.props.addMessage });
 	      })
 	    );
 	  }
@@ -49051,7 +49233,118 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 306 */
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(152);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _emoji = __webpack_require__(299);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _ = __webpack_require__(310);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Prompt',
+
+	  render: function render() {
+	    var _this = this;
+
+	    var promptContent = void 0;
+	    if (this.props.prompt.emoji) {
+	      var emoji = (0, _emoji.emojiAssign)(this.props.prompt.emoji);
+	      promptContent = _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement('img', { className: 'emoji', src: emoji, alt: emoji })
+	      );
+	    } else {
+	      promptContent = _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.prompt.prompt
+	      );
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'prompt', onClick: function onClick() {
+	          _this.props.addMessage(_this.props.prompt);
+	        } },
+	      promptContent
+	    );
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Prompt.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49068,7 +49361,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(307);
+	__webpack_require__(321);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Splash',
@@ -49122,23 +49415,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 307 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(308);
+	var content = __webpack_require__(322);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(308, function() {
-				var newContent = __webpack_require__(308);
+			module.hot.accept(322, function() {
+				var newContent = __webpack_require__(322);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49148,27 +49441,27 @@
 	}
 
 /***/ },
-/* 308 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(309) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 18px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position : absolute;\n  bottom   : 20px;\n  margin   : auto;\n  width    : 100%;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
+	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(323) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 18px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position : absolute;\n  bottom   : 20px;\n  margin   : auto;\n  width    : 100%;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 309 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a8b5e250ee241b39a437437549341584.gif";
 
 /***/ },
-/* 310 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49183,22 +49476,24 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(257);
+
 	var _store = __webpack_require__(279);
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DisplayItem = __webpack_require__(311);
+	var _DisplayItem = __webpack_require__(325);
 
 	var _DisplayItem2 = _interopRequireDefault(_DisplayItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ReactCSSTransitionGroup = __webpack_require__(315);
+	var ReactCSSTransitionGroup = __webpack_require__(330);
 
 
-	__webpack_require__(322);
+	__webpack_require__(337);
 
-	exports.default = _react2.default.createClass({
+	var Intro = _react2.default.createClass({
 	  displayName: 'Intro',
 
 	  getInitialState: function getInitialState() {
@@ -49211,9 +49506,18 @@
 	      this.getAndDisplayData();
 	    }
 	  },
+	  pickEpisode: function pickEpisode(launchSide) {
+	    // THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
+	    // IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+	    var action = {
+	      type: 'LAUNCH_EPISODE',
+	      episode: this.props.episode,
+	      launchSide: launchSide
+	    };
+	    _store2.default.dispatch(action);
+	    this.launchEpisode();
+	  },
 	  launchEpisode: function launchEpisode() {
-	    //THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
-	    //IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
 	    var action = {
 	      type: 'CHANGE_SLIDE',
 	      activeSlide: this.props.deck.episodeToStart
@@ -49266,20 +49570,20 @@
 	        that.setState({ data: that.state.data.concat([obj]) });
 	        setTimeout(function () {
 	          loop.next();
-	        }, 3500);
+	        }, 2000);
 	      }, function () {
 
 	        console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length - 1);
 	        if (i === allMessageDecks.length - 1) {
 	          console.log('%cLast Item', 'color: orange; background: black;');
 	          //LAST ITERATION SO TRIGGER NEXT SLIDE
-	          that.launchEpisode();
+	          // that.pickEpisode();
 	        } else {
 	          that.setState({ data: [] });
 	        }
 	        setTimeout(function () {
 	          loop.next();
-	        }, 3500);
+	        }, 2000);
 	      });
 	    }, function () {
 	      console.log('done');
@@ -49287,7 +49591,7 @@
 	  },
 	  render: function render() {
 	    var items = this.state.data.map(function (item, i) {
-	      return _react2.default.createElement(_DisplayItem2.default, { msg: item.content, item: item, key: i });
+	      return _react2.default.createElement(_DisplayItem2.default, { msg: item.content, item: item, key: i, episode: this.props.episode, launchSide: this.props.launchSide, handleEpisodeLaunch: this.pickEpisode });
 	    }.bind(this));
 	    return _react2.default.createElement(
 	      'div',
@@ -49301,11 +49605,20 @@
 	  }
 	});
 
+	var mapStateToProps = function mapStateToProps(store) {
+	  return {
+	    episode: store.episodeState.episode,
+	    launchSide: store.episodeState.launchSide
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Intro);
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Intro.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 311 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49322,11 +49635,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(298);
+	var _ = __webpack_require__(310);
 
-	var johnAvatar = __webpack_require__(312);
-	var sueAvatar = __webpack_require__(313);
-	var swipeGraphic = __webpack_require__(314);
+	var johnAvatar = __webpack_require__(326);
+	var sueAvatar = __webpack_require__(327);
+	var johnSwipe = __webpack_require__(328);
+	var sueSwipe = __webpack_require__(329);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'DisplayItem',
@@ -49340,8 +49654,11 @@
 	    }
 	  },
 	  render: function render() {
+	    var _this = this;
+
 	    var imgSrc = void 0;
 	    var avatarIdent = void 0;
+	    var swipeContainer = null;
 	    var classLine = 'display-item';
 	    if (this.hasAvatar(this.props.item)) {
 
@@ -49354,8 +49671,17 @@
 	      }
 	    }
 	    if (this.props.item.swipe) {
-	      imgSrc = swipeGraphic;
 	      classLine += ' vert';
+	      swipeContainer = _react2.default.createElement(
+	        'div',
+	        { className: 'swipe-choice-container' },
+	        _react2.default.createElement('img', { className: 'swipe-choice', src: johnSwipe, onClick: function onClick(event) {
+	            return _this.props.handleEpisodeLaunch('HE');
+	          }, alt: 'john' }),
+	        _react2.default.createElement('img', { className: 'swipe-choice', src: sueSwipe, onClick: function onClick(event) {
+	            return _this.props.handleEpisodeLaunch('SHE');
+	          }, alt: 'Sue' })
+	      );
 	    }
 	    return _react2.default.createElement(
 	      'div',
@@ -49366,7 +49692,7 @@
 	        { className: avatarIdent },
 	        this.props.msg
 	      ),
-	      this.props.item.swipe ? _react2.default.createElement('img', { className: 'swipe-choice', src: imgSrc }) : null
+	      swipeContainer
 	    );
 	  }
 	});
@@ -49375,31 +49701,37 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 312 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d47782dbd239bc2b17622fe7e020b7e6.png";
 
 /***/ },
-/* 313 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5f8522bbe44f92be7e820687dbd24794.png";
 
 /***/ },
-/* 314 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "b06d63fa6195c8ac08a5f231903f3df4.png";
+	module.exports = __webpack_require__.p + "cb9b86bf1037fe00dfee63d7c9513ae4.png";
 
 /***/ },
-/* 315 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(316);
+	module.exports = __webpack_require__.p + "f02499032020aac0d3a2f55ab3531880.png";
 
 /***/ },
-/* 316 */
+/* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(331);
+
+/***/ },
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49419,8 +49751,8 @@
 
 	var React = __webpack_require__(153);
 
-	var ReactTransitionGroup = __webpack_require__(317);
-	var ReactCSSTransitionGroupChild = __webpack_require__(319);
+	var ReactTransitionGroup = __webpack_require__(332);
+	var ReactCSSTransitionGroupChild = __webpack_require__(334);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -49491,7 +49823,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 317 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49511,7 +49843,7 @@
 
 	var React = __webpack_require__(153);
 	var ReactInstanceMap = __webpack_require__(123);
-	var ReactTransitionChildMapping = __webpack_require__(318);
+	var ReactTransitionChildMapping = __webpack_require__(333);
 
 	var emptyFunction = __webpack_require__(108);
 
@@ -49743,7 +50075,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 318 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49852,7 +50184,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 319 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49871,8 +50203,8 @@
 	var React = __webpack_require__(153);
 	var ReactDOM = __webpack_require__(169);
 
-	var CSSCore = __webpack_require__(320);
-	var ReactTransitionEvents = __webpack_require__(321);
+	var CSSCore = __webpack_require__(335);
+	var ReactTransitionEvents = __webpack_require__(336);
 
 	var onlyChild = __webpack_require__(167);
 
@@ -50024,7 +50356,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 320 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50151,7 +50483,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 321 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50229,23 +50561,23 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 322 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(323);
+	var content = __webpack_require__(338);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(323, function() {
-				var newContent = __webpack_require__(323);
+			module.hot.accept(338, function() {
+				var newContent = __webpack_require__(338);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50255,27 +50587,27 @@
 	}
 
 /***/ },
-/* 323 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(324) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size   : 30px;\n  line-height : 50px;\n  width       : 75%;\n  margin      : auto;\n  display     : -webkit-box;\n  display     : -ms-flexbox;\n  display     : flex;\n  -webkit-box-align : center;\n      -ms-flex-align : center;\n          align-items : center;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > p.avatar.john {\n  margin       : 0;\n  text-align   : left;\n  display      : -webkit-inline-box;\n  display      : -ms-inline-flexbox;\n  display      : inline-flex;\n  padding-left : 25px;\n  font-size    : 20px;\n  line-height  : 30px;\n}\n\n.display-item > p.avatar.sue {\n  margin        : 15px 0 0 0;\n  text-align    : right;\n  display       : -webkit-inline-box;\n  display       : -ms-inline-flexbox;\n  display       : inline-flex;\n  padding-right : 25px;\n  font-size     : 20px;\n  line-height   : 30px;\n}\n\n.display-item > img.avatar.john {\n  float : left;\n}\n\n.display-item > img.avatar.sue {\n  float      : right;\n  display    : -webkit-inline-box;\n  display    : -ms-inline-flexbox;\n  display    : inline-flex;\n  -webkit-box-ordinal-group      : 3;\n      -ms-flex-order      : 2;\n          order      : 2;\n  margin-top : 15px;\n}\n\n.display-item > img.swipe-choice {\n  width      : 100%;\n  margin-top : 30px;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
+	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(339) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size   : 30px;\n  line-height : 50px;\n  width       : 75%;\n  margin      : auto;\n  display     : -webkit-box;\n  display     : -ms-flexbox;\n  display     : flex;\n  -webkit-box-align : center;\n      -ms-flex-align : center;\n          align-items : center;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > p.avatar.john {\n  margin       : 0;\n  text-align   : left;\n  display      : -webkit-inline-box;\n  display      : -ms-inline-flexbox;\n  display      : inline-flex;\n  padding-left : 25px;\n  font-size    : 20px;\n  line-height  : 30px;\n}\n\n.display-item > p.avatar.sue {\n  margin        : 15px 0 0 0;\n  text-align    : right;\n  display       : -webkit-inline-box;\n  display       : -ms-inline-flexbox;\n  display       : inline-flex;\n  padding-right : 25px;\n  font-size     : 20px;\n  line-height   : 30px;\n}\n\n.display-item > img.avatar.john {\n  float : left;\n}\n\n.display-item > img.avatar.sue {\n  float      : right;\n  display    : -webkit-inline-box;\n  display    : -ms-inline-flexbox;\n  display    : inline-flex;\n  -webkit-box-ordinal-group      : 3;\n      -ms-flex-order      : 2;\n          order      : 2;\n  margin-top : 15px;\n}\n\n.display-item > .swipe-choice-container {\n  margin-top : 50px;\n}\n\n.display-item > .swipe-choice-container > img.swipe-choice {\n  width      : 100%;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 324 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "87f48860e1afd1bd73a888636141fb3a.gif";
 
 /***/ },
-/* 325 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50290,7 +50622,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CustomizableSlider = __webpack_require__(292);
+	var _CustomizableSlider = __webpack_require__(293);
 
 	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
@@ -50303,8 +50635,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// import store from '../components/shared/store.js';
-	__webpack_require__(326);
-	var _ = __webpack_require__(298);
+	__webpack_require__(341);
+	var _ = __webpack_require__(310);
 
 	var EmbeddedSlider = _react2.default.createClass({
 	  displayName: 'EmbeddedSlider',
@@ -50320,9 +50652,10 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var that = this;
+	    var initial = this.determineLaunchSide(this.props.launchSide);
 	    this.horizontalSlider = new Swiper('.swiper-container-hor', {
 	      direction: 'horizontal',
-	      initialSlide: 1,
+	      initialSlide: initial,
 	      spaceBetween: 150,
 	      onSlideChangeEnd: function onSlideChangeEnd(horizontalSlider) {
 	        console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
@@ -50355,9 +50688,17 @@
 	    }
 	  },
 
+	  determineLaunchSide: function determineLaunchSide(side) {
+	    var index = 1;
+	    if (side === 'SHE') {
+	      return 1;
+	    } else {
+	      return 0;
+	    }
+	  },
 	  toggleSide: function toggleSide(side) {
 	    var index = 1;
-	    if (side === 'she') {
+	    if (side === 'SHE') {
 	      index = 1;
 	    } else {
 	      index = 0;
@@ -50391,7 +50732,9 @@
 	var mapStateToProps = function mapStateToProps(store) {
 	  return {
 	    activeSide: store.slideState.activeSide,
-	    activeContainer: store.slideState.activeContainer
+	    activeContainer: store.slideState.activeContainer,
+	    episode: store.episodeState.episode,
+	    launchSide: store.episodeState.launchSide
 	  };
 	};
 
@@ -50401,23 +50744,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 326 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(327);
+	var content = __webpack_require__(342);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(327, function() {
-				var newContent = __webpack_require__(327);
+			module.hot.accept(342, function() {
+				var newContent = __webpack_require__(342);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50427,21 +50770,21 @@
 	}
 
 /***/ },
-/* 327 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".swiper-container {\n  width  : 100%;\n  height : 100%;\n}\n\n.swiper-slide {\n  text-align      : center;\n  font-size       : 18px;\n  background      : #F4F2F6;\n  /* Center slide text vertically */\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  -webkit-box-align     : baseline;\n      -ms-flex-align     : baseline;\n          align-items     : baseline;\n  overflow        : hidden;\n}\n\n.swiper-container-hor {\n  width  : 100%;\n  height : 100%;\n  background: #4F3065;\n}", ""]);
+	exports.push([module.id, ".swiper-container {\n  width  : 100%;\n  height : 100%;\n}\n\n.swiper-slide {\n  text-align      : center;\n  font-size       : 18px;\n  background      : #ECE8EF;\n  /* Center slide text vertically */\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  -webkit-box-align     : baseline;\n      -ms-flex-align     : baseline;\n          align-items     : baseline;\n  overflow        : hidden;\n}\n\n.swiper-container-hor {\n  width  : 100%;\n  height : 100%;\n  background: #4F3065;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 328 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50456,17 +50799,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _waveform = __webpack_require__(329);
+	var _waveform = __webpack_require__(344);
 
 	var _waveform2 = _interopRequireDefault(_waveform);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(330);
-	var _ = __webpack_require__(298);
-	var hisAudioForImpressions = __webpack_require__(337);
-	var herAudioForImpressions = __webpack_require__(338);
-	var classNames = __webpack_require__(339);
+	__webpack_require__(345);
+	var _ = __webpack_require__(310);
+	var hisAudioForImpressions = __webpack_require__(352);
+	var herAudioForImpressions = __webpack_require__(353);
+	var classNames = __webpack_require__(319);
 	exports.default = _react2.default.createClass({
 	  displayName: 'Audio',
 
@@ -50499,7 +50842,6 @@
 
 	  handleTogglePlay: function handleTogglePlay() {
 	    if (this.state.finished) {
-	      console.log('STATE FINISHED');
 	      this.setState({
 	        finished: false,
 	        playing: true
@@ -50530,7 +50872,6 @@
 	    });
 	  },
 	  handlePlayChange: function handlePlayChange(e) {
-	    console.log(e);
 	    if (e.playArgs) {
 	      this.setState({
 	        finished: e.playArgs[0],
@@ -50561,7 +50902,7 @@
 	      progressColor: 'rgba(255, 255, 255, 1)',
 	      barWidth: 3,
 	      cursorWidth: 0,
-	      height: 512,
+	      height: 384,
 	      normalize: true
 	    };
 
@@ -50626,7 +50967,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 329 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50643,7 +50984,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _deepAssign = __webpack_require__(295);
+	var _deepAssign = __webpack_require__(296);
 
 	var _deepAssign2 = _interopRequireDefault(_deepAssign);
 
@@ -50655,7 +50996,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _ = __webpack_require__(298);
+	var _ = __webpack_require__(310);
 
 	var Waveform = function (_Component) {
 	  _inherits(Waveform, _Component);
@@ -50675,6 +51016,9 @@
 	    _this._isReady = false;
 	    _this._loadAudio = _this._loadAudio.bind(_this);
 	    _this._seekTo = _this._seekTo.bind(_this);
+	    //THROTTLE THE _CALCTIME CALL BY 500ms, RETURNING AND ASSIGNING
+	    //THE THROTTLED FUNCTION
+	    _this._calcTime = _.throttle(_this._calcTime, 500);
 	    return _this;
 	  }
 
@@ -50706,17 +51050,8 @@
 	      });
 
 	      this._wavesurfer.on('audioprocess', function (pos) {
-	        var currentTimeInSeconds = Math.floor(_this2._wavesurfer.getCurrentTime());
-	        var formattedTime = _this2._toMSS(currentTimeInSeconds);
-	        _this2.setState({
-	          pos: pos,
-	          elapsed: formattedTime
-	        });
-
-	        _this2.props.onPosChange({
-	          wavesurfer: _this2._wavesurfer,
-	          originalArgs: [pos, formattedTime]
-	        });
+	        _this2.pos = pos;
+	        _this2._calcTime();
 	      });
 
 	      //audioprocess not fired when seeking
@@ -50766,6 +51101,22 @@
 	          this._wavesurfer.pause();
 	        }
 	      }
+	    }
+	  }, {
+	    key: '_calcTime',
+	    value: function _calcTime() {
+	      //THROTTLED FUNCTION
+	      var currentTimeInSeconds = Math.floor(this._wavesurfer.getCurrentTime());
+	      var formattedTime = this._toMSS(currentTimeInSeconds);
+	      this.setState({
+	        pos: this.pos,
+	        elapsed: formattedTime
+	      });
+
+	      this.props.onPosChange({
+	        wavesurfer: this._wavesurfer,
+	        originalArgs: [this.pos, formattedTime]
+	      });
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -50889,23 +51240,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 330 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(331);
+	var content = __webpack_require__(346);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(331, function() {
-				var newContent = __webpack_require__(331);
+			module.hot.accept(346, function() {
+				var newContent = __webpack_require__(346);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50915,117 +51266,63 @@
 	}
 
 /***/ },
-/* 331 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".audio-wrapper {\n  height    : 256px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(332) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(333) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 60%;\n  text-align : left;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.audio-container > .content-wrap > .start-btn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(334) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(335) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(336) + ");\n}", ""]);
+	exports.push([module.id, ".audio-wrapper {\n  height    : 193px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n}\n\n.audio-element {\n  width : 90%;\n  margin :auto;\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(347) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(348) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n  overflow: hidden;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 60%;\n  text-align : left;\n  position   : relative;\n  bottom     : -70px;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.audio-container > .content-wrap > .start-btn > .start-text {\n  margin : auto;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(349) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(350) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(351) + ");\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 332 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "47486c3739e671bbb06ee413646fc472.jpg";
 
 /***/ },
-/* 333 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "415b9cad88541a998a0316a2e1b73fc6.jpg";
 
 /***/ },
-/* 334 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7a1b8a284fcb096fb9c9c527345ee154.png";
 
 /***/ },
-/* 335 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4ec74574ccb88c53d9ce9b812f8838b4.png";
 
 /***/ },
-/* 336 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "093f62676d9495453e11704980ab59ed.png";
 
 /***/ },
-/* 337 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "661b71cdbf3069ed8bc83e83c195ad2b.mp3";
 
 /***/ },
-/* 338 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b3dcec80fa7e1f4996f9a300d3593eda.mp3";
 
 /***/ },
-/* 339 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 340 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51036,11 +51333,11 @@
 	  value: true
 	});
 
-	var _sue = __webpack_require__(341);
+	var _sue = __webpack_require__(355);
 
 	var _sue2 = _interopRequireDefault(_sue);
 
-	var _john = __webpack_require__(342);
+	var _john = __webpack_require__(356);
 
 	var _john2 = _interopRequireDefault(_john);
 
@@ -51110,7 +51407,7 @@
 	  tense: 'present',
 	  special: true,
 	  specialType: 'intro',
-	  loadNextAutomatically: true,
+	  // loadNextAutomatically : true,
 	  textBlock: [[{
 	    sender: 'narrator',
 	    content: '"Between what is said and not meant,',
@@ -51168,7 +51465,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 341 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51184,16 +51481,17 @@
 	  slideOrder: 2,
 	  description: 'okay-sues-side',
 	  messages: [{
-	    sender: 'narrator',
+	    sender: 'sue',
 	    content: "Hi there!",
 	    delay: 2000,
-	    skipDelay: true
+	    skipDelay: true,
+	    displayAvatar: true
 	  }, {
-	    sender: 'narrator',
+	    sender: 'sue',
 	    content: "Here is my side of the story",
 	    delay: 2000
 	  }, {
-	    sender: 'narrator',
+	    sender: 'sue',
 	    content: "(You can switch to John's side at any point by swiping right)",
 	    delay: 2000,
 	    lastMsgInBlock: true
@@ -51202,6 +51500,7 @@
 	  reactionType: 'buttons',
 	  reactionOptions: [{
 	    prompt: 'Thumbs Up',
+	    emoji: 'thumbs_up',
 	    slideLoad: true,
 	    slideToLoad: 'D4.1',
 	    reactionType: 'buttons'
@@ -51351,7 +51650,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 342 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51367,16 +51666,17 @@
 	  slideOrder: 2,
 	  description: 'okay-john-side',
 	  messages: [{
-	    sender: 'narrator',
+	    sender: 'john',
 	    content: "Howdy!",
 	    delay: 2000,
-	    skipDelay: true
+	    skipDelay: true,
+	    displayAvatar: true
 	  }, {
-	    sender: 'narrator',
+	    sender: 'john',
 	    content: "Here is my side of the story",
 	    delay: 2000
 	  }, {
-	    sender: 'narrator',
+	    sender: 'john',
 	    content: "(You can switch to Sues's side at any point by swiping right)",
 	    delay: 2000,
 	    lastMsgInBlock: true
@@ -51385,6 +51685,7 @@
 	  reactionType: 'buttons',
 	  reactionOptions: [{
 	    prompt: 'Thumbs Up',
+	    emoji: 'thumbs_up',
 	    slideLoad: true,
 	    slideToLoad: 'D4.1',
 	    reactionType: 'buttons'
@@ -51533,23 +51834,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 343 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(344);
+	var content = __webpack_require__(358);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(291)(content, {});
+	var update = __webpack_require__(292)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(344, function() {
-				var newContent = __webpack_require__(344);
+			module.hot.accept(358, function() {
+				var newContent = __webpack_require__(358);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51559,10 +51860,10 @@
 	}
 
 /***/ },
-/* 344 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(290)();
+	exports = module.exports = __webpack_require__(291)();
 	// imports
 
 
