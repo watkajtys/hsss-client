@@ -155,8 +155,8 @@ const CustomizableSlider = React.createClass({
 
 const mapStateToProps = function (store) {
   return {
-    activeSlide : store.slideState.activeSlide,
-    activeContainer: store.slideState.activeContainer
+    activeSlide     : store.slideState.activeSlide,
+    activeContainer : store.slideState.activeContainer,
   }
 };
 

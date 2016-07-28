@@ -7,14 +7,14 @@
 
 .messaging-container.she {
   width      : 100%;
-  background : rgba(241, 99, 117, .25);
-  padding    : 5px 5% 0;
+  background : #FEF3F1;
+  padding    : 5px 2% 0;
 }
 
 .messaging-container.he {
   width      : 100%;
-  background : rgba(60, 163, 187, .25);
-  padding    : 5px 5% 0;
+  background : #F1F5F7;
+  padding    : 5px 2% 0;
 }
 
 .message__wrapper {
@@ -38,12 +38,13 @@
   position        : relative;
   float           : left;
   min-height      : 20px;
-  max-width       : 70%;
+  max-width       : 60%;
+  font-size       : 12px;
   margin          : 0;
   padding         : 5px 10px;
-  background      : #E9E4EC;
+  background      : #D7CFDC;
   color           : #734E86;
-  border          : #734E86 2px solid;
+  border          : #734E86 1px solid;
   border-radius   : 0 20px 20px 0;
   text-align      : left;
   clear           : both;
@@ -84,10 +85,14 @@
 }
 
 .message__wrapper > .message.user {
-  background    : #4F3065;
-  color         : white;
-  border-radius : 20px 0 20px 20px;
-  float         : right;
+  background      : #4F3065;
+  color           : white;
+  border-radius   : 20px 0 20px 20px;
+  float           : right;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  min-width       : 10%;
 }
 
 .message__wrapper > .message.john {
@@ -98,15 +103,20 @@
 
 .messaging-container.he > .message__wrapper > .message.sue {
   border : 1px solid #3CA3BB;
+  background: #F1F5F7;
 }
 
 .messaging-container.he > .message__wrapper > .message.john {
   border     : 1px solid #3CA3BB;
-  background : #F3F9FB;
+  background : white;
 }
 
 .message__wrapper > .message.john > p {
   padding-right : 5px;
+}
+
+.messaging-container.she > .message__wrapper > .message.john {
+  background: #FEF3F1;
 }
 
 .message__wrapper > .message.sue {
@@ -127,7 +137,7 @@
 }
 
 /*.message__wrapper.non-user:first-child > .message {*/
-  /*border-bottom-left-radius : 20px;*/
+/*border-bottom-left-radius : 20px;*/
 /*}*/
 
 .message__wrapper.non-user:nth-last-child(2) > .message {
@@ -170,7 +180,7 @@
 
 .message > p {
   margin    : 0;
-  font-size : 15px;
+  font-size : 12pt;
 }
 
 .prompt-line {
@@ -182,6 +192,13 @@
   display         : flex;
   align-items     : center;
   justify-content : flex-end;
+  box-shadow      : black 0 0 2px;
+  background      : white;
+  visibility      : hidden;
+}
+
+.prompt-line.visible {
+  visibility : visible;
 }
 
 .prompt {
@@ -197,6 +214,10 @@
 
 .prompt > p {
   margin : 0;
+}
+
+.emoji {
+  height : 25px;
 }
 
 @keyframes typing1 {

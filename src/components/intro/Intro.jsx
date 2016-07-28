@@ -1,31 +1,41 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import store from '../shared/store';
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 import DisplayItem from '../intro/DisplayItem';
 
 require('../../css/intro.css');
 
-export default React.createClass({
-  getInitialState: function () {
+const Intro = React.createClass({
+  getInitialState   : function () {
     return {data: []}
   },
-  componentDidMount: function() {
+  componentDidMount : function() {
 
     if (this.props.activeSlide === this.props.deck.slide && !this.triggered) {
       this.triggered = true;
       this.getAndDisplayData();
     }
   },
-  launchEpisode: function () {
-    //THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
-    //IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+  pickEpisode       : function (launchSide) {
+    // THIS CODE WILL EVENTUALLY LAUNCH THE EPISODE CONTAINER
+    // IN THIS CASE: DECK D3 FOR JOHN/SUE SWIPER CONTAINER
+    const action = {
+      type       : 'LAUNCH_EPISODE',
+      episode    : this.props.episode,
+      launchSide : launchSide
+    };
+    store.dispatch(action);
+    this.launchEpisode();
+  },
+  launchEpisode     : function () {
     const action = {
       type: 'CHANGE_SLIDE',
       activeSlide: this.props.deck.episodeToStart
     };
     store.dispatch(action);
   },
-  getAndDisplayData: function() {
+  getAndDisplayData : function() {
     let  allMessageDecks = this.props.deck.textBlock;
     let that = this;
 
@@ -71,20 +81,20 @@ export default React.createClass({
         that.setState({data: that.state.data.concat([obj])});
         setTimeout(function(){
           loop.next();
-        }, 3500);
+        }, 2000);
       }, function(){
 
         console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length-1);
         if (i === allMessageDecks.length-1) {
           console.log('%cLast Item', 'color: orange; background: black;');
           //LAST ITERATION SO TRIGGER NEXT SLIDE
-          that.launchEpisode();
+          // that.pickEpisode();
         } else {
           that.setState({data: []});
         }
         setTimeout(function() {
           loop.next();
-        }, 3500)
+        }, 2000)
       });
 
     }, function(){
@@ -94,10 +104,10 @@ export default React.createClass({
 
 
   },
-  render: function () {
+  render            : function () {
     var items = this.state.data.map(function(item, i) {
       return (
-        <DisplayItem msg={item.content} item={item} key={i}/>
+        <DisplayItem msg={item.content} item={item} key={i} episode={this.props.episode} launchSide={this.props.launchSide} handleEpisodeLaunch={this.pickEpisode}/>
       )
     }.bind(this));
     return (
@@ -108,4 +118,13 @@ export default React.createClass({
       </div>
     )
   }
-})
+});
+
+const mapStateToProps = function (store) {
+  return {
+    episode    : store.episodeState.episode,
+    launchSide : store.episodeState.launchSide
+  }
+};
+
+export default connect(mapStateToProps)(Intro);

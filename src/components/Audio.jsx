@@ -36,7 +36,6 @@ export default React.createClass({
 
   handleTogglePlay: function () {
     if (this.state.finished) {
-      console.log('STATE FINISHED')
       this.setState({
         finished: false,
         playing: true
@@ -68,7 +67,6 @@ export default React.createClass({
   },
 
   handlePlayChange(e) {
-    console.log(e)
     if (e.playArgs) {
       this.setState({
         finished: e.playArgs[0],
@@ -96,7 +94,7 @@ export default React.createClass({
       progressColor: 'rgba(255, 255, 255, 1)',
       barWidth : 3,
       cursorWidth: 0,
-      height: 512,
+      height: 384,
       normalize: true
     };
 

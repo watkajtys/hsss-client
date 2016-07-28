@@ -81,7 +81,7 @@ let intro_script = [{
     tense                 : 'present',
     special               : true,
     specialType           : 'intro',
-    loadNextAutomatically : true,
+    // loadNextAutomatically : true,
     textBlock             : [
       [
         {

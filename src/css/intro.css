@@ -58,9 +58,12 @@
   margin-top : 15px;
 }
 
-.display-item > img.swipe-choice {
+.display-item > .swipe-choice-container {
+  margin-top : 50px;
+}
+
+.display-item > .swipe-choice-container > img.swipe-choice {
   width      : 100%;
-  margin-top : 30px;
 }
 
 .fadeIn-enter {
