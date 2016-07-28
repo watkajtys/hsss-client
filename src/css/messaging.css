@@ -7,14 +7,14 @@
 
 .messaging-container.she {
   width      : 100%;
-  background : rgba(241, 99, 117, .25);
-  padding    : 5px 5% 0;
+  background : #FEF3F1;
+  padding    : 5px 2% 0;
 }
 
 .messaging-container.he {
   width      : 100%;
-  background : rgba(60, 163, 187, .25);
-  padding    : 5px 5% 0;
+  background : #F1F5F7;
+  padding    : 5px 2% 0;
 }
 
 .message__wrapper {
@@ -38,7 +38,8 @@
   position        : relative;
   float           : left;
   min-height      : 20px;
-  max-width       : 70%;
+  max-width       : 60%;
+  font-size       : 12px;
   margin          : 0;
   padding         : 5px 10px;
   background      : #D7CFDC;
@@ -84,10 +85,14 @@
 }
 
 .message__wrapper > .message.user {
-  background    : #4F3065;
-  color         : white;
-  border-radius : 20px 0 20px 20px;
-  float         : right;
+  background      : #4F3065;
+  color           : white;
+  border-radius   : 20px 0 20px 20px;
+  float           : right;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  min-width       : 10%;
 }
 
 .message__wrapper > .message.john {
@@ -98,15 +103,20 @@
 
 .messaging-container.he > .message__wrapper > .message.sue {
   border : 1px solid #3CA3BB;
+  background: #F1F5F7;
 }
 
 .messaging-container.he > .message__wrapper > .message.john {
   border     : 1px solid #3CA3BB;
-  background : #F3F9FB;
+  background : white;
 }
 
 .message__wrapper > .message.john > p {
   padding-right : 5px;
+}
+
+.messaging-container.she > .message__wrapper > .message.john {
+  background: #FEF3F1;
 }
 
 .message__wrapper > .message.sue {
@@ -170,7 +180,7 @@
 
 .message > p {
   margin    : 0;
-  font-size : 15px;
+  font-size : 12pt;
 }
 
 .prompt-line {
