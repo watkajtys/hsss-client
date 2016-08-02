@@ -4,6 +4,7 @@ let sue_slides = [
     slide           : 'D3.3',
     slideOrder      : 2,
     description     : 'okay-sues-side',
+    visibleHeader   : true,
     messages        : [
       {
         sender        : 'sue',
@@ -49,11 +50,12 @@ let sue_slides = [
     nextSlide             : 'D4.2'
   },
   {
-    deck        : '6',
-    slide       : 'D4.2',
-    description : 'sue-and-john-exchange',
-    charmsg     : 'she',
-    messages    : [
+    deck          : '6',
+    slide         : 'D4.2',
+    description   : 'sue-and-john-exchange',
+    charmsg       : 'she',
+    visibleHeader : true,
+    messages      : [
       {
         sender         : 'john',
         content        : 'Sue',
@@ -78,7 +80,8 @@ let sue_slides = [
         sender        : 'john',
         content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
         delay         : 1500,
-        displayAvatar : true
+        displayAvatar : true,
+        lastMsgInBlock : true
       }
     ]
   },

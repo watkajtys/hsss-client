@@ -4,6 +4,7 @@ let john_slides = [
     slide           : 'D3.3',
     slideOrder      : 2,
     description     : 'okay-john-side',
+    visibleHeader   : true,
     messages        : [
       {
         sender        : 'john',
@@ -48,11 +49,12 @@ let john_slides = [
     autoLoadNextSlide : true
   },
   {
-    deck        : '6',
-    slide       : 'D4.2',
-    description : 'sue-and-john-exchange',
-    charmsg     : 'he',
-    messages    : [
+    deck          : '6',
+    slide         : 'D4.2',
+    description   : 'sue-and-john-exchange',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
       {
         sender         : 'john',
         content        : 'Sue',
@@ -77,7 +79,8 @@ let john_slides = [
         sender        : 'john',
         content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
         delay         : 1500,
-        displayAvatar : true
+        displayAvatar : true,
+        lastMsgInBlock : true
       }
     ]
   },
