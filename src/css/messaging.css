@@ -9,13 +9,11 @@
 .messaging-container.she {
   width      : 100%;
   background : #FEF3F1;
-  padding    : 5px 2% 0;
 }
 
 .messaging-container.he {
   width      : 100%;
   background : #F1F5F7;
-  padding    : 5px 2% 0;
 }
 
 .message__wrapper {
@@ -55,30 +53,16 @@
   margin-top : 10px;
 }
 
-.message__wrapper > .message.sue.avatar__msg:after {
-  position     : absolute;
-  width        : 0;
-  height       : 0;
-  content      : "";
-  top          : -1px;
-  right        : -9px;
-  border-top   : 8px solid #F16375;
-  border-right : 8px solid transparent;
+.message__wrapper > .message.sue.avatar__msg {
+  border-top-right-radius : 0;
 }
 
 .messaging-container.he > .message__wrapper > .sue.avatar__msg:after {
   border-top : 8px solid #3CA3BB;
 }
 
-.message__wrapper > .message.john.avatar__msg:after {
-  position    : absolute;
-  width       : 0;
-  height      : 0;
-  content     : "";
-  top         : -1px;
-  left        : -9px;
-  border-top  : 8px solid #F16375;
-  border-left : 8px solid transparent;
+.message__wrapper > .message.john.avatar__msg {
+  border-top-left-radius : 0;
 }
 
 .messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {
@@ -103,8 +87,8 @@
 }
 
 .messaging-container.he > .message__wrapper > .message.sue {
-  border : 1px solid #3CA3BB;
-  background: #F1F5F7;
+  border     : 1px solid #3CA3BB;
+  background : #F1F5F7;
 }
 
 .messaging-container.he > .message__wrapper > .message.john {
@@ -117,7 +101,7 @@
 }
 
 .messaging-container.she > .message__wrapper > .message.john {
-  background: #FEF3F1;
+  background : #FEF3F1;
 }
 
 .message__wrapper > .message.sue {
@@ -147,6 +131,14 @@
 
 .message.indicator {
   border-bottom-left-radius : 20px;
+}
+
+.message.indicator > span.bubble {
+  margin          : auto;
+  width           : 40px;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
 }
 
 .message__wrapper.sue {
@@ -211,6 +203,7 @@
   padding       : 0 20px;
   border-radius : 20px 0 20px 20px;
   margin-right  : 10px;
+  font-family   : 'Avenir-Medium', sans-serif;
 }
 
 .prompt > p {
@@ -240,7 +233,7 @@
 }
 
 .point {
-  background-color          : #CCC;
+  background-color          : #333;
   display                   : inline-block;
   border-radius             : 100px;
   animation-duration        : 1s;
