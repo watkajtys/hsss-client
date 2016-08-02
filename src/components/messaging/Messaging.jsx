@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import store from './shared/store';
+import store from '../shared/store';
 import assign from 'deep-assign';
-import Message from './messaging/Message';
-import PromptList from './messaging/PromptList';
+import Message from './Message';
+import PromptList from './PromptList';
 
 let _ = require('lodash');
-require('../css/messaging.css');
+require('../../css/messaging.css');
 
 
 export default React.createClass({
