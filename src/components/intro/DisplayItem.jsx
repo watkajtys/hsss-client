@@ -1,10 +1,9 @@
 import React from 'react';
 var _ = require('lodash');
 
-var johnAvatar = require('../../images/shared/john_avatar.png');
-var sueAvatar  = require('../../images/shared/sue_avatar.png');
-var johnSwipe  = require('../../images/intro/swipe_choice_john.png');
-var sueSwipe   = require('../../images/intro/swipe_choice_sue.png');
+var avatars    = require('../../images/intro/john_sue_intro.png');
+var johnClick  = require('../../images/intro/pov_select_john.png');
+var sueClick   = require('../../images/intro/pov_select_sue.png');
 
 export default React.createClass({
   componentWillMount : function () {
@@ -17,31 +16,26 @@ export default React.createClass({
   },
   render             : function () {
     let imgSrc;
-    let avatarIdent;
     var swipeContainer = null;
     let classLine = 'display-item';
     if (this.hasAvatar(this.props.item)) {
 
-      if (this.props.item.avatar === 'sue') {
-        avatarIdent = 'avatar sue';
-        imgSrc      = sueAvatar;
-      } else {
-        avatarIdent = 'avatar john';
-        imgSrc      = johnAvatar
+      if (this.props.item.avatar) {
+        imgSrc = avatars;
       }
     }
     if (this.props.item.swipe) {
       classLine += ' vert';
       swipeContainer = <div className="swipe-choice-container">
-        <img className="swipe-choice" src={johnSwipe} onClick={(event) => this.props.handleEpisodeLaunch('HE')} alt="john"/>
-        <img className="swipe-choice" src={sueSwipe} onClick={(event) => this.props.handleEpisodeLaunch('SHE')} alt="Sue"/>
+        <img className="swipe-choice" src={johnClick} onClick={(event) => this.props.handleEpisodeLaunch('HE')} alt="john"/>
+        <img className="swipe-choice" src={sueClick} onClick={(event) => this.props.handleEpisodeLaunch('SHE')} alt="Sue"/>
       </div>
     }
     return (
 
       <div className={classLine} id={this.id}>
-        {this.hasAvatar(this.props.item) ? <img className={avatarIdent} src={imgSrc} alt={avatarIdent}/> : null}
-        <p className={avatarIdent}>{this.props.msg}</p>
+        {this.hasAvatar(this.props.item) ? <img className="avatar-intro-image" src={imgSrc}/> : null}
+        <p>{this.props.msg}</p>
         {swipeContainer}
       </div>
 
