@@ -4,12 +4,14 @@ import {combineReducers} from 'redux';
 
 import deckReducer from './deck-reducer';
 import episodeReducer from './episode-reducer';
+import headerReducer from './header-reducer';
 
 //COMBINE REDUCERS
 
 var reducers = combineReducers({
-  slideState : deckReducer,
-  episodeState: episodeReducer
+  slideState   : deckReducer,
+  episodeState : episodeReducer,
+  headerState  : headerReducer
 });
 
 export default reducers;
