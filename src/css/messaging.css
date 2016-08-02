@@ -1,6 +1,7 @@
 .messaging-container {
   width              : 90%;
   height             : 100%;
+  padding            : 55px 2% 0;
   overflow-y         : hidden;
   overflow-scrolling : touch;
 }

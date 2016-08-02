@@ -6,9 +6,9 @@ body {
 
 #content {
   position : absolute;
-  top      : 50px;
+  top      : 0;
   width    : 100%;
-  height : calc(100vh - 50px);
+  height   : 100vh;
 }
 
 .center-text {
