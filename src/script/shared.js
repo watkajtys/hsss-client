@@ -19,6 +19,7 @@ let intro_script = [{
     deck            : '1',
     slide           : 'D2.1',
     description     : 'hello',
+    visibleHeader   : true,
     messages        : [
       {
         sender         : 'narrator',
@@ -72,17 +73,17 @@ let intro_script = [{
     ]
   },
   {
-    container             : 'story',
-    description           : 'story-container',
-    slide                 : 'D2.2',
-    episodeToStart        : 'D3',
-    deck                  : '2',
-    order                 : 1,
-    tense                 : 'present',
-    special               : true,
-    specialType           : 'intro',
+    container      : 'story',
+    description    : 'story-container',
+    slide          : 'D2.2',
+    episodeToStart : 'D3',
+    deck           : '2',
+    order          : 1,
+    tense          : 'present',
+    special        : true,
+    specialType    : 'intro',
     // loadNextAutomatically : true,
-    textBlock             : [
+    textBlock      : [
       [
         {
           sender  : 'narrator',
@@ -103,16 +104,9 @@ let intro_script = [{
       [
         {
           sender  : 'narrator',
-          content : "JOHN, a tech entrepreneur met",
-          avatar  : 'john',
-          id      : 'introMsg4'
-
-        },
-        {
-          sender  : 'narrator',
-          content : "SUE, a freelance writer, at a Bushwick rave.",
-          avatar  : 'sue',
-          id      : 'introMsg5'
+          content : "John, a tech entrepreneur, met Sue, a freelance writer, at a Bushwick rave.",
+          id      : 'introMsg4',
+          avatar  : true
         }
       ],
       [

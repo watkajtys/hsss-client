@@ -120,10 +120,7 @@ export default React.createClass({
             </div>
           </div>
         </div>
-        <div className="start-btn">
-          <i className="fa fa-angle-up up-icon"></i>
-          <h1 className="start-text">Next</h1>
-        </div>
+        <div className="next-btn"></div>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Messaging from './Messaging';
+import Messaging from './messaging/Messaging';
 import Splash from './intro/Splash';
 import Intro from './intro/Intro';
 import EmbeddedSlider from './EmbeddedSlider';

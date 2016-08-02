@@ -12,12 +12,14 @@
 }
 
 .display-item {
-  font-size   : 30px;
-  line-height : 50px;
-  width       : 75%;
-  margin      : auto;
-  display     : flex;
-  align-items : center;
+  font-size      : 30px;
+  line-height    : 50px;
+  width          : 80%;
+  margin         : auto;
+  display        : flex;
+  align-items    : center;
+  flex-direction : column;
+  font-family    : 'Avenir-Medium', sans-serif;
 }
 
 .display-item.vert {
@@ -29,41 +31,18 @@
   filter : drop-shadow(1px 1px 3px black);
 }
 
-.display-item > p.avatar.john {
-  margin       : 0;
-  text-align   : left;
-  display      : inline-flex;
-  padding-left : 25px;
-  font-size    : 20px;
-  line-height  : 30px;
-}
-
-.display-item > p.avatar.sue {
-  margin        : 15px 0 0 0;
-  text-align    : right;
-  display       : inline-flex;
-  padding-right : 25px;
-  font-size     : 20px;
-  line-height   : 30px;
-}
-
-.display-item > img.avatar.john {
-  float : left;
-}
-
-.display-item > img.avatar.sue {
-  float      : right;
-  display    : inline-flex;
-  order      : 2;
-  margin-top : 15px;
+.display-item > img.avatar-intro-image {
+  width         : 100%;
+  margin-bottom : 20px;
 }
 
 .display-item > .swipe-choice-container {
-  margin-top : 50px;
+  margin-top : 20px;
 }
 
 .display-item > .swipe-choice-container > img.swipe-choice {
-  width      : 100%;
+  width  : 48%;
+  margin : 1%;
 }
 
 .fadeIn-enter {
@@ -81,7 +60,7 @@
 }
 
 .fadeIn-leave.fadeIn-leave-active {
-  opacity : 0.01;
+  opacity   : 0.01;
   transform : translateY(-200%);
 }
 

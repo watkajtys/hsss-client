@@ -15,10 +15,18 @@
   top      : 20%;
 }
 
+#splash > .splash-logo-wrapper > .logo-container {
+  background-image  : url("../images/intro/HSSS_logo.png");
+  background-size   : contain;
+  background-repeat : no-repeat;
+  height            : 140px;
+  width             : 100%;
+}
+
 .splash-logo-wrapper > h3 {
   width       : 270px;
   margin      : 30px auto;
-  font-size   : 18px;
+  font-size   : 20px;
   font-weight : normal;
   text-align  : center;
   filter      : drop-shadow(1px 1px 3px black);
@@ -73,10 +81,13 @@
 }
 
 .start-btn {
-  position : absolute;
-  bottom   : 20px;
-  margin   : auto;
-  width    : 100%;
+  position          : absolute;
+  bottom            : 20px;
+  height            : 60px;
+  width             : 75px;
+  background        : url("../images/shared/button-start.png");
+  background-size   : contain;
+  background-repeat : no-repeat;
 }
 
 .start-btn > .up-icon {

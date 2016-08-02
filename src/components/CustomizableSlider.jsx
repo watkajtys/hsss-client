@@ -26,7 +26,8 @@ const CustomizableSlider = React.createClass({
         type: 'CHANGE_SLIDE',
         activeSlide: firstSlide.slide
       };
-      store.dispatch(firstAction)
+      store.dispatch(firstAction);
+      this.determineVisibility(firstSlide);
     }
 
     let that = this;
@@ -40,12 +41,13 @@ const CustomizableSlider = React.createClass({
         if (that.props.container == that.props.activeContainer) {
           console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
           let index = swipercustom.activeIndex;
-          console.log(index, that.props.slides[index]);
+          console.log('%cNEW SLIDE', 'font-size: 12px; color: yellow; background: black;', index, that.props.slides[index]);
           const action = {
             type: 'CHANGE_SLIDE',
             activeSlide: that.props.slides[index].slide
           };
-          store.dispatch(action)
+          store.dispatch(action);
+          that.determineVisibility(that.props.slides[index]);
         }
       },
       onInit : function (swipercustom) {
@@ -59,6 +61,18 @@ const CustomizableSlider = React.createClass({
       }
 
     });
+  },
+  determineVisibility : function (slide) {
+    console.log('VIZ CHECK', slide);
+    var headerAction = {
+      type: 'HEADER_VISIBILITY',
+      visible: false
+    };
+    if (slide.visibleHeader) {
+      console.log('visible');
+      headerAction.visible = true;
+    }
+    store.dispatch(headerAction);
   },
   slideTo : function (index) {
     this.swipercustom.slideTo(index);
