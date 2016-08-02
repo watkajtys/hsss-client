@@ -15,6 +15,11 @@ const Intro = React.createClass({
     if (this.props.activeSlide === this.props.deck.slide && !this.triggered) {
       this.triggered = true;
       this.getAndDisplayData();
+      const isIntro = {
+        type: 'HEADER_VISIBILITY',
+        visible: false
+      };
+      store.dispatch(isIntro);
     }
   },
   pickEpisode       : function (launchSide) {
