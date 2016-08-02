@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import CustomizableSlider from './CustomizableSlider';
 import intro_script from '../script/shared.js';
+require('../fonts/font.css');
 
 export default React.createClass({
   render: function () {
