@@ -159,14 +159,15 @@ export default React.createClass({
       }
 
       if (message.slideLoad) {
-        console.log('CALLING SLIDELOAD');
-        if (this.props.parentContainer === this.props.activeContainer) {
-          const action = {
-            type: 'CHANGE_SLIDE',
-            activeSlide: message.slideToLoad
-          };
-          store.dispatch(action);
-        }
+        setTimeout(function () {
+          if (that.props.parentContainer === that.props.activeContainer) {
+            const action = {
+              type        : 'CHANGE_SLIDE',
+              activeSlide : message.slideToLoad
+            };
+            store.dispatch(action);
+          }
+        }, 750);
       }
     }
 
