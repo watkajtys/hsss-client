@@ -50,7 +50,6 @@ let sue_slides = [
     nextSlide             : 'D4.2'
   },
   {
-    deck          : '6',
     slide         : 'D4.2',
     description   : 'sue-and-john-exchange',
     charmsg       : 'she',
@@ -86,7 +85,6 @@ let sue_slides = [
     ]
   },
   {
-    deck            : '7',
     slide           : 'D4.3',
     description     : 'hello2',
     messages        : [

@@ -38,18 +38,18 @@ let john_slides = [
     ]
   },
   {
-    slide             : 'D4.1',
-    description       : 'johns-number-exchange',
-    special           : true,
-    specialType       : 'audio',
-    header            : 'Number Exchange',
-    audioFile         : 'First_Impressions_He',
-    gender            : 'he',
-    lockHorizontal    : true,
-    autoLoadNextSlide : true
+    slide                 : 'D4.1',
+    description           : 'johns-number-exchange',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Number Exchange',
+    audioFile             : 'First_Impressions_He',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : 'D4.2'
   },
   {
-    deck          : '6',
     slide         : 'D4.2',
     description   : 'sue-and-john-exchange',
     charmsg       : 'he',
@@ -76,16 +76,15 @@ let john_slides = [
         lastMsgInBlock : true
       },
       {
-        sender        : 'john',
-        content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
-        delay         : 1500,
-        displayAvatar : true,
+        sender         : 'john',
+        content        : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
+        delay          : 1500,
+        displayAvatar  : true,
         lastMsgInBlock : true
       }
     ]
   },
   {
-    deck            : '7',
     slide           : 'D4.3',
     description     : 'hello2',
     messages        : [
