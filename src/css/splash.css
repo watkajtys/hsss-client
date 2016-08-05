@@ -88,6 +88,7 @@
   background        : url("../images/shared/button-start.png");
   background-size   : contain;
   background-repeat : no-repeat;
+  margin            : auto;
 }
 
 .start-btn > .up-icon {
