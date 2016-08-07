@@ -14,7 +14,7 @@ export default React.createClass({
     return {data : [], prompts : []}
   },
   componentWillMount  : function () {
-    this.id = _.uniqueId('message-container_');
+    this.id       = _.uniqueId('message-container_');
     this.promptId = _.uniqueId('prompt-container_');
   },
   componentDidMount   : function () {
@@ -44,59 +44,30 @@ export default React.createClass({
     let that = this;
     prompts  = this.props.deck.reactionOptions || [];
     prompts.forEach(function (prompt) {
-      console.log(prompt)
       that.setState({prompts : that.state.prompts.concat([prompt])});
     })
 
   },
   getMessages         : function () {
-    let messages        = [];
-    let display         = [];
-    let displayInterval = 2500;
-    messages            = this.props.deck.messages || null;
+    let messages = [];
+    messages = this.props.deck.messages || null;
 
-    console.log(this.props.deck, 'MESSAGES FROM PROPS')
-
-
-    let that  = this;
-    var count = 0;
+    console.log(this.props.deck, 'MESSAGES FROM PROPS');
     if (messages) {
-      // console.log(messages, messages.length);
-      // //FIRST RUN - POST FIRST MESSAGE WITHOUT DELAY
-      // let obj = messages[count];
-      // that.setState({data: that.state.data.concat([obj])});
-      // if (count < messages.length) {
-      //
-      // } else {
-      //   that.getPrompts();
-      // }
       this.executeMessaging(messages);
-      // let timer = setInterval(function() {
-      //   console.log('%cStarted %s deck is active', 'color: yellow; background: black;', that.props.deck.deck);
-      //   let obj = messages[count];
-      //   that.setState({data: that.state.data.concat([obj])});
-      //   count++;
-      //   console.log(count, messages.length);
-      //   if (count >= messages.length) {
-      //     clearInterval(timer);
-      //     setTimeout(function() {
-      //       that.getPrompts();
-      //     }, displayInterval);
-      //   }
-      // }, displayInterval);
     } else {
       console.log('NO MESSAGES')
     }
   },
   runMessagingPromise : function (messageArray) {
+    //RUNNING MESSAGING AS PROMISE
     console.log(messageArray, 'MESSAGE ARRAY');
     var deferred = $.Deferred();
-
     var i        = 0;
     var that     = this;
     var nextStep = function () {
       if (i < messageArray.length) {
-        // Do something
+        //STEP THROUGH MESSAGES - POSTING THEM TO STATE
         var delay = messageArray[i].delay ? messageArray[i].delay : 2000;
         let obj   = messageArray[i];
         obj.last  = true;
@@ -112,22 +83,42 @@ export default React.createClass({
     nextStep();
     return deferred.promise();
   },
-  executeMessaging    : function (messageArray, prompts) {
+  executeMessaging    : function (messageArray, prompts, lastAction) {
     var that    = this;
+    //MAKE A PROMISE AND RUN MESSAGING
     var promise = this.runMessagingPromise(messageArray);
     promise.then(function (result) {
-      if (prompts) {
-        console.log('more prompts!', prompts);
-        prompts.forEach(function (prompt) {
-          console.log(prompt);
-          that.setState({prompts : that.state.prompts.concat([prompt])});
-        })
+      //WHAT WAS THE LAST MESSAGE IN THE ARRAY?
+      var lastMessage = messageArray[result - 1];
+
+      if (lastMessage.slideLoad) {
+        //IF THE LAST MESSAGE IS SUPPOSED TO TRIGGER A SLIDE TRANSITION
+        //DO THAT
+        setTimeout(function () {
+          if (that.props.parentContainer === that.props.activeContainer) {
+            const action = {
+              type        : 'CHANGE_SLIDE',
+              activeSlide : lastMessage.slideToLoad
+            };
+            store.dispatch(action);
+          }
+        }, 1000);
       } else {
-        that.getPrompts();
+        //OTHERWISE PROCESS PROMPTS IF THERE ARE ANY
+        if (prompts) {
+          console.log('more prompts!', prompts);
+          prompts.forEach(function (prompt) {
+            console.log(prompt);
+            that.setState({prompts : that.state.prompts.concat([prompt])});
+          })
+        } else {
+          that.getPrompts();
+        }
       }
     });
   },
   addMessage          : function (message) {
+    //CALLED BY CLICKING A PROMPT
     this.setState({prompts : []});
     let that = this;
     console.log(message, 'add message');
@@ -143,22 +134,8 @@ export default React.createClass({
       }
       this.setState({data : this.state.data.concat([obj])});
 
-      if (message.loadMore) {
-        if (message.messagesToLoad) {
-          setTimeout(function () {
-            if (message.additionalPrompt) {
-              //EXECUTE MESSAGING WITH PROMPTS
-              that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
-            } else {
-              //EXECUTE MESSAGING NORMALLY
-              that.executeMessaging(message.messagesToLoad);
-            }
-
-          }, 1000);
-        }
-      }
-
       if (message.slideLoad) {
+        //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
         setTimeout(function () {
           if (that.props.parentContainer === that.props.activeContainer) {
             const action = {
@@ -168,31 +145,24 @@ export default React.createClass({
             store.dispatch(action);
           }
         }, 750);
+      } else {
+        //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
+        if (message.loadMore) {
+          if (message.messagesToLoad) {
+            setTimeout(function () {
+              if (message.additionalPrompt) {
+                //EXECUTE MESSAGING WITH PROMPTS
+                that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
+              } else {
+                //EXECUTE MESSAGING NORMALLY
+                that.executeMessaging(message.messagesToLoad);
+              }
+
+            }, 1000);
+          }
+        }
       }
     }
-
-
-    // var count=0;
-    // if (message.messagesToLoad) {
-    //   let timer2 = setInterval(function() {
-    //     console.log('%cStarted %s deck is active', 'color: yellow; background: black;', that.props.deck.deck);
-    //     let obj = message.messagesToLoad[count];
-    //     that.setState({data: that.state.data.concat([obj])});
-    //     count++;
-    //     console.log(count, message.messagesToLoad.length);
-    //     if (count >= message.messagesToLoad.length) {
-    //       console.log('%cSHOULD NUKE at %d', 'color:orange', count);
-    //       clearInterval(timer2);
-    //       setTimeout(function() {
-    //         if (message.additionalPrompt) {
-    //           that.setState({prompts: [{prompt: message.promptFollowUp[0].prompt}]});
-    //         }
-    //       }, 2500);
-    //     }
-    //   }, 2500);
-    // }
-
-    // this.setState({data: this.state.data.concat([message])});
   },
   messageClass        : function () {
     let extra = this.props.classExtra ? this.props.classExtra : '';
@@ -202,7 +172,8 @@ export default React.createClass({
     return (
       <div className={this.messageClass()} key={this.id}>
         {this.state.data.map(message =>
-          <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime} displayAvatar={message.displayAvatar} lastinblock= {message.lastMsgInBlock}/>
+          <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime}
+                   displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock}/>
         )}
         <PromptList prompts={this.state.prompts} addMessage={this.addMessage} key={this.promptId}/>
       </div>
