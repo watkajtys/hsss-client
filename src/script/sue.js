@@ -76,33 +76,36 @@ let sue_slides = [
         lastMsgInBlock : true
       },
       {
-        sender        : 'john',
-        content       : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
-        delay         : 1500,
-        displayAvatar : true,
-        lastMsgInBlock : true
+        sender         : 'john',
+        content        : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
+        delay          : 1500,
+        displayAvatar  : true,
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : 'D4.3',
       }
     ]
   },
   {
     slide           : 'D4.3',
     description     : 'hello2',
+    visibleHeader   : true,
     messages        : [
       {
         sender    : 'narrator',
         content   : 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
         skipDelay : true,
-        delay     : 1000
+        delay     : 2000
       },
       {
         sender  : 'narrator',
         content : 'Their names have been changed of course.',
-        delay   : 1000
+        delay   : 1500
       },
       {
         sender  : 'narrator',
         content : 'Shall we continue?',
-        delay   : 1000
+        delay   : 1500
       }
     ],
     reaction        : true,
@@ -116,8 +119,10 @@ let sue_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender  : 'narrator',
-            content : "Back to Sue then..."
+            sender      : 'narrator',
+            content     : "Back to Sue then...",
+            slideLoad   : true,
+            slideToLoad : 'D5.1'
           }
         ]
       },
@@ -210,6 +215,18 @@ let sue_slides = [
         ]
       }
     ]
+  },
+  {
+    slide                 : 'D5.1',
+    description           : 'sues-first-impressions',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'First Impressions',
+    audioFile             : 'First_Impressions_She',
+    gender                : 'she',
+    lockHorizontal        : true,
+    loadNextAutomatically : false,
+    nextSlide             : 'D4.2'
   }
 ];
 

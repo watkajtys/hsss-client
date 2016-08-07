@@ -80,7 +80,9 @@ let john_slides = [
         content        : 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
         delay          : 1500,
         displayAvatar  : true,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : 'D4.3',
       }
     ]
   },
