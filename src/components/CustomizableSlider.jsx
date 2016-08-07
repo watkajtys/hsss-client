@@ -75,7 +75,7 @@ const CustomizableSlider = React.createClass({
     store.dispatch(headerAction);
   },
   slideTo : function (index) {
-    this.swipercustom.slideTo(index);
+    this.swipercustom.slideTo(index, 500, false);
   },
   appendSlide : function (slide) {
     console.log('appending', slide);
@@ -98,7 +98,7 @@ const CustomizableSlider = React.createClass({
       //CALLING AN UPDATE ON THE SWIPER TO ADD RENDERED SLIDE TO SWIPE COMPONENT
       that.swipercustom.update(true);
       //TRANSITION TO THE NEWLY APPENDED SLIDE
-      that.swipercustom.slideNext(true, 500);
+      that.swipercustom.slideNext(false, 500);
     }, 1000)
   },
   componentWillUnmount: function () {
