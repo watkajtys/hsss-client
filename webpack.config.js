@@ -38,7 +38,7 @@ module.exports = {
   },
   output    : {
     path       : __dirname + '/dist',
-    publicPath : '/hsss-client/dist/',
+    publicPath : '/',
     filename   : 'bundle.js'
   },
   devServer : {

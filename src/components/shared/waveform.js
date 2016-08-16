@@ -58,7 +58,6 @@ class Waveform extends Component {
     });
 
     this._wavesurfer.on('finish', () => {
-      console.log('FINISH CALLED', this._wavesurfer);
       this.setState({
         finished : true
       });
@@ -66,6 +65,7 @@ class Waveform extends Component {
       this.props.onPlayChange({
         playArgs : [this.state.finished]
       });
+      this.props.onFinish();
     });
 
     this._wavesurfer.on('play', () => {
