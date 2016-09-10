@@ -121,6 +121,14 @@
   padding-left : 5px;
 }
 
+.message__wrapper > .message.friend {
+  left : 40px;
+}
+
+.message__wrapper > .message.friend {
+  margin-left : 10px;
+}
+
 .message__wrapper > .message.last__msg {
   border-bottom-left-radius  : 20px;
   border-bottom-right-radius : 20px;
@@ -175,6 +183,10 @@
 
 .messaging-container.she > .message__wrapper > .avatar.sue {
   background-image : url('../images/inline_avatars/sue_red.png');
+}
+
+.messaging-container.she > .message__wrapper > .avatar.friend {
+  background-image : url('../images/inline_avatars/friend_red.png');
 }
 
 .messaging-container.he > .message__wrapper > .avatar.john {
