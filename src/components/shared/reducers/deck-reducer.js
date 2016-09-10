@@ -9,12 +9,13 @@ const deckReducer = function (state = initialState, action) {
   switch (action.type) {
     case types.CHANGE_SLIDE :
       return Object.assign({}, state, {
-        activeSlide : action.activeSlide
+        activeSlide : action.activeSlide,
+        activeParent: action.activeParent
       });
     case types.UPDATE_ACTIVE_CONTAINER :
       return Object.assign({}, state, {
         activeContainer : action.activeContainer
-      })
+      });
   }
   return state;
 };
