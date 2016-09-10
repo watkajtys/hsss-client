@@ -27,7 +27,7 @@ export default React.createClass({
   componentWillMount: function () {
     this.id = _.uniqueId('audio_');
   },
-  componentWillReceiveProps(nextProps) {
+  componentDidReceiveProps(nextProps) {
     if (nextProps.active) {
       this.play();
     } else {
