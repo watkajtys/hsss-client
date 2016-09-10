@@ -32,13 +32,13 @@ let john_slides = [
         prompt       : 'Thumbs Up',
         emoji        : 'thumbs_up',
         slideLoad    : true,
-        slideToLoad  : 'D4.1',
+        slideToLoad  : '4.1',
         reactionType : 'buttons'
       }
     ]
   },
   {
-    slide                 : 'D4.1',
+    slide                 : '4.1',
     description           : 'johns-number-exchange',
     special               : true,
     specialType           : 'audio',
@@ -47,10 +47,10 @@ let john_slides = [
     gender                : 'he',
     lockHorizontal        : true,
     loadNextAutomatically : true,
-    nextSlide             : 'D4.2'
+    nextSlide             : '4.2'
   },
   {
-    slide         : 'D4.2',
+    slide         : '4.2',
     description   : 'sue-and-john-exchange',
     charmsg       : 'he',
     visibleHeader : true,
@@ -82,36 +82,39 @@ let john_slides = [
         displayAvatar  : true,
         lastMsgInBlock : true,
         slideLoad      : true,
-        slideToLoad    : 'D4.3',
+        slideToLoad    : '5.1',
       }
     ]
   },
   {
-    slide           : 'D4.3',
-    description     : 'hello2',
+    slide                 : '5.1',
+    description           : 'johns-first-impressions',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'First Impressions',
+    audioFile             : 'hisNumberExchange',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : '5.1.A'
+  },
+  {
+    slide           : '5.1.A',
+    description     : 'she-wearing',
+    visibleHeader   : true,
     messages        : [
       {
         sender    : 'narrator',
-        content   : 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
+        content   : 'What do you think she was wearing?',
         skipDelay : true,
-        delay     : 1000
-      },
-      {
-        sender  : 'narrator',
-        content : 'Their names have been changed of course.',
-        delay   : 1000
-      },
-      {
-        sender  : 'narrator',
-        content : 'Shall we continue?',
-        delay   : 1000
+        delay     : 2000
       }
     ],
     reaction        : true,
     reactionType    : 'buttons',
     reactionOptions : [
       {
-        prompt         : 'Yes Please!',
+        prompt         : 'A white top',
         deckLoad       : false,
         routeLoad      : false,
         reactionType   : 'buttons',
@@ -119,95 +122,203 @@ let john_slides = [
         messagesToLoad : [
           {
             sender  : 'narrator',
-            content : "Back to Sue then..."
+            content : "Wrong",
+            emoji   : 'wrong'
+          },
+          {
+            sender      : 'narrator',
+            content     : 'Back to texting',
+            delay       : 2000,
+            slideLoad   : true,
+            slideToLoad : '6.1'
           }
         ]
       },
       {
-        prompt               : 'No wait!',
-        deckLoad             : false,
-        routeLoad            : false,
-        reactionType         : 'buttons',
-        loadAdditionalSlides : true,
-        slidesToLoad         : [
+        prompt         : 'Nothing like he described',
+        deckLoad       : false,
+        routeLoad      : false,
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
           {
-            charmsg         : 'she',
-            slide           : 'D4.3A',
-            description     : 'context-eh',
-            messages        : [
-              {
-                sender  : 'narrator',
-                content : "So You're a context person huh?",
-                delay   : 1000
-              }
-            ],
-            reaction        : true,
-            reactionType    : 'buttons',
-            reactionOptions : [
-              {
-                deckLoad       : true,
-                reactionType   : 'User Selection',
-                loadMore       : true,
-                messagesToLoad : [
-                  {
-                    sender  : 'narrator',
-                    content : "These are real people, real texts, real pictures, real voices."
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Imagine creating a scrapbook of memories from newsfeeds, voicemails, handwritten notes on the back of napkins...",
-                    delay   : 3000
-                  },
-                  {
-                    sender  : 'narrator',
-                    content : "Then publishing those memories inside a chatroom such as this...",
-                    delay   : 2000
-                  }
-                ]
-              }
-            ]
+            sender  : 'narrator',
+            content : "Correct",
+            emoji   : 'correct'
           },
           {
-            charmsg         : 'she',
-            slide           : 'D4.4',
-            description     : 'following-me',
-            messages        : [
-              {
-                sender  : 'narrator',
-                content : "Are you following me?",
-                delay   : 1000
-              }
-            ],
-            reaction        : true,
-            reactionType    : 'buttons',
-            reactionOptions : [
-              {
-                prompt         : 'Yes',
-                returnTo       : false,
-                routeLoad      : false,
-                reactionType   : 'buttons',
-                loadMore       : true,
-                messagesToLoad : [
-                  {
-                    sender  : 'narrator',
-                    content : "Back to Sue then..."
-                  }
-                ]
-              },
-              {
-                prompt         : 'No',
-                deckLoad       : false,
-                routeLoad      : false,
-                reactionType   : 'buttons',
-                loadMore       : true,
-                messagesToLoad : [
-                  {
-                    sender  : 'narrator',
-                    content : "Back to Sue then..."
-                  }
-                ]
-              }
-            ]
+            sender  : 'narrator',
+            content : 'You\'re right...Her eyes were more important :)',
+            delay   : 2000
+          },
+          {
+            sender      : 'narrator',
+            content     : 'Back to texting',
+            delay       : 2000,
+            slideLoad   : true,
+            slideToLoad : '6.1'
+          }
+        ]
+      },
+      {
+        prompt         : 'Why is this important?',
+        deckLoad       : false,
+        routeLoad      : false,
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : 'Back to texting',
+            delay       : 2000,
+            slideLoad   : true,
+            slideToLoad : '6.1'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slide         : '6.1',
+    description   : 'john-cuddle-exchange',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
+      {
+        sender         : 'sue',
+        content        : 'In the cuddle room. Come cuddle.',
+        skipDelay      : true,
+        delay          : 1000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
+      },
+      {
+        sender        : 'john',
+        content       : 'Sounds like a good idea.',
+        delay         : 1500,
+        displayAvatar : true
+      },
+      {
+        sender         : 'john',
+        content        : 'En route.',
+        delay          : 1000,
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : 'D6.1',
+      },
+    ]
+  },
+  {
+    slide                 : '6.2',
+    description           : 'john-cuddle-room-audio',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Cuddle Room',
+    audioFile             : 'hisCuddleRoom',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : '7.1'
+  },
+  {
+    charmsg         : 'he',
+    slide           : '7.1',
+    description     : 'meant-said-he-slider',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender         : 'narrator',
+        content        : "Do you think John meant what he said?",
+        delay          : 1000,
+        lastMsgInBlock : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt       : '>5',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.A',
+      },
+      {
+        prompt       : '5',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.B',
+      },
+      {
+        prompt       : '<5',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.C',
+      }
+    ]
+  },
+  {
+    charmsg         : 'he',
+    slide           : '7.1.A',
+    description     : 'can-you-think-of-a-time',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender         : 'narrator',
+        content        : "Can you think of a time when you meant more than you said?",
+        delay          : 1000,
+        lastMsgInBlock : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt       : 'Yes',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.B',
+      },
+      {
+        prompt       : 'No',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.C',
+      },
+      {
+        prompt       : 'Not sure',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.C',
+      }
+    ]
+  },
+  {
+    slide           : '7.1.B',
+    parent          : 'D7',
+    description     : 'remember-like-q',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender    : 'narrator',
+        content   : 'Like...?',
+        skipDelay : true,
+        delay     : 2000
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt         : 'Open Ended...',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : "Appreciation",
+            emoji       : 'appreciation',
+            slideLoad   : true,
+            slideToLoad : '7.1.C'
           }
         ]
       }
