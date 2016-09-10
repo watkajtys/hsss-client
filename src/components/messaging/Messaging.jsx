@@ -171,9 +171,9 @@ export default React.createClass({
   render              : function () {
     return (
       <div className={this.messageClass()} key={this.id}>
-        {this.state.data.map(message =>
+        {this.state.data.map((message, index) =>
           <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime}
-                   displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock}/>
+                   displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock} key={index}/>
         )}
         <PromptList prompts={this.state.prompts} addMessage={this.addMessage} key={this.promptId}/>
       </div>
