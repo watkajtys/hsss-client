@@ -37,7 +37,7 @@
 
 .audio-container > .content-wrap > .header-container {
   filter     : drop-shadow(1px 1px 3px black);
-  width      : 60%;
+  width      : 80%;
   text-align : left;
   position   : relative;
   bottom     : -70px;
