@@ -61,7 +61,6 @@ export default React.createClass({
   },
   runMessagingPromise : function (messageArray) {
     //RUNNING MESSAGING AS PROMISE
-    console.log(messageArray, 'MESSAGE ARRAY');
     var deferred = $.Deferred();
     var i        = 0;
     var that     = this;
@@ -96,9 +95,12 @@ export default React.createClass({
         //DO THAT
         setTimeout(function () {
           if (that.props.parentContainer === that.props.activeContainer) {
+            let regexMatch = /.+?./;
+            let parent = lastMessage.slideToLoad.match(regexMatch);
             const action = {
               type        : 'CHANGE_SLIDE',
-              activeSlide : lastMessage.slideToLoad
+              activeSlide : lastMessage.slideToLoad,
+              activeParent : parent[0]
             };
             store.dispatch(action);
           }
@@ -138,13 +140,20 @@ export default React.createClass({
         //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
         setTimeout(function () {
           if (that.props.parentContainer === that.props.activeContainer) {
+            let regexMatch = /.+?./;
+            let parent = message.slideToLoad.match(regexMatch);
             const action = {
               type        : 'CHANGE_SLIDE',
-              activeSlide : message.slideToLoad
+              activeSlide : message.slideToLoad,
+              activeParent: parent[0]
             };
             store.dispatch(action);
           }
         }, 750);
+      } else if (message.loadAdditionalSlides) {
+        if (message.slidesToLoad) {
+
+        }
       } else {
         //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
         if (message.loadMore) {
