@@ -20,6 +20,7 @@
   width   : 100%;
   height  : auto;
   display : inline-flex;
+  margin  : 1px 0;
 }
 
 .message__wrapper.non-user.narrator {
@@ -37,7 +38,7 @@
   position        : relative;
   float           : left;
   min-height      : 20px;
-  max-width       : 60%;
+  max-width       : 70%;
   font-size       : 12px;
   margin          : 0;
   padding         : 5px 10px;
@@ -89,11 +90,13 @@
 .messaging-container.he > .message__wrapper > .message.sue {
   border     : 1px solid #3CA3BB;
   background : #F1F5F7;
+  right      : 40px;
 }
 
 .messaging-container.he > .message__wrapper > .message.john {
   border     : 1px solid #3CA3BB;
   background : white;
+  left       : 40px;
 }
 
 .message__wrapper > .message.john > p {
@@ -102,6 +105,7 @@
 
 .messaging-container.she > .message__wrapper > .message.john {
   background : #FEF3F1;
+  left       : 40px;
 }
 
 .message__wrapper > .message.sue {
@@ -110,10 +114,19 @@
   border        : 1px solid #F16375;
   color         : #333;
   background    : white;
+  right         : 40px;
 }
 
 .message__wrapper > .message.sue > p {
   padding-left : 5px;
+}
+
+.message__wrapper > .message.friend {
+  left : 40px;
+}
+
+.message__wrapper > .message.friend {
+  margin-left : 10px;
 }
 
 .message__wrapper > .message.last__msg {
@@ -127,6 +140,14 @@
 
 .message__wrapper.non-user:nth-last-child(2) > .message {
   border-bottom-left-radius : 20px;
+}
+
+.message__wrapper.john:nth-last-child(2) > .message {
+  border-bottom-left-radius : 20px;
+}
+
+.message__wrapper.sue:nth-last-child(2) > .message {
+  border-bottom-right-radius : 20px;
 }
 
 .message.indicator {
@@ -149,6 +170,7 @@
   height          : 45px;
   width           : 45px;
   background-size : cover;
+  position        : absolute;
 }
 
 .message__wrapper > .avatar.non__user {
@@ -161,6 +183,10 @@
 
 .messaging-container.she > .message__wrapper > .avatar.sue {
   background-image : url('../images/inline_avatars/sue_red.png');
+}
+
+.messaging-container.she > .message__wrapper > .avatar.friend {
+  background-image : url('../images/inline_avatars/friend_red.png');
 }
 
 .messaging-container.he > .message__wrapper > .avatar.john {

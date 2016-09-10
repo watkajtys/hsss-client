@@ -76,7 +76,7 @@ const EmbeddedSlider =  React.createClass({
   },
   render: function () {
     return (
-      <div className="slide_container swiper-container swiper-container-hor">
+      <div className="slide_container swiper-container swiper-container-hor" key={this.id}>
         <div className="swiper-wrapper">
           {this.getSlides().map((slide, index) =>
             <div className="slide swiper-slide">
