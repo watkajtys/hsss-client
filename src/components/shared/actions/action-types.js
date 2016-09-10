@@ -10,3 +10,6 @@ export const LAUNCH_EPISODE = 'LAUNCH_EPISODE';
 
 //HEADER
 export const HEADER_VISIBILITY = 'HEADER_VISIBILITY';
+
+//SLIDES
+export const ADD_SLIDE = 'ADD_SLIDE';
