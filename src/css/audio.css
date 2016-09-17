@@ -18,8 +18,8 @@
 }
 
 .audio-element {
-  width : 90%;
-  margin :auto;
+  width  : 90%;
+  margin : auto;
 }
 
 .audio-container.he {
@@ -31,17 +31,16 @@
 }
 
 .audio-container > .content-wrap {
-  padding : 0 5%;
-  overflow: hidden;
+  padding  : 0 5%;
+  overflow : hidden;
 }
 
 .audio-container > .content-wrap > .header-container {
-  filter     : drop-shadow(1px 1px 3px black);
-  width      : 80%;
-  text-align : left;
-  position   : relative;
-  bottom     : -70px;
-  font-family: 'Avenir-Black', sans-serif;
+  width       : 80%;
+  text-align  : left;
+  position    : relative;
+  bottom      : -70px;
+  font-family : 'Avenir-Black', sans-serif;
 }
 
 .audio-container > .content-wrap > .timer {
@@ -56,6 +55,7 @@
 
 .next-btn {
   position          : absolute;
+  margin            : auto;
   bottom            : 20px;
   height            : 60px;
   width             : 75px;
