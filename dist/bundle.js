@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3c62165c0a0fd10ea18f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "70720ed64ea5231082a8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -49576,7 +49576,7 @@
 
 
 	// module
-	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(325) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n#splash > .splash-logo-wrapper > .logo-container {\n  background-image  : url(" + __webpack_require__(326) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  height            : 140px;\n  width             : 100%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 20px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(327) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  margin            : auto;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
+	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(325) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n#splash > .splash-logo-wrapper > .logo-container {\n  background-image  : url(" + __webpack_require__(326) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  height            : 140px;\n  width             : 100%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 20px;\n  font-weight : normal;\n  text-align  : center;\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(327) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  margin            : auto;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
 
 	// exports
 
@@ -49714,7 +49714,7 @@
 	        that.setState({ data: that.state.data.concat([obj]) });
 	        setTimeout(function () {
 	          loop.next();
-	        }, 2500);
+	        }, 3000);
 	      }, function () {
 
 	        console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length - 1);
@@ -49727,7 +49727,7 @@
 	        }
 	        setTimeout(function () {
 	          loop.next();
-	        }, 2500);
+	        }, 3000);
 	      });
 	    }, function () {
 	      console.log('done');
@@ -51426,7 +51426,7 @@
 
 
 	// module
-	exports.push([module.id, ".audio-wrapper {\n  height    : 193px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n}\n\n.audio-element {\n  width : 90%;\n  margin :auto;\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(350) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(351) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n  overflow: hidden;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 80%;\n  text-align : left;\n  position   : relative;\n  bottom     : -70px;\n  font-family: 'Avenir-Black', sans-serif;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.next-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(352) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(353) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(354) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(355) + ");\n}", ""]);
+	exports.push([module.id, ".audio-wrapper {\n  height    : 193px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n}\n\n.audio-element {\n  width  : 90%;\n  margin : auto;\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(350) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(351) + ");\n}\n\n.audio-container > .content-wrap {\n  padding  : 0 5%;\n  overflow : hidden;\n}\n\n.audio-container > .content-wrap > .header-container {\n  width       : 80%;\n  text-align  : left;\n  position    : relative;\n  bottom      : -70px;\n  font-family : 'Avenir-Black', sans-serif;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.next-btn {\n  position          : absolute;\n  margin            : auto;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(352) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(353) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(354) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(355) + ");\n}", ""]);
 
 	// exports
 
@@ -51605,16 +51605,8 @@
 	  // loadNextAutomatically : true,
 	  textBlock: [[{
 	    sender: 'narrator',
-	    content: '"Between what is said and not meant,',
+	    content: '"Between what is said and not meant, and what is meant and not said, most of love is lost."',
 	    id: 'introMsg1'
-	  }, {
-	    sender: 'narrator',
-	    content: 'and what is meant and not said,',
-	    id: 'introMsg2'
-	  }, {
-	    sender: 'narrator',
-	    content: 'most of love is lost."',
-	    id: 'introMsg3'
 	  }], [{
 	    sender: 'narrator',
 	    content: "John, a tech entrepreneur, met Sue, a freelance writer, at a Bushwick rave.",
@@ -52115,7 +52107,7 @@
 	});
 	var john_slides = [{
 	  charmsg: 'he',
-	  slide: 'D3.3',
+	  slide: '3.3',
 	  slideOrder: 2,
 	  description: 'okay-john-side',
 	  visibleHeader: true,
@@ -52284,7 +52276,7 @@
 	    delay: 1000,
 	    lastMsgInBlock: true,
 	    slideLoad: true,
-	    slideToLoad: 'D6.1'
+	    slideToLoad: '6.2'
 	  }]
 	}, {
 	  slide: '6.2',
@@ -52379,6 +52371,197 @@
 	      slideLoad: true,
 	      slideToLoad: '7.1.C'
 	    }]
+	  }]
+	}, {
+	  slide: '7.1.C',
+	  description: 'narrator-breakup',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'I remember when my ex and I finally had the breakup talk...',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'The last thing I said to him was, "See you later."',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'But now thinking back, I think what I really meant was - "Take care and be happy"',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '7.1.D'
+	  }]
+	}, {
+	  slide: '7.1.D',
+	  description: 'always-mean-what-you-say',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Do you always mean what you say?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Thumbs Up",
+	      emoji: 'thumbs_up',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }, {
+	    prompt: 'No',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Thumbs Down",
+	      emoji: 'thumbs_down',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }, {
+	    prompt: 'Not sure',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Question",
+	      emoji: 'question',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.E',
+	  description: 'overstated-things',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Can you think of a time when you\'ve overstated and meant less than what you said?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.F'
+	  }, {
+	    prompt: 'No',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.G'
+	  }, {
+	    prompt: 'Not sure',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.G'
+	  }]
+	}, {
+	  slide: '7.1.F',
+	  parent: 'D7',
+	  description: 'like...overstated',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Like...?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Open Ended...',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Appreciation",
+	      emoji: 'appreciation',
+	      slideLoad: true,
+	      slideToLoad: '7.1.G'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.G',
+	  description: 'see-family',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'I see my family once or twice a year.',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'When it\'s time to go, I always say - "Catch up soon!" But we never do...',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'At least never properly. It might as well be - "See you in a year!"',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '8.1'
+	  }]
+	}, {
+	  slide: '8.1',
+	  description: 'moving-on-to-end',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Moving on...',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'Looks like we\'re nearing the end...,',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'Got one more voice and text message from John.',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '9.1'
+	  }]
+	}, {
+	  slide: '9.1',
+	  description: 'johns-night-cap',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'Night Cap',
+	  audioFile: 'hisNightCap',
+	  gender: 'he',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '9.2'
+	}, {
+	  slide: '9.2',
+	  description: 'john-night-cap-exchange',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'john',
+	    content: 'Hope you got home safe. I\'m going to wake up thinking about what a dope breakfast I\'m going to make us next time when you actually let me take you home. :)',
+	    delay: 2500,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
 	  }]
 	}];
 
