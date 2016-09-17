@@ -1,7 +1,7 @@
 let john_slides = [
   {
     charmsg         : 'he',
-    slide           : 'D3.3',
+    slide           : '3.3',
     slideOrder      : 2,
     description     : 'okay-john-side',
     visibleHeader   : true,
@@ -204,7 +204,7 @@ let john_slides = [
         delay          : 1000,
         lastMsgInBlock : true,
         slideLoad      : true,
-        slideToLoad    : 'D6.1',
+        slideToLoad    : '6.2',
       },
     ]
   },
@@ -323,7 +323,244 @@ let john_slides = [
         ]
       }
     ]
-  }
+  },
+  {
+    slide         : '7.1.C',
+    description   : 'narrator-breakup',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
+      {
+        sender        : 'narrator',
+        content       : 'I remember when my ex and I finally had the breakup talk...',
+        skipDelay     : true,
+        delay         : 1000,
+        displayAvatar : true
+      },
+      {
+        sender  : 'narrator',
+        content : 'The last thing I said to him was, "See you later."',
+        delay   : 1500
+      },
+      {
+        sender         : 'narrator',
+        content        : 'But now thinking back, I think what I really meant was - "Take care and be happy"',
+        delay          : 2000,
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : '7.1.D',
+      }
+    ]
+  },
+  {
+    slide           : '7.1.D',
+    description     : 'always-mean-what-you-say',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender    : 'narrator',
+        content   : 'Do you always mean what you say?',
+        skipDelay : true,
+        delay     : 2000
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt         : 'Yes',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : "Thumbs Up",
+            emoji       : 'thumbs_up',
+            slideLoad   : true,
+            slideToLoad : '7.1.E'
+          }
+        ]
+      },
+      {
+        prompt         : 'No',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : "Thumbs Down",
+            emoji       : 'thumbs_down',
+            slideLoad   : true,
+            slideToLoad : '7.1.E'
+          }
+        ]
+      },
+      {
+        prompt         : 'Not sure',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : "Question",
+            emoji       : 'question',
+            slideLoad   : true,
+            slideToLoad : '7.1.E'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slide           : '7.1.E',
+    description     : 'overstated-things',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender    : 'narrator',
+        content   : 'Can you think of a time when you\'ve overstated and meant less than what you said?',
+        skipDelay : true,
+        delay     : 2000
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt       : 'Yes',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.F'
+      },
+      {
+        prompt       : 'No',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.G'
+      },
+      {
+        prompt       : 'Not sure',
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '7.1.G'
+      }
+    ]
+  },
+  {
+    slide           : '7.1.F',
+    parent          : 'D7',
+    description     : 'like...overstated',
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender    : 'narrator',
+        content   : 'Like...?',
+        skipDelay : true,
+        delay     : 2000
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt         : 'Open Ended...',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender      : 'narrator',
+            content     : "Appreciation",
+            emoji       : 'appreciation',
+            slideLoad   : true,
+            slideToLoad : '7.1.G'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slide         : '7.1.G',
+    description   : 'see-family',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
+      {
+        sender        : 'narrator',
+        content       : 'I see my family once or twice a year.',
+        skipDelay     : true,
+        delay         : 1000,
+        displayAvatar : true
+      },
+      {
+        sender  : 'narrator',
+        content : 'When it\'s time to go, I always say - "Catch up soon!" But we never do...',
+        delay   : 1500
+      },
+      {
+        sender         : 'narrator',
+        content        : 'At least never properly. It might as well be - "See you in a year!"',
+        delay          : 2000,
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : '8.1',
+      }
+    ]
+  },
+  {
+    slide         : '8.1',
+    description   : 'moving-on-to-end',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
+      {
+        sender        : 'narrator',
+        content       : 'Moving on...',
+        skipDelay     : true,
+        delay         : 1000,
+        displayAvatar : true
+      },
+      {
+        sender  : 'narrator',
+        content : 'Looks like we\'re nearing the end...,',
+        delay   : 1500
+      },
+      {
+        sender         : 'narrator',
+        content        : 'Got one more voice and text message from John.',
+        delay          : 2000,
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        slideToLoad    : '9.1',
+      }
+    ]
+  },
+  {
+    slide                 : '9.1',
+    description           : 'johns-night-cap',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Night Cap',
+    audioFile             : 'hisNightCap',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : '9.2'
+  },
+  {
+    slide         : '9.2',
+    description   : 'john-night-cap-exchange',
+    charmsg       : 'he',
+    visibleHeader : true,
+    messages      : [
+      {
+        sender         : 'john',
+        content        : 'Hope you got home safe. I\'m going to wake up thinking about what a dope breakfast I\'m going to make us next time when you actually let me take you home. :)',
+        delay          : 2500,
+        displayAvatar  : true,
+        lastMsgInBlock : true
+      }
+    ]
+  },
 ];
 
 export default john_slides;
