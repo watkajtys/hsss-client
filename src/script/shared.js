@@ -87,18 +87,8 @@ let intro_script = [{
       [
         {
           sender  : 'narrator',
-          content : '"Between what is said and not meant,',
+          content : '"Between what is said and not meant, and what is meant and not said, most of love is lost."',
           id      : 'introMsg1'
-        },
-        {
-          sender  : 'narrator',
-          content : 'and what is meant and not said,',
-          id      : 'introMsg2'
-        },
-        {
-          sender  : 'narrator',
-          content : 'most of love is lost."',
-          id      : 'introMsg3'
         }
       ],
       [
