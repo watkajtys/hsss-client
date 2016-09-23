@@ -43,10 +43,14 @@ const CustomizableSlider = React.createClass({
         if (that.props.container == that.props.activeContainer) {
           let index = swipercustom.activeIndex;
           console.log('%cNEW SLIDE', 'font-size: 12px; color: yellow; background: black;', index, that.state.renderedSlides[index].slide);
+          //SHOULD L2R SWIPING BE LOCKED? IF DIVERGENT - YES - OTHERWISE - NO
+          var locked = that.state.renderedSlides[index].slide.match(/\d.\d./) ? true : false ;
+          
           const action = {
-            type        : 'CHANGE_SLIDE',
-            activeSlide : that.state.renderedSlides[index].slide,
-            activeParent: that.state.renderedSlides[index].parent
+            type         : 'CHANGE_SLIDE',
+            activeSlide  : that.state.renderedSlides[index].slide,
+            activeParent : that.state.renderedSlides[index].parent,
+            lockedSide   : locked
           };
           store.dispatch(action);
           that.determineVisibility(that.state.renderedSlides[index]);
