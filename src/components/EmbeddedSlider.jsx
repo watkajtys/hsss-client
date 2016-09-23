@@ -53,6 +53,12 @@ const EmbeddedSlider =  React.createClass({
     if (this.props.side !== nextProps.side) {
       this.toggleSide(nextProps.side);
     }
+
+    if (nextProps.lockSide) {
+      this.lockSwiping();
+    } else {
+      this.unlockSwiping();
+    }
   },
   determineLaunchSide : function (side) {
     let index = 1;
@@ -70,6 +76,12 @@ const EmbeddedSlider =  React.createClass({
       index = 0;
     }
     this.horizontalSlider.slideTo(index);
+  },
+  lockSwiping : function () {
+    this.horizontalSlider.lockSwipes();
+  },
+  unlockSwiping : function () {
+    this.horizontalSlider.unlockSwipes();
   },
   getSlides: function () {
     return this.props.slides || [];
@@ -94,7 +106,8 @@ const mapStateToProps = function (store) {
     activeSide      : store.slideState.activeSide,
     activeContainer : store.slideState.activeContainer,
     episode         : store.episodeState.episode,
-    launchSide      : store.episodeState.launchSide
+    launchSide      : store.episodeState.launchSide,
+    lockSide        : store.slideState.lockedSide
   }
 };
 
