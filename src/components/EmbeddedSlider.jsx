@@ -22,7 +22,7 @@ const EmbeddedSlider =  React.createClass({
     this.horizontalSlider = new Swiper('.swiper-container-hor', {
       direction: 'horizontal',
       initialSlide: initial,
-      spaceBetween: 150,
+      spaceBetween: 0,
       onSlideChangeEnd: function (horizontalSlider) {
         console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
         let index = horizontalSlider.activeIndex;
