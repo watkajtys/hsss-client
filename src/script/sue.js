@@ -285,10 +285,10 @@ let sue_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'emojikeyboard',
     reactionOptions : [
       {
-        prompt       : '>5',
+        prompt       : '-1',
         returnTo     : false,
         routeLoad    : false,
         reactionType : 'buttons',
@@ -296,7 +296,7 @@ let sue_slides = [
         slideToLoad  : '7.1.A',
       },
       {
-        prompt       : '<5',
+        prompt       : '1',
         deckLoad     : false,
         routeLoad    : false,
         reactionType : 'buttons',
@@ -325,36 +325,44 @@ let sue_slides = [
       {
         prompt       : 'Yes maybe',
         reactionType : 'buttons',
-        slideLoad    : true,
-        slideToLoad  : '7.1.B',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender  : 'narrator',
+            content : "appreciation",
+            emoji   : 'appreciation',
+            delay   : 2000
+          },
+          {
+            sender         : 'narrator',
+            content        : "Let's see what her friend has to say...48 hours later.",
+            lastMsgInBlock : true,
+            delay          : 1500,
+            slideLoad      : true,
+            slideToLoad    : '7.1.C',
+          }
+        ]
       },
       {
         prompt       : 'No she lied',
         reactionType : 'buttons',
-        slideLoad    : true,
-        slideToLoad  : '7.1.B',
-      }
-    ]
-  },
-  {
-    charmsg     : 'she',
-    slide       : '7.1.B',
-    parent      : '7.1',
-    description : 'appreciation',
-    messages    : [
-      {
-        sender  : 'narrator',
-        content : "appreciation",
-        emoji   : 'appreciation',
-        delay   : 2000
-      },
-      {
-        sender         : 'narrator',
-        content        : "Let's see what her friend has to say...48 hours later.",
-        lastMsgInBlock : true,
-        delay          : 1500,
-        slideLoad      : true,
-        slideToLoad    : '7.1.C',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender  : 'narrator',
+            content : "appreciation",
+            emoji   : 'appreciation',
+            delay   : 2000
+          },
+          {
+            sender         : 'narrator',
+            content        : "Let's see what her friend has to say...48 hours later.",
+            lastMsgInBlock : true,
+            delay          : 1500,
+            slideLoad      : true,
+            slideToLoad    : '7.1.C',
+          }
+        ]
       }
     ]
   },
@@ -437,6 +445,7 @@ let sue_slides = [
   {
     charmsg     : 'she',
     slide       : '8.1',
+    visibleHeader : true,
     description : 'transition',
     messages    : [
       {
