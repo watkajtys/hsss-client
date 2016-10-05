@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2a9da1e3ffee2b1cf6f3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b704336dbc8fa9c86e01"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8204,7 +8204,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(377);
+	__webpack_require__(397);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -31177,8 +31177,9 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var initialState = {
-	  activeSlide: 'D1',
-	  activeContainer: 'INTRO'
+	  activeSlide: '1',
+	  activeContainer: 'INTRO',
+	  lockedSide: false
 	};
 
 	var deckReducer = function deckReducer() {
@@ -31188,7 +31189,9 @@
 	  switch (action.type) {
 	    case types.CHANGE_SLIDE:
 	      return Object.assign({}, state, {
-	        activeSlide: action.activeSlide
+	        activeSlide: action.activeSlide,
+	        activeParent: action.activeParent,
+	        lockedSide: action.lockedSide
 	      });
 	    case types.UPDATE_ACTIVE_CONTAINER:
 	      return Object.assign({}, state, {
@@ -31226,6 +31229,9 @@
 
 	//HEADER
 	var HEADER_VISIBILITY = exports.HEADER_VISIBILITY = 'HEADER_VISIBILITY';
+
+	//SLIDES
+	var ADD_SLIDE = exports.ADD_SLIDE = 'ADD_SLIDE';
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "action-types.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -31459,17 +31465,17 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _CustomizableSlider = __webpack_require__(295);
+	var _CustomizableSlider = __webpack_require__(294);
 
 	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
-	var _shared = __webpack_require__(357);
+	var _shared = __webpack_require__(377);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(360);
+	__webpack_require__(380);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'App',
@@ -31515,24 +31521,44 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var classNames = __webpack_require__(290);
-
-	__webpack_require__(291);
+	__webpack_require__(290);
 
 	var Header = _react2.default.createClass({
 	  displayName: 'Header',
+	  componentWillMount: function componentWillMount() {
+	    //INIT HEADER CLASS STRING
+	    this.headerClass = '';
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
+	    //SETTING THE HEADER CLASS
+	    switch (nextProps.activeContainer) {
+	      case 'JOHN':
+	        this.headerClass = 'he';
+	        break;
+	      case 'SUE':
+	        this.headerClass = 'she';
+	        break;
+	      case 'INTRO':
+	        this.headerClass = 'intro';
+	        break;
+	      default:
+	        this.headerClass = 'intro';
+	    }
+
+	    //TOGGLING VISIBILITY OF THE HEADER
+	    if (nextProps.visible) {
+	      this.headerClass += ' visible';
+	    } else {
+	      this.headerClass.replace(/ visible/, '');
+	    }
+	  },
 
 	  render: function render() {
 
-	    var headerClass = classNames({
-	      'visible': this.props.visible,
-	      'he': this.props.activeContainer === 'JOHN',
-	      'she': this.props.activeContainer === 'SUE',
-	      'intro': this.props.activeContainer === 'INTRO'
-	    });
 	    return _react2.default.createElement(
 	      'header',
-	      { className: headerClass },
+	      { className: this.headerClass },
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'burger-icon' },
@@ -31560,74 +31586,20 @@
 /* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 291 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(292);
+	var content = __webpack_require__(291);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(292, function() {
-				var newContent = __webpack_require__(292);
+			module.hot.accept(291, function() {
+				var newContent = __webpack_require__(291);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31637,21 +31609,21 @@
 	}
 
 /***/ },
-/* 292 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "header {\n  position   : fixed;\n  top        : 0;\n  width      : 100%;\n  height     : 50px;\n  background : rgba(79, 48, 101, 0);\n  z-index    : 999;\n  -webkit-transition   : background 1000ms;\n  transition : background 1000ms;\n}\n\nheader.visible.intro {\n  background : rgba(79, 48, 101, 1);\n}\n\nheader.visible.he {\n  background : rgba(96, 173, 194, 1);\n}\n\nheader.visible.she {\n  background : rgba(243, 123, 133, 1);\n}\n#burger-icon {\n  width      : 30px;\n  height     : 30px;\n  position   : relative;\n  -webkit-transform  : rotate(0deg);\n          transform  : rotate(0deg);\n  -webkit-transition   : .5s ease-in-out;\n  transition : .5s ease-in-out;\n  cursor     : pointer;\n  margin     : 15px 0 0 20px;\n}\n\n#burger-icon span {\n  display       : block;\n  position      : absolute;\n  height        : 3px;\n  width         : 100%;\n  background    : white;\n  border-radius : 3px;\n  opacity       : 1;\n  left          : 0;\n  -webkit-transform     : rotate(0deg);\n          transform     : rotate(0deg);\n  -webkit-transition   : .25s ease-in-out;\n  transition    : .25s ease-in-out;\n}\n\n#burger-icon span:nth-child(1) {\n  top              : 0;\n  -webkit-transform-origin : left center;\n          transform-origin : left center;\n}\n\n#burger-icon span:nth-child(2) {\n  top              : 9px;\n  -webkit-transform-origin : left center;\n          transform-origin : left center;\n}\n\n#burger-icon span:nth-child(3) {\n  top : 18px;\n}\n\n#burger-icon.open span:nth-child(1) {\n  -webkit-transform : rotate(45deg);\n          transform : rotate(45deg);\n  top       : -3px;\n  left      : 8px;\n}\n\n#burger-icon.open span:nth-child(2) {\n  width   : 0;\n  opacity : 0;\n}\n\n#burger-icon.open span:nth-child(3) {\n  -webkit-transform : rotate(-45deg);\n          transform : rotate(-45deg);\n  top       : 39px;\n  left      : 8px;\n}", ""]);
+	exports.push([module.id, "header {\n  position   : fixed;\n  top        : 0;\n  width      : 100%;\n  height     : 50px;\n  background : rgba(79, 48, 101, 0);\n  z-index    : 999;\n  -webkit-transition   : background 500ms cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  transition : background 500ms cubic-bezier(0.18, 0.89, 0.32, 1.28);\n}\n\nheader.visible.intro {\n  background : rgba(79, 48, 101, 1);\n}\n\nheader.visible.he {\n  background : rgba(96, 173, 194, 1);\n}\n\nheader.visible.she {\n  background : rgba(243, 123, 133, 1);\n}\n#burger-icon {\n  width      : 30px;\n  height     : 30px;\n  position   : relative;\n  -webkit-transform  : rotate(0deg);\n          transform  : rotate(0deg);\n  -webkit-transition   : .5s ease-in-out;\n  transition : .5s ease-in-out;\n  cursor     : pointer;\n  margin     : 15px 0 0 20px;\n}\n\n#burger-icon span {\n  display       : block;\n  position      : absolute;\n  height        : 3px;\n  width         : 100%;\n  background    : white;\n  border-radius : 3px;\n  opacity       : 1;\n  left          : 0;\n  -webkit-transform     : rotate(0deg);\n          transform     : rotate(0deg);\n  -webkit-transition   : .25s ease-in-out;\n  transition    : .25s ease-in-out;\n}\n\n#burger-icon span:nth-child(1) {\n  top              : 0;\n  -webkit-transform-origin : left center;\n          transform-origin : left center;\n}\n\n#burger-icon span:nth-child(2) {\n  top              : 9px;\n  -webkit-transform-origin : left center;\n          transform-origin : left center;\n}\n\n#burger-icon span:nth-child(3) {\n  top : 18px;\n}\n\n#burger-icon.open span:nth-child(1) {\n  -webkit-transform : rotate(45deg);\n          transform : rotate(45deg);\n  top       : -3px;\n  left      : 8px;\n}\n\n#burger-icon.open span:nth-child(2) {\n  width   : 0;\n  opacity : 0;\n}\n\n#burger-icon.open span:nth-child(3) {\n  -webkit-transform : rotate(-45deg);\n          transform : rotate(-45deg);\n  top       : 39px;\n  left      : 8px;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 293 */
+/* 292 */
 /***/ function(module, exports) {
 
 	/*
@@ -31707,7 +31679,7 @@
 
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31959,7 +31931,7 @@
 
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31980,14 +31952,14 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _Slide = __webpack_require__(296);
+	var _Slide = __webpack_require__(295);
 
 	var _Slide2 = _interopRequireDefault(_Slide);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(343);
-	var _ = __webpack_require__(312);
+	__webpack_require__(357);
+	var _ = __webpack_require__(322);
 
 	var CustomizableSlider = _react2.default.createClass({
 	  displayName: 'CustomizableSlider',
@@ -32010,7 +31982,8 @@
 	      this.setState({ renderedSlides: this.state.renderedSlides.concat(firstSlide) });
 	      var firstAction = {
 	        type: 'CHANGE_SLIDE',
-	        activeSlide: firstSlide.slide
+	        activeSlide: firstSlide.slide,
+	        activeParent: firstSlide.parent
 	      };
 	      _store2.default.dispatch(firstAction);
 	      this.determineVisibility(firstSlide);
@@ -32022,19 +31995,27 @@
 	      calculateHeight: true,
 	      spaceBetween: 400,
 	      initialSlide: that.props.initial ? parseInt(that.props.initial) : 0,
-	      onSlideChangeEnd: function onSlideChangeEnd(swipercustom) {
+	      onTransitionEnd: function onTransitionEnd(swipercustom) {
 	        //WE ONLY WANT THE ACTIVE CONTAINER TO REPORT SLIDE CHANGES
+	        console.log('%cSLIDE CHANGE END', 'font-size : 12px; color: red; background: blue');
 	        if (that.props.container == that.props.activeContainer) {
-	          console.log('%cslide change start - after %d', 'font-size: 12px; color: cyan; background: black;', swipercustom.activeIndex);
 	          var index = swipercustom.activeIndex;
-	          console.log('%cNEW SLIDE', 'font-size: 12px; color: yellow; background: black;', index, that.props.slides[index]);
+	          console.log('%cNEW SLIDE', 'font-size: 12px; color: yellow; background: black;', index, that.state.renderedSlides[index].slide);
+	          //SHOULD L2R SWIPING BE LOCKED? IF DIVERGENT - YES - OTHERWISE - NO
+	          var locked = that.state.renderedSlides[index].slide.match(/\d.\d./) ? true : false;
+
 	          var action = {
 	            type: 'CHANGE_SLIDE',
-	            activeSlide: that.props.slides[index].slide
+	            activeSlide: that.state.renderedSlides[index].slide,
+	            activeParent: that.state.renderedSlides[index].parent,
+	            lockedSide: locked
 	          };
 	          _store2.default.dispatch(action);
-	          that.determineVisibility(that.props.slides[index]);
+	          that.determineVisibility(that.state.renderedSlides[index]);
 	        }
+	      },
+	      onSlideChangeStart: function onSlideChangeStart(swipercustom) {
+	        var index = swipercustom.activeIndex;
 	      },
 	      onInit: function onInit(swipercustom) {
 	        if (that.props.slides[0].loadNextAutomatically) {
@@ -32055,13 +32036,12 @@
 	      visible: false
 	    };
 	    if (slide.visibleHeader) {
-	      console.log('visible');
 	      headerAction.visible = true;
 	    }
 	    _store2.default.dispatch(headerAction);
 	  },
 	  slideTo: function slideTo(index) {
-	    this.swipercustom.slideTo(index);
+	    this.swipercustom.slideTo(index, 500, true);
 	  },
 	  appendSlide: function appendSlide(slide) {
 	    console.log('appending', slide);
@@ -32074,10 +32054,15 @@
 	      that.swipercustom.update(true);
 	    }, 500);
 	  },
-	  appendSlideAndTransition: function appendSlideAndTransition(slide) {
+	  appendSlideAndTransition: function appendSlideAndTransition(slide, position) {
 	    console.log('appending and sliding', slide);
 	    //ADDING THE NEXT SLIDE TO THE STATE AND THUS RENDERING
-	    this.setState({ renderedSlides: this.state.renderedSlides.concat(slide) });
+	    if (!position) {
+	      //IF NO SPECIFIED POSITION - CONCAT THE LATEST TO THE END
+	      this.setState({ renderedSlides: this.state.renderedSlides.concat(slide) });
+	    } else {
+	      //SPECIFIC POSITION SPECIFIED - SO ADD SLIDE IN AT APPROPRIATE INDEX
+	    }
 	    var that = this;
 	    //BRIEF TIMEOUT FOR A DELAY AND ALLOW REACT TO RENDER
 	    setTimeout(function () {
@@ -32087,42 +32072,42 @@
 	      that.swipercustom.slideNext(true, 500);
 	    }, 1000);
 	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    localStorage.removeItem('activeVerticalSlide');
-	  },
 	  generateClassList: function generateClassList() {
-	    console.log('GENERATE');
 	    return 'slide_container swiper-container ' + this.props.customClass;
 	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	  determineSlideRendering: function determineSlideRendering(inactiveSide, nextProps) {
 	    var _this = this;
 
-	    console.log(nextProps, 'NEXT PROPS!!!');
-	    var index = this.swipercustom.activeIndex;
+	    var regex = /[a-zA-Z]/;
+	    var found;
+	    var parent;
 
-	    //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
-	    if (this.props.slides[index].slide !== nextProps.activeSlide) {
-	      //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
-	      var found = this.state.renderedSlides.filter(function (slide) {
-	        return slide.slide === nextProps.activeSlide;
+	    if (inactiveSide && regex.test(nextProps.activeSlide)) {
+	      var parentMatch = nextProps.activeSlide.match(/\d.\d/);
+	      if (parentMatch) {
+	        parent = parentMatch[0];
+	      }
+	      console.log(parent, 'parent');
+	      found = this.state.renderedSlides.filter(function (slide) {
+	        return slide.slide === parent;
 	      });
+
 	      if (found && found[0]) {
-	        console.log(found, 'FOUND SHIT SO SLIDE TO');
+	        console.log(found[0].slide, 'FOUND SHIT SO SLIDE TO');
 	        //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
 	        var position = this.state.renderedSlides.map(function (slide) {
 	          return slide.slide;
-	        }).indexOf(nextProps.activeSlide);
+	        }).indexOf(parent);
 	        this.slideTo(position);
 	      } else {
 	        var that;
 
 	        (function () {
 	          //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
-	          console.log('WE AINT FOUND  SHIT', _this.props.slides);
 	          var slideItem = _this.props.slides.filter(function (slide) {
-	            return slide.slide === nextProps.activeSlide;
+	            return slide.slide === parent;
 	          });
-	          console.log(slideItem, 'SLIDE ITEM');
+
 	          var itemSingle = slideItem[0];
 
 	          if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
@@ -32134,11 +32119,11 @@
 	              var nextItem = _this.props.slides.filter(function (slide) {
 	                return slide.slide === itemSingle.nextSlide;
 	              });
+
 	              if (nextItem) {
-	                console.log(nextItem, "NE$XT");
 	                setTimeout(function () {
 	                  that.appendSlide(nextItem);
-	                }, 3000);
+	                }, 1500);
 	              }
 	            })();
 	          } else {
@@ -32146,6 +32131,68 @@
 	            _this.appendSlideAndTransition(slideItem);
 	          }
 	        })();
+	      }
+	    } else {
+	      //ATTEMPT TO FIND THE DECK NUMBER (etc D3) WITHIN THE RENDERED SLIDES AND RETURN IT
+	      found = this.state.renderedSlides.filter(function (slide) {
+	        return slide.slide === nextProps.activeSlide;
+	      });
+
+	      if (found && found[0]) {
+	        console.log(found[0].slide, 'FOUND SHIT SO SLIDE TO');
+	        //FIND THE POSITION IN THE STACK AND SLIDE TO IT.
+	        var _position = this.state.renderedSlides.map(function (slide) {
+	          return slide.slide;
+	        }).indexOf(nextProps.activeSlide);
+	        this.slideTo(_position);
+	      } else {
+	        var that;
+
+	        (function () {
+	          //WE DON'T HAVE A MATCH SO FIND IT WITHIN THE SLIDES WAITING TO BE RENDERED
+	          var slideItem = _this.props.slides.filter(function (slide) {
+	            return slide.slide === nextProps.activeSlide;
+	          });
+
+	          var itemSingle = slideItem[0];
+
+	          if (itemSingle && itemSingle.loadNextAutomatically && itemSingle.nextSlide) {
+	            (function () {
+	              //APPEND THE NEW SLIDE
+	              that = _this;
+
+	              that.appendSlideAndTransition(slideItem);
+	              var nextItem = _this.props.slides.filter(function (slide) {
+	                return slide.slide === itemSingle.nextSlide;
+	              });
+
+	              if (nextItem) {
+	                setTimeout(function () {
+	                  that.appendSlide(nextItem);
+	                }, 1500);
+	              }
+	            })();
+	          } else {
+	            //APPEND THE NEW SLIDE
+	            _this.appendSlideAndTransition(slideItem);
+	          }
+	        })();
+	      }
+	    }
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var activeIndex = this.swipercustom.activeIndex;
+
+	    if (this.props.container !== nextProps.activeContainer) {
+	      //THIS IS THE NON-ACTIVE SIDE
+	      if ((this.state.renderedSlides[activeIndex] && this.state.renderedSlides[activeIndex].slide) !== nextProps.activeSlide) {
+	        this.determineSlideRendering(true, nextProps);
+	      }
+	    } else {
+	      //IF WE'RE IN THE ACTIVE SIDE - DO THINGS AS NORMAL
+	      //IF THE NEXT PROPS IS DIFFERENT FROM THE CURRENT SLIDE
+	      if ((this.state.renderedSlides[activeIndex] && this.state.renderedSlides[activeIndex].slide) !== nextProps.activeSlide) {
+	        this.determineSlideRendering(false, nextProps);
 	      }
 	    }
 	  },
@@ -32160,7 +32207,8 @@
 	        'div',
 	        { className: 'swiper-wrapper' },
 	        this.state.renderedSlides.map(function (slide) {
-	          return _react2.default.createElement(_Slide2.default, { key: slide.description, slide: slide, activeSlide: _this2.props.activeSlide, activeContainer: _this2.props.activeContainer, container: _this2.props.container });
+	          return _react2.default.createElement(_Slide2.default, { key: slide.description, slide: slide, activeSlide: _this2.props.activeSlide,
+	            activeContainer: _this2.props.activeContainer, container: _this2.props.container });
 	        })
 	      )
 	    );
@@ -32170,6 +32218,7 @@
 	var mapStateToProps = function mapStateToProps(store) {
 	  return {
 	    activeSlide: store.slideState.activeSlide,
+	    activeParent: store.slideState.activeParent,
 	    activeContainer: store.slideState.activeContainer
 	  };
 	};
@@ -32180,7 +32229,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32195,29 +32244,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Messaging = __webpack_require__(297);
+	var _Messaging = __webpack_require__(296);
 
 	var _Messaging2 = _interopRequireDefault(_Messaging);
 
-	var _Splash = __webpack_require__(321);
+	var _Splash = __webpack_require__(335);
 
 	var _Splash2 = _interopRequireDefault(_Splash);
 
-	var _Intro = __webpack_require__(327);
+	var _Intro = __webpack_require__(341);
 
 	var _Intro2 = _interopRequireDefault(_Intro);
 
-	var _EmbeddedSlider = __webpack_require__(342);
+	var _EmbeddedSlider = __webpack_require__(356);
 
 	var _EmbeddedSlider2 = _interopRequireDefault(_EmbeddedSlider);
 
-	var _Audio = __webpack_require__(345);
+	var _Audio = __webpack_require__(359);
 
 	var _Audio2 = _interopRequireDefault(_Audio);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
+	var _ = __webpack_require__(322);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Slide',
@@ -32242,7 +32291,6 @@
 	  },
 	  deckIsActive: function deckIsActive(slide) {
 	    if (this.props.activeSlide === slide.slide && this.props.container === this.props.activeContainer) {
-	      console.log('yuop');
 	      return true;
 	    }
 	  },
@@ -32260,7 +32308,7 @@
 	    } else if (this.bifurcate(this.props.slide)) {
 	      slideType = _react2.default.createElement(_EmbeddedSlider2.default, { slides: this.props.slide.sections, activeSlide: this.props.activeSlide, initial: '1', 'class': '.swiper-container-hor', deck: this.props, active: this.deckIsActive(this.props.slide), side: this.props.side, container: this.props.slide.container });
 	    } else if (this.isAudio(this.props.slide)) {
-	      slideType = _react2.default.createElement(_Audio2.default, { header: this.props.slide.header, file: this.props.slide.audioFile, classExtra: this.props.slide.gender, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide) });
+	      slideType = _react2.default.createElement(_Audio2.default, { header: this.props.slide.header, file: this.props.slide.audioFile, classExtra: this.props.slide.gender, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide), nextSlide: this.props.slide.nextSlide });
 	    } else {
 	      slideType = _react2.default.createElement(_Messaging2.default, { deck: this.props.slide, activeSlide: this.props.activeSlide, active: this.deckIsActive(this.props.slide), classExtra: this.props.slide.charmsg, key: this.id, activeContainer: this.props.activeContainer, parentContainer: this.props.container });
 	    }
@@ -32276,7 +32324,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 297 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32297,22 +32345,26 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _deepAssign = __webpack_require__(298);
+	var _deepAssign = __webpack_require__(297);
 
 	var _deepAssign2 = _interopRequireDefault(_deepAssign);
 
-	var _Message = __webpack_require__(300);
+	var _Message = __webpack_require__(299);
 
 	var _Message2 = _interopRequireDefault(_Message);
 
-	var _PromptList = __webpack_require__(319);
+	var _PromptList = __webpack_require__(330);
 
 	var _PromptList2 = _interopRequireDefault(_PromptList);
 
+	var _Emojikeyboard = __webpack_require__(333);
+
+	var _Emojikeyboard2 = _interopRequireDefault(_Emojikeyboard);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
-	__webpack_require__(313);
+	var _ = __webpack_require__(322);
+	__webpack_require__(323);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Messaging',
@@ -32351,57 +32403,28 @@
 	    var that = this;
 	    prompts = this.props.deck.reactionOptions || [];
 	    prompts.forEach(function (prompt) {
-	      console.log(prompt);
 	      that.setState({ prompts: that.state.prompts.concat([prompt]) });
 	    });
 	  },
 	  getMessages: function getMessages() {
 	    var messages = [];
-	    var display = [];
-	    var displayInterval = 2500;
 	    messages = this.props.deck.messages || null;
 
 	    console.log(this.props.deck, 'MESSAGES FROM PROPS');
-
-	    var that = this;
-	    var count = 0;
 	    if (messages) {
-	      // console.log(messages, messages.length);
-	      // //FIRST RUN - POST FIRST MESSAGE WITHOUT DELAY
-	      // let obj = messages[count];
-	      // that.setState({data: that.state.data.concat([obj])});
-	      // if (count < messages.length) {
-	      //
-	      // } else {
-	      //   that.getPrompts();
-	      // }
 	      this.executeMessaging(messages);
-	      // let timer = setInterval(function() {
-	      //   console.log('%cStarted %s deck is active', 'color: yellow; background: black;', that.props.deck.deck);
-	      //   let obj = messages[count];
-	      //   that.setState({data: that.state.data.concat([obj])});
-	      //   count++;
-	      //   console.log(count, messages.length);
-	      //   if (count >= messages.length) {
-	      //     clearInterval(timer);
-	      //     setTimeout(function() {
-	      //       that.getPrompts();
-	      //     }, displayInterval);
-	      //   }
-	      // }, displayInterval);
 	    } else {
 	      console.log('NO MESSAGES');
 	    }
 	  },
 	  runMessagingPromise: function runMessagingPromise(messageArray) {
-	    console.log(messageArray, 'MESSAGE ARRAY');
+	    //RUNNING MESSAGING AS PROMISE
 	    var deferred = $.Deferred();
-
 	    var i = 0;
 	    var that = this;
 	    var nextStep = function nextStep() {
 	      if (i < messageArray.length) {
-	        // Do something
+	        //STEP THROUGH MESSAGES - POSTING THEM TO STATE
 	        var delay = messageArray[i].delay ? messageArray[i].delay : 2000;
 	        var obj = messageArray[i];
 	        obj.last = true;
@@ -32416,26 +32439,50 @@
 	    nextStep();
 	    return deferred.promise();
 	  },
-	  executeMessaging: function executeMessaging(messageArray, prompts) {
+	  executeMessaging: function executeMessaging(messageArray, prompts, lastAction) {
 	    var that = this;
+	    //MAKE A PROMISE AND RUN MESSAGING
 	    var promise = this.runMessagingPromise(messageArray);
 	    promise.then(function (result) {
-	      if (prompts) {
-	        console.log('more prompts!', prompts);
-	        prompts.forEach(function (prompt) {
-	          console.log(prompt);
-	          that.setState({ prompts: that.state.prompts.concat([prompt]) });
-	        });
+	      //WHAT WAS THE LAST MESSAGE IN THE ARRAY?
+	      var lastMessage = messageArray[result - 1];
+
+	      if (lastMessage.slideLoad) {
+	        //IF THE LAST MESSAGE IS SUPPOSED TO TRIGGER A SLIDE TRANSITION
+	        //DO THAT
+	        setTimeout(function () {
+	          if (that.props.parentContainer === that.props.activeContainer) {
+	            var regexMatch = /.+?./;
+	            var parent = lastMessage.slideToLoad.match(regexMatch);
+	            var action = {
+	              type: 'CHANGE_SLIDE',
+	              activeSlide: lastMessage.slideToLoad,
+	              activeParent: parent[0]
+	            };
+	            _store2.default.dispatch(action);
+	          }
+	        }, 1000);
 	      } else {
-	        that.getPrompts();
+	        //OTHERWISE PROCESS PROMPTS IF THERE ARE ANY
+	        if (prompts) {
+	          console.log('more prompts!', prompts);
+	          prompts.forEach(function (prompt) {
+	            console.log(prompt);
+	            that.setState({ prompts: that.state.prompts.concat([prompt]) });
+	          });
+	        } else {
+	          that.getPrompts();
+	        }
 	      }
 	    });
 	  },
 	  addMessage: function addMessage(message) {
-	    this.setState({ prompts: [] });
+	    //CALLED BY CLICKING A PROMPT
 	    var that = this;
 	    console.log(message, 'add message');
+
 	    if (message.prompt) {
+	      this.setState({ prompts: [] });
 	      var obj = {
 	        sender: 'user',
 	        content: message.prompt,
@@ -32447,66 +32494,76 @@
 	      }
 	      this.setState({ data: this.state.data.concat([obj]) });
 
-	      if (message.loadMore) {
-	        if (message.messagesToLoad) {
-	          setTimeout(function () {
-	            if (message.additionalPrompt) {
-	              //EXECUTE MESSAGING WITH PROMPTS
-	              that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
-	            } else {
-	              //EXECUTE MESSAGING NORMALLY
-	              that.executeMessaging(message.messagesToLoad);
-	            }
-	          }, 1000);
-	        }
-	      }
-
 	      if (message.slideLoad) {
-	        console.log('CALLING SLIDELOAD');
-	        if (this.props.parentContainer === this.props.activeContainer) {
-	          var action = {
-	            type: 'CHANGE_SLIDE',
-	            activeSlide: message.slideToLoad
-	          };
-	          _store2.default.dispatch(action);
+	        //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
+	        setTimeout(function () {
+	          if (that.props.parentContainer === that.props.activeContainer) {
+	            var regexMatch = /.+?./;
+	            var parent = message.slideToLoad.match(regexMatch);
+	            var action = {
+	              type: 'CHANGE_SLIDE',
+	              activeSlide: message.slideToLoad,
+	              activeParent: parent[0]
+	            };
+	            _store2.default.dispatch(action);
+	          }
+	        }, 750);
+	      } else if (message.loadAdditionalSlides) {
+	        if (message.slidesToLoad) {}
+	      } else {
+	        //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
+	        if (message.loadMore) {
+	          if (message.messagesToLoad) {
+	            setTimeout(function () {
+	              if (message.additionalPrompt) {
+	                //EXECUTE MESSAGING WITH PROMPTS
+	                that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
+	              } else {
+	                //EXECUTE MESSAGING NORMALLY
+	                that.executeMessaging(message.messagesToLoad);
+	              }
+	            }, 1000);
+	          }
 	        }
 	      }
 	    }
 
-	    // var count=0;
-	    // if (message.messagesToLoad) {
-	    //   let timer2 = setInterval(function() {
-	    //     console.log('%cStarted %s deck is active', 'color: yellow; background: black;', that.props.deck.deck);
-	    //     let obj = message.messagesToLoad[count];
-	    //     that.setState({data: that.state.data.concat([obj])});
-	    //     count++;
-	    //     console.log(count, message.messagesToLoad.length);
-	    //     if (count >= message.messagesToLoad.length) {
-	    //       console.log('%cSHOULD NUKE at %d', 'color:orange', count);
-	    //       clearInterval(timer2);
-	    //       setTimeout(function() {
-	    //         if (message.additionalPrompt) {
-	    //           that.setState({prompts: [{prompt: message.promptFollowUp[0].prompt}]});
-	    //         }
-	    //       }, 2500);
-	    //     }
-	    //   }, 2500);
-	    // }
-
-	    // this.setState({data: this.state.data.concat([message])});
+	    if (message.emojiboard) {
+	      console.log('FROM THE BOARD', this);
+	      //MESSAGE COMING FROM THE EMOJIBOARD
+	      var _obj = {
+	        sender: 'user',
+	        content: message.prompt,
+	        skipDelay: true
+	      };
+	      //IF WE HAVE AN EMOJI - ADD TO OBJECT
+	      if (message.emoji) {
+	        _obj.emoji = message.emoji;
+	      }
+	      this.setState({ data: this.state.data.concat([_obj]) });
+	    }
 	  },
 	  messageClass: function messageClass() {
 	    var extra = this.props.classExtra ? this.props.classExtra : '';
 	    return 'messaging-container ' + extra;
 	  },
+
 	  render: function render() {
+	    var prompter;
+	    if (this.props.deck.reaction && this.props.deck.reactionType === 'buttons') {
+	      prompter = _react2.default.createElement(_PromptList2.default, { prompts: this.state.prompts, addMessage: this.addMessage, type: this.props.deck.reactionType, key: this.promptId });
+	    } else {
+	      prompter = _react2.default.createElement(_Emojikeyboard2.default, { prompts: this.state.prompts, addMessage: this.addMessage, type: this.props.deck.reactionType, key: this.promptId });
+	    }
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: this.messageClass(), key: this.id },
-	      this.state.data.map(function (message) {
-	        return _react2.default.createElement(_Message2.default, { msg: message, sender: message.sender, skipDelay: message.skipDelay, delayTime: message.delayTime, displayAvatar: message.displayAvatar, lastinblock: message.lastMsgInBlock });
+	      this.state.data.map(function (message, index) {
+	        return _react2.default.createElement(_Message2.default, { msg: message, sender: message.sender, skipDelay: message.skipDelay, delayTime: message.delayTime,
+	          displayAvatar: message.displayAvatar, lastinblock: message.lastMsgInBlock, key: index });
 	      }),
-	      _react2.default.createElement(_PromptList2.default, { prompts: this.state.prompts, addMessage: this.addMessage, key: this.promptId })
+	      prompter
 	    );
 	  }
 	});
@@ -32515,11 +32572,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 298 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var isObj = __webpack_require__(299);
+	var isObj = __webpack_require__(298);
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -32589,7 +32646,7 @@
 
 
 /***/ },
-/* 299 */
+/* 298 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32600,7 +32657,7 @@
 
 
 /***/ },
-/* 300 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32615,12 +32672,12 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _emoji = __webpack_require__(301);
+	var _emoji = __webpack_require__(300);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
-	__webpack_require__(313);
+	var _ = __webpack_require__(322);
+	__webpack_require__(323);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Message',
@@ -32683,6 +32740,8 @@
 	      avatar = _react2.default.createElement('div', { className: 'avatar john' });
 	    } else if (displayAvatar && sender === 'sue') {
 	      avatar = _react2.default.createElement('div', { className: 'avatar sue' });
+	    } else if (displayAvatar && sender === 'friend') {
+	      avatar = _react2.default.createElement('div', { className: 'avatar friend' });
 	    } else if (sender === 'sue' || sender === 'john') {
 	      avatar = _react2.default.createElement('div', { className: 'avatar non__user' });
 	    }
@@ -32731,7 +32790,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 301 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32741,16 +32800,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var thumbs_up = __webpack_require__(302);
-	var thumbs_down = __webpack_require__(303);
-	var shitty = __webpack_require__(304);
-	var question = __webpack_require__(305);
-	var nope = __webpack_require__(306);
-	var love_eyes_cat = __webpack_require__(307);
-	var interrobang = __webpack_require__(308);
-	var celebration = __webpack_require__(309);
-	var appreciation = __webpack_require__(310);
-	var hundred = __webpack_require__(311);
+	var thumbs_up = __webpack_require__(301);
+	var thumbs_down = __webpack_require__(302);
+	var shitty = __webpack_require__(303);
+	var question = __webpack_require__(304);
+	var nope = __webpack_require__(305);
+	var love_eyes_cat = __webpack_require__(306);
+	var interrobang = __webpack_require__(307);
+	var celebration = __webpack_require__(308);
+	var appreciation = __webpack_require__(309);
+	var hundred = __webpack_require__(310);
+	var fuego = __webpack_require__(311);
+	var broken_heart = __webpack_require__(312);
+	var heart = __webpack_require__(313);
+	var okay = __webpack_require__(314);
+	var hug = __webpack_require__(315);
+	var love_eyes = __webpack_require__(316);
+	var o_face = __webpack_require__(317);
+	var bolt_face = __webpack_require__(318);
+	var tear = __webpack_require__(319);
+	var super_happy = __webpack_require__(320);
+	var enter = __webpack_require__(321);
 
 	function emojiAssign(emoji) {
 	  switch (emoji) {
@@ -32758,14 +32828,20 @@
 	      return thumbs_up;
 	    case 'thumbs_down':
 	      return thumbs_down;
+	    case 'okay':
+	      return okay;
 	    case 'shitty':
 	      return shitty;
+	    case 'fuego':
+	      return fuego;
 	    case 'question':
 	      return question;
 	    case 'nope':
 	      return nope;
 	    case 'love_eyes_cat':
 	      return love_eyes_cat;
+	    case 'love_eyes':
+	      return love_eyes;
 	    case 'interrobang':
 	      return interrobang;
 	    case 'celebration':
@@ -32774,6 +32850,22 @@
 	      return appreciation;
 	    case 'hundred':
 	      return hundred;
+	    case 'heart':
+	      return heart;
+	    case 'broken_heart':
+	      return broken_heart;
+	    case 'hug':
+	      return hug;
+	    case 'o_face':
+	      return o_face;
+	    case 'bolt_face':
+	      return bolt_face;
+	    case 'tear':
+	      return tear;
+	    case 'super_happy':
+	      return super_happy;
+	    case 'enter':
+	      return enter;
 	    default:
 	      return thumbs_up;
 	  }
@@ -32785,67 +32877,133 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 302 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9f9bab8b62c4bf13e62c9f4cf0e050bf.png";
 
 /***/ },
-/* 303 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "fda24c19ac1b45edad8b073d48870259.png";
 
 /***/ },
-/* 304 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b1246a61aa2171161735a8b65e9ebba0.png";
 
 /***/ },
-/* 305 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "47fd617aefa3b44263a5c09bbebc8d0a.png";
 
 /***/ },
-/* 306 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e7c9d519561fe0f8cb4d3debe828bbc2.png";
 
 /***/ },
-/* 307 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "284a24d56a964300b4dcce828cea8849.png";
 
 /***/ },
-/* 308 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d52bca307a57678bc82a404a92df46fe.png";
 
 /***/ },
-/* 309 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5b6afb57bedecbf856b003db6c4a4bdb.png";
 
 /***/ },
-/* 310 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "555c6829e91d0812bc6923cedb36a7d9.png";
 
 /***/ },
-/* 311 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d9f68b1d5368fcc6317542c840128017.png";
 
 /***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "982ec58587f0596e58b08d9ecd4129a3.png";
+
+/***/ },
 /* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "4c1c4bfd33df6170db2b3b66eb7542ca.png";
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "02e5dcca0e132c89356ea2ad32124254.png";
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b65eff5f23d6bc3a31b0c6a9d3fd2a10.png";
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "44db629be69a68cbe81bbe6259b736e4.png";
+
+/***/ },
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "1d145899c4fe5b1c5b76c7824d078af5.png";
+
+/***/ },
+/* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e1b7d8becea9203d5c123f0862bd7afe.png";
+
+/***/ },
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "5182aaf5ba3b016eee49e846770049e8.png";
+
+/***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "d0d41726e5aa1bcff0bbadfb88f765a2.png";
+
+/***/ },
+/* 320 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "253012b6922093280ecdd22a3466afa1.png";
+
+/***/ },
+/* 321 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "3e9ad1f7e22043da2f8b0a66c8a96f9d.png";
+
+/***/ },
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -49256,23 +49414,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module), (function() { return this; }())))
 
 /***/ },
-/* 313 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(314);
+	var content = __webpack_require__(324);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(314, function() {
-				var newContent = __webpack_require__(314);
+			module.hot.accept(324, function() {
+				var newContent = __webpack_require__(324);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49282,45 +49440,51 @@
 	}
 
 /***/ },
-/* 314 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  padding            : 55px 2% 0;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : #FEF3F1;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : #F1F5F7;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  font-size       : 12px;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #D7CFDC;\n  color           : #734E86;\n  border          : #734E86 1px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg {\n  border-top-right-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg {\n  border-top-left-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background      : #4F3065;\n  color           : white;\n  border-radius   : 20px 0 20px 20px;\n  float           : right;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  min-width       : 10%;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border     : 1px solid #3CA3BB;\n  background : #F1F5F7;\n  right      : 40px;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : white;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.messaging-container.she > .message__wrapper > .message.john {\n  background : #FEF3F1;\n  left       : 40px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n  right         : 40px;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n/*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator > span.bubble {\n  margin          : auto;\n  width           : 40px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n  position        : absolute;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(315) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(316) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(317) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(318) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 12pt;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n  box-shadow      : black 0 0 2px;\n  background      : white;\n  visibility      : hidden;\n}\n\n.prompt-line.visible {\n  visibility : visible;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n  font-family   : 'Avenir-Medium', sans-serif;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n.emoji {\n  height : 25px;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #333;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
+	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  padding            : 55px 2% 0;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : #FEF3F1;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : #F1F5F7;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n  margin  : 1px 0;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  font-size       : 12px;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #D7CFDC;\n  color           : #734E86;\n  border          : #734E86 1px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg {\n  border-top-right-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg {\n  border-top-left-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background      : #4F3065;\n  color           : white;\n  border-radius   : 20px 0 20px 20px;\n  float           : right;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  min-width       : 10%;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border     : 1px solid #3CA3BB;\n  background : #F1F5F7;\n  right      : 40px;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : white;\n  left       : 40px;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.messaging-container.she > .message__wrapper > .message.john {\n  background : #FEF3F1;\n  left       : 40px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n  right         : 40px;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.friend {\n  left : 40px;\n}\n\n.message__wrapper > .message.friend {\n  margin-left : 10px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n/*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.john:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue:nth-last-child(2) > .message {\n  border-bottom-right-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator > span.bubble {\n  margin          : auto;\n  width           : 40px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n  position        : absolute;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(325) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(326) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.friend {\n  background-image : url(" + __webpack_require__(327) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(328) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(329) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 12pt;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n  box-shadow      : black 0 0 2px;\n  background      : white;\n  visibility      : hidden;\n}\n\n.prompt-line.emoji {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  height : 150px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  background: #CCCCCC;\n}\n\n.prompt-line.visible {\n  visibility : visible;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n  font-family   : 'Avenir-Medium', sans-serif;\n}\n\n.prompt.emoji {\n  background    : none;\n  margin-right  : 0;\n  border-radius : 0;\n  padding       : 0 12px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n.emoji {\n  height : 25px;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #333;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 315 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "29c52f657d4754bef86668b4302368f5.png";
 
 /***/ },
-/* 316 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "0fa26ea7f8478459b819b152c0ff2704.png";
 
 /***/ },
-/* 317 */
+/* 327 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "1954adb6788adafe5f0bfb050cbff9ca.png";
+
+/***/ },
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b012aff5e046a530f7e1ae8313977d2.png";
 
 /***/ },
-/* 318 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "42d6472a920a49a07716ca15aaa9b1e1.png";
 
 /***/ },
-/* 319 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49335,14 +49499,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Prompt = __webpack_require__(320);
+	var _Prompt = __webpack_require__(331);
 
 	var _Prompt2 = _interopRequireDefault(_Prompt);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
-	var classNames = __webpack_require__(290);
+	var _ = __webpack_require__(322);
+	var classNames = __webpack_require__(332);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'PromptList',
@@ -49375,7 +49539,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 320 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49390,11 +49554,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _emoji = __webpack_require__(301);
+	var _emoji = __webpack_require__(300);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
+	var _ = __webpack_require__(322);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Prompt',
@@ -49432,7 +49596,228 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 321 */
+/* 332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(152);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Emoji = __webpack_require__(334);
+
+	var _Emoji2 = _interopRequireDefault(_Emoji);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _ = __webpack_require__(322);
+	var classNames = __webpack_require__(332);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Emojikeyboard',
+
+	  componentWillMount: function componentWillMount() {
+	    this.id = _.uniqueId('prompt-list_');
+	    this.promptLineId = _.uniqueId('prompt-line-id_');
+
+	    this.emojiboard = [{
+	      emoji: 'super_happy',
+	      value: 1
+	    }, {
+	      emoji: 'tear',
+	      value: -1
+	    }, {
+	      emoji: 'bolt_face',
+	      value: 1
+	    }, {
+	      emoji: 'o_face',
+	      value: 0
+	    }, {
+	      emoji: 'love_eyes',
+	      value: 1
+	    }, {
+	      emoji: 'hug',
+	      value: 1
+	    }, {
+	      emoji: 'hundred',
+	      value: 1
+	    }, {
+	      emoji: 'appreciation',
+	      value: 0
+	    }, {
+	      emoji: 'thumbs_up',
+	      value: 1
+	    }, {
+	      emoji: 'okay',
+	      value: 0
+	    }, {
+	      emoji: 'thumbs_down',
+	      value: -1
+	    }, {
+	      emoji: 'nope',
+	      value: -1
+	    }, {
+	      emoji: 'celebration',
+	      value: 1
+	    }, {
+	      emoji: 'heart',
+	      value: 1
+	    }, {
+	      emoji: 'broken_heart',
+	      value: -1
+	    }, {
+	      emoji: 'fuego',
+	      value: 0
+	    }, {
+	      emoji: 'shitty',
+	      value: 0
+	    }, {
+	      emoji: 'enter',
+	      enter: true
+	    }];
+	  },
+	  componentDidMount: function componentDidMount() {
+	    console.log(this.props.messages, 'MOUNTED');
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var promptClass = classNames({
+	      'prompt-line emoji': true,
+	      'visible': this.props.prompts.length > 0
+	    });
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: promptClass, key: this.promptLineId },
+	      this.emojiboard.map(function (emoji, index) {
+	        return _react2.default.createElement(_Emoji2.default, { emoji: emoji, key: index, addMessage: _this.props.addMessage, prompts: _this.props.prompts });
+	      })
+	    );
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Emojikeyboard.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(152);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _emoji = __webpack_require__(300);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _ = __webpack_require__(322);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Emoji',
+
+	  render: function render() {
+	    var _this = this;
+
+	    var promptContent = void 0;
+	    var emoji = (0, _emoji.emojiAssign)(this.props.emoji.emoji);
+	    promptContent = _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement('img', { className: 'emoji', src: emoji, alt: this.props.emoji.emoji })
+	    );
+
+	    var messageToAdd = {
+	      emojiboard: true,
+	      emoji: this.props.emoji.emoji,
+	      value: this.props.emoji.value
+	    };
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'prompt emoji', onClick: function onClick() {
+	          _this.props.addMessage(messageToAdd);
+	        } },
+	      promptContent
+	    );
+	  }
+	});
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(283); if (makeExportsHot(module, __webpack_require__(152))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Emoji.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49449,7 +49834,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(322);
+	__webpack_require__(336);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Splash',
@@ -49477,23 +49862,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 322 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(323);
+	var content = __webpack_require__(337);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(323, function() {
-				var newContent = __webpack_require__(323);
+			module.hot.accept(337, function() {
+				var newContent = __webpack_require__(337);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49503,39 +49888,39 @@
 	}
 
 /***/ },
-/* 323 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(324) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n#splash > .splash-logo-wrapper > .logo-container {\n  background-image  : url(" + __webpack_require__(325) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  height            : 140px;\n  width             : 100%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 20px;\n  font-weight : normal;\n  text-align  : center;\n  -webkit-filter      : drop-shadow(1px 1px 3px black);\n          filter      : drop-shadow(1px 1px 3px black);\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(326) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  margin            : auto;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
+	exports.push([module.id, "#splash {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(338) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n#splash > .splash-logo-wrapper {\n  position : relative;\n  top      : 20%;\n}\n\n#splash > .splash-logo-wrapper > .logo-container {\n  background-image  : url(" + __webpack_require__(339) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  height            : 140px;\n  width             : 100%;\n}\n\n.splash-logo-wrapper > h3 {\n  width       : 270px;\n  margin      : 30px auto;\n  font-size   : 20px;\n  font-weight : normal;\n  text-align  : center;\n}\n\n.he-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 20px auto 0;\n  height          : 70px;\n  background      : #3CA3BB;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 30px 0 0;\n}\n\n.he-wrap:after {\n  position      : absolute;\n  width         : 0;\n  height        : 0;\n  content       : \"\";\n  bottom        : 0;\n  left          : -15px;\n  border-bottom : 12px solid #3CA3BB;\n  border-left   : 18px solid transparent;\n}\n\n.she-wrap {\n  position        : relative;\n  width           : 220px;\n  text-align      : center;\n  margin          : 10px auto 0;\n  height          : 70px;\n  background      : #F16375;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  border-radius   : 30px 0 30px 30px;\n}\n\n.she-wrap:after {\n  position     : absolute;\n  width        : 0;\n  height       : 0;\n  content      : \"\";\n  top          : 0;\n  right        : -15px;\n  border-top   : 12px solid #F16375;\n  border-right : 18px solid transparent;\n}\n\n.start-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(340) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n  margin            : auto;\n}\n\n.start-btn > .up-icon {\n  font-size : 45px;\n}\n\n.start-btn > .start-text {\n  text-transform : uppercase;\n  font-size      : 18px;\n  font-style     : normal;\n  letter-spacing : 4px;\n  margin         : 0;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 324 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a8b5e250ee241b39a437437549341584.gif";
 
 /***/ },
-/* 325 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e977a464967f3981af74c837541ab83e.png";
 
 /***/ },
-/* 326 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "27ddf0e6e9aed8e838aee6ccc2a12444.png";
 
 /***/ },
-/* 327 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49556,16 +49941,16 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DisplayItem = __webpack_require__(328);
+	var _DisplayItem = __webpack_require__(342);
 
 	var _DisplayItem2 = _interopRequireDefault(_DisplayItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ReactCSSTransitionGroup = __webpack_require__(332);
+	var ReactCSSTransitionGroup = __webpack_require__(346);
 
 
-	__webpack_require__(339);
+	__webpack_require__(353);
 
 	var Intro = _react2.default.createClass({
 	  displayName: 'Intro',
@@ -49649,7 +50034,7 @@
 	        that.setState({ data: that.state.data.concat([obj]) });
 	        setTimeout(function () {
 	          loop.next();
-	        }, 2500);
+	        }, 3000);
 	      }, function () {
 
 	        console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length - 1);
@@ -49662,7 +50047,7 @@
 	        }
 	        setTimeout(function () {
 	          loop.next();
-	        }, 2500);
+	        }, 3000);
 	      });
 	    }, function () {
 	      console.log('done');
@@ -49697,7 +50082,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 328 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -49714,11 +50099,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _ = __webpack_require__(312);
+	var _ = __webpack_require__(322);
 
-	var avatars = __webpack_require__(329);
-	var johnClick = __webpack_require__(330);
-	var sueClick = __webpack_require__(331);
+	var avatars = __webpack_require__(343);
+	var johnClick = __webpack_require__(344);
+	var sueClick = __webpack_require__(345);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'DisplayItem',
@@ -49774,31 +50159,31 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 329 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "07fd8c2fe6743cc4c5cd40a15a95cb49.png";
 
 /***/ },
-/* 330 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e01fa3122e102247245bfca080c79b6f.png";
 
 /***/ },
-/* 331 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "460e77de779e53f5ddb53c7a2b0af66c.png";
 
 /***/ },
-/* 332 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(333);
+	module.exports = __webpack_require__(347);
 
 /***/ },
-/* 333 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49818,8 +50203,8 @@
 
 	var React = __webpack_require__(153);
 
-	var ReactTransitionGroup = __webpack_require__(334);
-	var ReactCSSTransitionGroupChild = __webpack_require__(336);
+	var ReactTransitionGroup = __webpack_require__(348);
+	var ReactCSSTransitionGroupChild = __webpack_require__(350);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -49890,7 +50275,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 334 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49910,7 +50295,7 @@
 
 	var React = __webpack_require__(153);
 	var ReactInstanceMap = __webpack_require__(123);
-	var ReactTransitionChildMapping = __webpack_require__(335);
+	var ReactTransitionChildMapping = __webpack_require__(349);
 
 	var emptyFunction = __webpack_require__(108);
 
@@ -50142,7 +50527,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 335 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -50251,7 +50636,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 336 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50270,8 +50655,8 @@
 	var React = __webpack_require__(153);
 	var ReactDOM = __webpack_require__(169);
 
-	var CSSCore = __webpack_require__(337);
-	var ReactTransitionEvents = __webpack_require__(338);
+	var CSSCore = __webpack_require__(351);
+	var ReactTransitionEvents = __webpack_require__(352);
 
 	var onlyChild = __webpack_require__(167);
 
@@ -50423,7 +50808,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 337 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -50550,7 +50935,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 338 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50628,23 +51013,23 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 339 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(340);
+	var content = __webpack_require__(354);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(340, function() {
-				var newContent = __webpack_require__(340);
+			module.hot.accept(354, function() {
+				var newContent = __webpack_require__(354);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50654,27 +51039,27 @@
 	}
 
 /***/ },
-/* 340 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(341) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size      : 30px;\n  line-height    : 50px;\n  width          : 80%;\n  margin         : auto;\n  display        : -webkit-box;\n  display        : -ms-flexbox;\n  display        : flex;\n  -webkit-box-align    : center;\n      -ms-flex-align    : center;\n          align-items    : center;\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n  font-family    : 'Avenir-Medium', sans-serif;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > img.avatar-intro-image {\n  width         : 100%;\n  margin-bottom : 20px;\n}\n\n.display-item > .swipe-choice-container {\n  margin-top : 20px;\n}\n\n.display-item > .swipe-choice-container > img.swipe-choice {\n  width  : 48%;\n  margin : 1%;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity   : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
+	exports.push([module.id, "#intro {\n  /*background     : #4F3065;*/\n  background-image : url(" + __webpack_require__(355) + ");\n  background-size  : cover;\n  color            : white;\n  height           : 100%;\n  width            : 100%;\n  display          : -webkit-box;\n  display          : -ms-flexbox;\n  display          : flex;\n  -webkit-box-align      : center;\n      -ms-flex-align      : center;\n          align-items      : center;\n  -webkit-box-pack  : center;\n      -ms-flex-pack  : center;\n          justify-content  : center;\n  -webkit-box-orient   : vertical;\n  -webkit-box-direction   : normal;\n      -ms-flex-direction   : column;\n          flex-direction   : column;\n}\n\n.display-item {\n  font-size      : 30px;\n  line-height    : 50px;\n  width          : 80%;\n  margin         : auto;\n  display        : -webkit-box;\n  display        : -ms-flexbox;\n  display        : flex;\n  -webkit-box-align    : center;\n      -ms-flex-align    : center;\n          align-items    : center;\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n  font-family    : 'Avenir-Medium', sans-serif;\n}\n\n.display-item.vert {\n  -webkit-box-orient : vertical;\n  -webkit-box-direction : normal;\n      -ms-flex-direction : column;\n          flex-direction : column;\n}\n\n.display-item > p {\n  margin : 0;\n  -webkit-filter : drop-shadow(1px 1px 3px black);\n          filter : drop-shadow(1px 1px 3px black);\n}\n\n.display-item > img.avatar-intro-image {\n  width         : 100%;\n  margin-bottom : 20px;\n}\n\n.display-item > .swipe-choice-container {\n  margin-top : 20px;\n}\n\n.display-item > .swipe-choice-container > img.swipe-choice {\n  width  : 48%;\n  margin : 1%;\n}\n\n.fadeIn-enter {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-enter.fadeIn-enter-active {\n  opacity : 1;\n}\n\n.fadeIn-leave {\n  opacity    : 1;\n  -webkit-transition : all 1s ease-in;\n  transition : all 1s ease-in;\n}\n\n.fadeIn-leave.fadeIn-leave-active {\n  opacity   : 0.01;\n  -webkit-transform : translateY(-200%);\n          transform : translateY(-200%);\n}\n\n.fadeIn-appear {\n  opacity    : 0.01;\n  -webkit-transition : all .5s ease-in;\n  transition : all .5s ease-in;\n}\n\n.fadeIn-appear.fadeIn-appear-active {\n  opacity : 1;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 341 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "87f48860e1afd1bd73a888636141fb3a.gif";
 
 /***/ },
-/* 342 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50689,7 +51074,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CustomizableSlider = __webpack_require__(295);
+	var _CustomizableSlider = __webpack_require__(294);
 
 	var _CustomizableSlider2 = _interopRequireDefault(_CustomizableSlider);
 
@@ -50702,8 +51087,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// import store from '../components/shared/store.js';
-	__webpack_require__(343);
-	var _ = __webpack_require__(312);
+	__webpack_require__(357);
+	var _ = __webpack_require__(322);
 
 	var EmbeddedSlider = _react2.default.createClass({
 	  displayName: 'EmbeddedSlider',
@@ -50723,7 +51108,7 @@
 	    this.horizontalSlider = new Swiper('.swiper-container-hor', {
 	      direction: 'horizontal',
 	      initialSlide: initial,
-	      spaceBetween: 150,
+	      spaceBetween: 0,
 	      onSlideChangeEnd: function onSlideChangeEnd(horizontalSlider) {
 	        console.log('%cslide change end - after %d', 'font-size: 12px; color: purple; background: black;', horizontalSlider.activeIndex);
 	        var index = horizontalSlider.activeIndex;
@@ -50753,6 +51138,12 @@
 	    if (this.props.side !== nextProps.side) {
 	      this.toggleSide(nextProps.side);
 	    }
+
+	    if (nextProps.lockSide) {
+	      this.lockSwiping();
+	    } else {
+	      this.unlockSwiping();
+	    }
 	  },
 
 	  determineLaunchSide: function determineLaunchSide(side) {
@@ -50772,6 +51163,12 @@
 	    }
 	    this.horizontalSlider.slideTo(index);
 	  },
+	  lockSwiping: function lockSwiping() {
+	    this.horizontalSlider.lockSwipes();
+	  },
+	  unlockSwiping: function unlockSwiping() {
+	    this.horizontalSlider.unlockSwipes();
+	  },
 	  getSlides: function getSlides() {
 	    return this.props.slides || [];
 	  },
@@ -50780,7 +51177,7 @@
 
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'slide_container swiper-container swiper-container-hor' },
+	      { className: 'slide_container swiper-container swiper-container-hor', key: this.id },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'swiper-wrapper' },
@@ -50801,7 +51198,8 @@
 	    activeSide: store.slideState.activeSide,
 	    activeContainer: store.slideState.activeContainer,
 	    episode: store.episodeState.episode,
-	    launchSide: store.episodeState.launchSide
+	    launchSide: store.episodeState.launchSide,
+	    lockSide: store.slideState.lockedSide
 	  };
 	};
 
@@ -50811,23 +51209,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 343 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(344);
+	var content = __webpack_require__(358);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(344, function() {
-				var newContent = __webpack_require__(344);
+			module.hot.accept(358, function() {
+				var newContent = __webpack_require__(358);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50837,10 +51235,10 @@
 	}
 
 /***/ },
-/* 344 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
@@ -50851,7 +51249,7 @@
 
 
 /***/ },
-/* 345 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -50866,17 +51264,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _waveform = __webpack_require__(346);
+	var _store = __webpack_require__(279);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _waveform = __webpack_require__(360);
 
 	var _waveform2 = _interopRequireDefault(_waveform);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(347);
-	var _ = __webpack_require__(312);
-	var hisAudioForImpressions = __webpack_require__(355);
-	var herAudioForImpressions = __webpack_require__(356);
-	var classNames = __webpack_require__(290);
+	__webpack_require__(361);
+	var _ = __webpack_require__(322);
+	var hisAudioForImpressions = __webpack_require__(369);
+	var herAudioForImpressions = __webpack_require__(370);
+	var hisCuddleRoom = __webpack_require__(371);
+	var herCuddleRoom = __webpack_require__(372);
+	var hisNumberExchange = __webpack_require__(373);
+	var herNumberExchange = __webpack_require__(374);
+	var hisNightCap = __webpack_require__(375);
+	var herNightCap = __webpack_require__(376);
+	var classNames = __webpack_require__(332);
 	exports.default = _react2.default.createClass({
 	  displayName: 'Audio',
 
@@ -50893,8 +51301,7 @@
 	  componentWillMount: function componentWillMount() {
 	    this.id = _.uniqueId('audio_');
 	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	  componentDidReceiveProps: function componentDidReceiveProps(nextProps) {
 	    if (nextProps.active) {
 	      this.play();
 	    } else {
@@ -50932,6 +51339,14 @@
 	    });
 	  },
 
+	  handleFinish: function handleFinish() {
+	    console.log('HANDLE FINISH');
+	    var action = {
+	      type: 'CHANGE_SLIDE',
+	      activeSlide: this.props.nextSlide
+	    };
+	    _store2.default.dispatch(action);
+	  },
 	  handlePosChange: function handlePosChange(e) {
 	    this.setState({
 	      pos: e.originalArgs ? e.originalArgs[0] : +e.target.value,
@@ -50959,6 +51374,18 @@
 	        return herAudioForImpressions;
 	      case 'First_Impressions_He':
 	        return hisAudioForImpressions;
+	      case 'hisCuddleRoom':
+	        return hisCuddleRoom;
+	      case 'herCuddleRoom':
+	        return herCuddleRoom;
+	      case 'hisNumberExchange':
+	        return hisNumberExchange;
+	      case 'herNumberExchange':
+	        return herNumberExchange;
+	      case 'hisNightCap':
+	        return hisNightCap;
+	      case 'herNightCap':
+	        return herNightCap;
 	    }
 	  },
 	  render: function render() {
@@ -50970,7 +51397,8 @@
 	      barWidth: 3,
 	      cursorWidth: 0,
 	      height: 384,
-	      normalize: true
+	      normalize: true,
+	      fillParent: true
 	    };
 
 	    var btnClass = classNames({
@@ -51012,7 +51440,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'audio-element' },
-	            _react2.default.createElement(_waveform2.default, { audioFile: this.audioSelection(), pos: this.state.pos, onPosChange: this.handlePosChange, onPlayChange: this.handlePlayChange, playing: this.state.playing, options: options })
+	            _react2.default.createElement(_waveform2.default, { audioFile: this.audioSelection(), pos: this.state.pos, onPosChange: this.handlePosChange, onPlayChange: this.handlePlayChange, onFinish: this.handleFinish, playing: this.state.playing, options: options })
 	          )
 	        )
 	      ),
@@ -51025,7 +51453,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 346 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51042,7 +51470,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _deepAssign = __webpack_require__(298);
+	var _deepAssign = __webpack_require__(297);
 
 	var _deepAssign2 = _interopRequireDefault(_deepAssign);
 
@@ -51054,7 +51482,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _ = __webpack_require__(312);
+	var _ = __webpack_require__(322);
 
 	var Waveform = function (_Component) {
 	  _inherits(Waveform, _Component);
@@ -51121,7 +51549,6 @@
 	      });
 
 	      this._wavesurfer.on('finish', function () {
-	        console.log('FINISH CALLED', _this2._wavesurfer);
 	        _this2.setState({
 	          finished: true
 	        });
@@ -51129,6 +51556,7 @@
 	        _this2.props.onPlayChange({
 	          playArgs: [_this2.state.finished]
 	        });
+	        _this2.props.onFinish();
 	      });
 
 	      this._wavesurfer.on('play', function () {
@@ -51298,23 +51726,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 347 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(348);
+	var content = __webpack_require__(362);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(348, function() {
-				var newContent = __webpack_require__(348);
+			module.hot.accept(362, function() {
+				var newContent = __webpack_require__(362);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51324,69 +51752,105 @@
 	}
 
 /***/ },
-/* 348 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".audio-wrapper {\n  height    : 193px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n}\n\n.audio-element {\n  width : 90%;\n  margin :auto;\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(349) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(350) + ");\n}\n\n.audio-container > .content-wrap {\n  padding : 0 5%;\n  overflow: hidden;\n}\n\n.audio-container > .content-wrap > .header-container {\n  -webkit-filter     : drop-shadow(1px 1px 3px black);\n          filter     : drop-shadow(1px 1px 3px black);\n  width      : 60%;\n  text-align : left;\n  position   : relative;\n  bottom     : -70px;\n  font-family: 'Avenir-Black', sans-serif;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.next-btn {\n  position          : absolute;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(351) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(352) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(353) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(354) + ");\n}", ""]);
+	exports.push([module.id, ".audio-wrapper {\n  height    : 193px;\n  overflow  : hidden;\n  -webkit-transform : rotateX(180deg);\n          transform : rotateX(180deg);\n}\n\n.audio-container {\n  width              : 100%;\n  height             : 100%;\n  overflow-y         : scroll;\n  overflow-scrolling : touch;\n  color              : white;\n  background-size    : cover;\n  display            : -webkit-box;\n  display            : -ms-flexbox;\n  display            : flex;\n  -webkit-box-align        : center;\n      -ms-flex-align        : center;\n          align-items        : center;\n  -webkit-box-pack    : center;\n      -ms-flex-pack    : center;\n          justify-content    : center;\n  -webkit-box-orient     : vertical;\n  -webkit-box-direction     : normal;\n      -ms-flex-direction     : column;\n          flex-direction     : column;\n}\n\n.audio-element {\n  width  : 90%;\n  margin : auto;\n}\n\n.audio-container.he {\n  background-image : url(" + __webpack_require__(363) + ");\n}\n\n.audio-container.she {\n  background-image : url(" + __webpack_require__(364) + ");\n}\n\n.audio-container > .content-wrap {\n  width    : 90%;\n  margin   : auto;\n  overflow : hidden;\n}\n\n.audio-container > .content-wrap > .header-container {\n  width       : 80%;\n  text-align  : left;\n  position    : relative;\n  bottom      : -70px;\n  font-family : 'Avenir-Black', sans-serif;\n}\n\n.audio-container > .content-wrap > .timer {\n  display     : inline-block;\n  width       : 60%;\n  position    : relative;\n  top         : 60px;\n  font-size   : 35px;\n  text-align  : left;\n  margin-left : 40px;\n}\n\n.next-btn {\n  position          : absolute;\n  margin            : auto;\n  bottom            : 20px;\n  height            : 60px;\n  width             : 75px;\n  background        : url(" + __webpack_require__(365) + ");\n  background-size   : contain;\n  background-repeat : no-repeat;\n}\n\n.audio-container > .content-wrap > .play-pause {\n  text-align      : left;\n  height          : 50px;\n  width           : 50px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  margin          : 10px;\n}\n\n.audio-container > .content-wrap > .play-pause > .play {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(366) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .pause {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(367) + ");\n}\n\n.audio-container > .content-wrap > .play-pause > .replay {\n  height           : 100%;\n  width            : 100%;\n  background-size  : cover;\n  background-image : url(" + __webpack_require__(368) + ");\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 349 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "47486c3739e671bbb06ee413646fc472.jpg";
 
 /***/ },
-/* 350 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "415b9cad88541a998a0316a2e1b73fc6.jpg";
 
 /***/ },
-/* 351 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "f72e914de321fdb63ded0cab3b0511e1.png";
 
 /***/ },
-/* 352 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "7a1b8a284fcb096fb9c9c527345ee154.png";
 
 /***/ },
-/* 353 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4ec74574ccb88c53d9ce9b812f8838b4.png";
 
 /***/ },
-/* 354 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "093f62676d9495453e11704980ab59ed.png";
 
 /***/ },
-/* 355 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "661b71cdbf3069ed8bc83e83c195ad2b.mp3";
 
 /***/ },
-/* 356 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b3dcec80fa7e1f4996f9a300d3593eda.mp3";
 
 /***/ },
-/* 357 */
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "3401f4ad772a6cda3d42dc503b0c807e.mp3";
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b868138f24af9aae36c261e994de19bf.mp3";
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "348491808d3fd580430943f6f0fcfa6f.mp3";
+
+/***/ },
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "bb08e69f8f052d137ba0340d42c7ed26.mp3";
+
+/***/ },
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "f61dac25a514e872e4ee3fed1e0595c5.mp3";
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c6d4a8327df7cfe8d39434c448d6a22e.mp3";
+
+/***/ },
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51397,11 +51861,11 @@
 	  value: true
 	});
 
-	var _sue = __webpack_require__(358);
+	var _sue = __webpack_require__(378);
 
 	var _sue2 = _interopRequireDefault(_sue);
 
-	var _john = __webpack_require__(359);
+	var _john = __webpack_require__(379);
 
 	var _john2 = _interopRequireDefault(_john);
 
@@ -51409,7 +51873,7 @@
 
 	var intro_script = [{
 	  deck: '0',
-	  slide: 'D1',
+	  slide: '1',
 	  description: 'start',
 	  special: true,
 	  specialType: 'splash',
@@ -51420,7 +51884,7 @@
 	  }]
 	}, {
 	  deck: '1',
-	  slide: 'D2.1',
+	  slide: '2.1',
 	  description: 'hello',
 	  visibleHeader: true,
 	  messages: [{
@@ -51459,14 +51923,14 @@
 	    promptFollowUp: [{
 	      prompt: 'Ok!',
 	      slideLoad: true,
-	      slideToLoad: 'D2.2'
+	      slideToLoad: '2.2'
 	    }]
 	  }]
 	}, {
 	  container: 'story',
 	  description: 'story-container',
-	  slide: 'D2.2',
-	  episodeToStart: 'D3',
+	  slide: '2.2',
+	  episodeToStart: '3',
 	  deck: '2',
 	  order: 1,
 	  tense: 'present',
@@ -51475,16 +51939,8 @@
 	  // loadNextAutomatically : true,
 	  textBlock: [[{
 	    sender: 'narrator',
-	    content: '"Between what is said and not meant,',
+	    content: '"Between what is said and not meant, and what is meant and not said, most of love is lost."',
 	    id: 'introMsg1'
-	  }, {
-	    sender: 'narrator',
-	    content: 'and what is meant and not said,',
-	    id: 'introMsg2'
-	  }, {
-	    sender: 'narrator',
-	    content: 'most of love is lost."',
-	    id: 'introMsg3'
 	  }], [{
 	    sender: 'narrator',
 	    content: "John, a tech entrepreneur, met Sue, a freelance writer, at a Bushwick rave.",
@@ -51504,7 +51960,7 @@
 	  tense: 'present',
 	  special: true,
 	  specialType: 'bifurcate',
-	  slide: 'D3',
+	  slide: '3',
 	  sections: [{
 	    container: 'JOHN',
 	    description: 'john-container',
@@ -51524,7 +51980,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 358 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51536,8 +51992,7 @@
 	});
 	var sue_slides = [{
 	  charmsg: 'she',
-	  slide: 'D3.3',
-	  slideOrder: 2,
+	  slide: '3.3',
 	  description: 'okay-sues-side',
 	  visibleHeader: true,
 	  messages: [{
@@ -51562,11 +52017,11 @@
 	    prompt: 'Thumbs Up',
 	    emoji: 'thumbs_up',
 	    slideLoad: true,
-	    slideToLoad: 'D4.1',
+	    slideToLoad: '4.1',
 	    reactionType: 'buttons'
 	  }]
 	}, {
-	  slide: 'D4.1',
+	  slide: '4.1',
 	  description: 'sues-number-exchange',
 	  special: true,
 	  specialType: 'audio',
@@ -51575,9 +52030,9 @@
 	  gender: 'she',
 	  lockHorizontal: true,
 	  loadNextAutomatically: true,
-	  nextSlide: 'D4.2'
+	  nextSlide: '4.2'
 	}, {
-	  slide: 'D4.2',
+	  slide: '4.2',
 	  description: 'sue-and-john-exchange',
 	  charmsg: 'she',
 	  visibleHeader: true,
@@ -51603,24 +52058,28 @@
 	    content: 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
 	    delay: 1500,
 	    displayAvatar: true,
-	    lastMsgInBlock: true
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '4.2.A'
 	  }]
 	}, {
-	  slide: 'D4.3',
+	  slide: '4.2.A',
 	  description: 'hello2',
+	  visibleHeader: true,
 	  messages: [{
 	    sender: 'narrator',
 	    content: 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
 	    skipDelay: true,
-	    delay: 1000
+	    delay: 2000
 	  }, {
 	    sender: 'narrator',
 	    content: 'Their names have been changed of course.',
-	    delay: 1000
+	    delay: 1500
 	  }, {
 	    sender: 'narrator',
 	    content: 'Shall we continue?',
-	    delay: 1000
+	    delay: 1500,
+	    lastMsgInBlock: true
 	  }],
 	  reaction: true,
 	  reactionType: 'buttons',
@@ -51632,75 +52091,342 @@
 	    loadMore: true,
 	    messagesToLoad: [{
 	      sender: 'narrator',
-	      content: "Back to Sue then..."
+	      content: "Back to Sue then...",
+	      slideLoad: true,
+	      slideToLoad: '5.1'
 	    }]
 	  }, {
 	    prompt: 'No wait!',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '4.2.B'
+	  }]
+	}, {
+	  slide: '4.2.B',
+	  parent: '4.2',
+	  description: 'context-eh',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "You're a context person, huh?",
+	    delay: 1000
+	  }, {
+	    sender: 'narrator',
+	    content: "These are real people, real texts, real pictures, real voices.",
+	    delay: 2000
+	  }, {
+	    sender: 'narrator',
+	    content: "Imagine creating a scrapbook of memories from newsfeeds, voicemails, handwritten notes on the back of napkins...",
+	    delay: 2000
+	  }, {
+	    sender: 'narrator',
+	    content: "Then publishing those memories inside a chatroom such as this...",
+	    lastMsgInBlock: true,
+	    delay: 1500,
+	    slideLoad: true,
+	    slideToLoad: '4.2.C'
+	  }]
+	}, {
+	  slide: '4.2.C',
+	  parent: '4.2',
+	  description: 'following-me',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "Are you following me?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    returnTo: false,
+	    routeLoad: false,
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Back to Sue then...",
+	      slideLoad: true,
+	      slideToLoad: '5.1',
+	      lastMsgInBlock: true
+	    }]
+	  }, {
+	    prompt: 'No',
 	    deckLoad: false,
 	    routeLoad: false,
 	    reactionType: 'buttons',
-	    loadAdditionalSlides: true,
-	    slidesToLoad: [{
-	      charmsg: 'she',
-	      slide: 'D4.3A',
-	      description: 'context-eh',
-	      messages: [{
-	        sender: 'narrator',
-	        content: "So You're a context person huh?",
-	        delay: 1000
-	      }],
-	      reaction: true,
-	      reactionType: 'buttons',
-	      reactionOptions: [{
-	        deckLoad: true,
-	        reactionType: 'User Selection',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "These are real people, real texts, real pictures, real voices."
-	        }, {
-	          sender: 'narrator',
-	          content: "Imagine creating a scrapbook of memories from newsfeeds, voicemails, handwritten notes on the back of napkins...",
-	          delay: 3000
-	        }, {
-	          sender: 'narrator',
-	          content: "Then publishing those memories inside a chatroom such as this...",
-	          delay: 2000
-	        }]
-	      }]
-	    }, {
-	      charmsg: 'she',
-	      slide: 'D4.4',
-	      description: 'following-me',
-	      messages: [{
-	        sender: 'narrator',
-	        content: "Are you following me?",
-	        delay: 1000
-	      }],
-	      reaction: true,
-	      reactionType: 'buttons',
-	      reactionOptions: [{
-	        prompt: 'Yes',
-	        returnTo: false,
-	        routeLoad: false,
-	        reactionType: 'buttons',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "Back to Sue then..."
-	        }]
-	      }, {
-	        prompt: 'No',
-	        deckLoad: false,
-	        routeLoad: false,
-	        reactionType: 'buttons',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "Back to Sue then..."
-	        }]
-	      }]
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Back to Sue then...",
+	      lastMsgInBlock: true
 	    }]
+	  }]
+	}, {
+	  slide: '5.1',
+	  parent: '5.1',
+	  description: 'sues-first-impression',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'First Impressions',
+	  audioFile: 'herNumberExchange',
+	  gender: 'she',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '6.1'
+	}, {
+	  slide: '6.1',
+	  parent: '6.1',
+	  description: 'sue-and-john-cuddle-exchange',
+	  charmsg: 'she',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'sue',
+	    content: 'In the cuddle room. Come cuddle',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'john',
+	    content: 'Sounds like a good idea.',
+	    delay: 1500,
+	    displayAvatar: true
+	  }, {
+	    sender: 'john',
+	    content: 'En route.',
+	    delay: 500,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '6.2'
+	  }]
+	}, {
+	  slide: '6.2',
+	  parent: '6.2',
+	  description: 'cuddle_room_sue',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'The Cuddle Room',
+	  audioFile: 'herCuddleRoom',
+	  gender: 'she',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '7.1'
+	}, {
+	  charmsg: 'she',
+	  slide: '7.1',
+	  parent: '7.1',
+	  description: 'meant-said-slider',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "Do you think she meant what she said?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'emojikeyboard',
+	  reactionOptions: [{
+	    prompt: '-1',
+	    returnTo: false,
+	    routeLoad: false,
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.A'
+	  }, {
+	    prompt: '1',
+	    deckLoad: false,
+	    routeLoad: false,
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.B'
+	  }]
+	}, {
+	  charmsg: 'she',
+	  slide: '7.1.A',
+	  parent: '7.1',
+	  description: 'partial-truth-sue',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "So maybe Sue told a partial truth?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes maybe',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "appreciation",
+	      emoji: 'appreciation',
+	      delay: 2000
+	    }, {
+	      sender: 'narrator',
+	      content: "Let's see what her friend has to say...48 hours later.",
+	      lastMsgInBlock: true,
+	      delay: 1500,
+	      slideLoad: true,
+	      slideToLoad: '7.1.C'
+	    }]
+	  }, {
+	    prompt: 'No she lied',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "appreciation",
+	      emoji: 'appreciation',
+	      delay: 2000
+	    }, {
+	      sender: 'narrator',
+	      content: "Let's see what her friend has to say...48 hours later.",
+	      lastMsgInBlock: true,
+	      delay: 1500,
+	      slideLoad: true,
+	      slideToLoad: '7.1.C'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.C',
+	  parent: '7.1',
+	  description: 'sue-and-friend-first-exchange',
+	  charmsg: 'she',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'sue',
+	    content: 'How was your night woman?! Also...Superbowl plans?',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'friend',
+	    content: 'Ended being a low key night, which is fine. No super bowl plans... What are you gonna do?',
+	    delay: 1500,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'sue',
+	    content: 'No plans yet...had a super intense with John. Got home only an hour ago. Need to decompress a bit then figure this super bowl stuff out',
+	    delay: 2500,
+	    displayAvatar: true
+	  }, {
+	    sender: 'sue',
+	    content: 'I hate Sunday nights...',
+	    delay: 1500,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '7.1.D'
+	  }]
+	}, {
+	  slide: '7.1.D',
+	  parent: '7.1',
+	  description: 'sue-and-friend-second-exchange',
+	  charmsg: 'she',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'sue',
+	    content: 'Also, John has a girlfriend, and I don\'t care.',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'friend',
+	    content: 'Re: John that\'s normal. For what u need now. Not thinking about later, it\'s not your problem.',
+	    delay: 1500,
+	    displayAvatar: true
+	  }, {
+	    sender: 'friend',
+	    content: 'And that\'s probably the article we need to write about what\'s wrong with the "living in the moment" global conscious movement. #lifecoach',
+	    delay: 2500,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'sue',
+	    content: 'Yes! I\'m happy I\'ve found someone who\'s always supportive of me making glorious mistakes.',
+	    delay: 1500,
+	    displayAvatar: true,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '8.1'
+	  }]
+	}, {
+	  charmsg: 'she',
+	  slide: '8.1',
+	  visibleHeader: true,
+	  description: 'transition',
+	  messages: [{
+	    sender: 'narrator',
+	    content: "Moving on...",
+	    skipDelay: true,
+	    delay: 1000
+	  }, {
+	    sender: 'narrator',
+	    content: "Looks like we\'re nearing the end...",
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: "Got one more text left from John...",
+	    delay: 1500,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '9.1'
+	  }]
+	}, {
+	  slide: '9.1',
+	  description: 'night_cap_sue',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'Night Cap',
+	  audioFile: 'herNightCap',
+	  gender: 'she',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '9.2'
+	}, {
+	  slide: '9.2',
+	  description: 'john-home-safe',
+	  charmsg: 'she',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'john',
+	    content: 'Hope you got home safe. I\'m going to wake up thinking about what a dope breakfast I\'m going to make us next time when you actually let me take you home. :)',
+	    delay: 3000,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'sue',
+	    content: '',
+	    delay: 4000,
+	    displayAvatar: true,
+	    slideLoad: true,
+	    slideToLoad: '9.3'
+	  }]
+	}, {
+	  charmsg: 'she',
+	  slide: '9.3',
+	  description: 'night-cap-impression-of-sue',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "What is your impression of Sue?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'dislike',
+	    reactionType: 'buttons'
+	  }, {
+	    prompt: 'like',
+	    reactionType: 'buttons'
 	  }]
 	}];
 
@@ -51710,7 +52436,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 359 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(152); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -51722,7 +52448,7 @@
 	});
 	var john_slides = [{
 	  charmsg: 'he',
-	  slide: 'D3.3',
+	  slide: '3.3',
 	  slideOrder: 2,
 	  description: 'okay-john-side',
 	  visibleHeader: true,
@@ -51748,11 +52474,11 @@
 	    prompt: 'Thumbs Up',
 	    emoji: 'thumbs_up',
 	    slideLoad: true,
-	    slideToLoad: 'D4.1',
+	    slideToLoad: '4.1',
 	    reactionType: 'buttons'
 	  }]
 	}, {
-	  slide: 'D4.1',
+	  slide: '4.1',
 	  description: 'johns-number-exchange',
 	  special: true,
 	  specialType: 'audio',
@@ -51761,9 +52487,9 @@
 	  gender: 'he',
 	  lockHorizontal: true,
 	  loadNextAutomatically: true,
-	  nextSlide: 'D4.2'
+	  nextSlide: '4.2'
 	}, {
-	  slide: 'D4.2',
+	  slide: '4.2',
 	  description: 'sue-and-john-exchange',
 	  charmsg: 'he',
 	  visibleHeader: true,
@@ -51789,104 +52515,394 @@
 	    content: 'Ha. John. If I don\'t see you again for the rest of the night, your lips will still be the only thing on my mind',
 	    delay: 1500,
 	    displayAvatar: true,
-	    lastMsgInBlock: true
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '5.1'
 	  }]
 	}, {
-	  slide: 'D4.3',
-	  description: 'hello2',
+	  slide: '5.1',
+	  description: 'johns-first-impressions',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'First Impressions',
+	  audioFile: 'hisNumberExchange',
+	  gender: 'he',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '5.1.A'
+	}, {
+	  slide: '5.1.A',
+	  description: 'she-wearing',
+	  visibleHeader: true,
 	  messages: [{
 	    sender: 'narrator',
-	    content: 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
+	    content: 'What do you think she was wearing?',
 	    skipDelay: true,
-	    delay: 1000
-	  }, {
-	    sender: 'narrator',
-	    content: 'Their names have been changed of course.',
-	    delay: 1000
-	  }, {
-	    sender: 'narrator',
-	    content: 'Shall we continue?',
-	    delay: 1000
+	    delay: 2000
 	  }],
 	  reaction: true,
 	  reactionType: 'buttons',
 	  reactionOptions: [{
-	    prompt: 'Yes Please!',
+	    prompt: 'A white top',
 	    deckLoad: false,
 	    routeLoad: false,
 	    reactionType: 'buttons',
 	    loadMore: true,
 	    messagesToLoad: [{
 	      sender: 'narrator',
-	      content: "Back to Sue then..."
+	      content: "Wrong",
+	      emoji: 'wrong'
+	    }, {
+	      sender: 'narrator',
+	      content: 'Back to texting',
+	      delay: 2000,
+	      slideLoad: true,
+	      slideToLoad: '6.1'
 	    }]
 	  }, {
-	    prompt: 'No wait!',
+	    prompt: 'Nothing like he described',
 	    deckLoad: false,
 	    routeLoad: false,
 	    reactionType: 'buttons',
-	    loadAdditionalSlides: true,
-	    slidesToLoad: [{
-	      charmsg: 'she',
-	      slide: 'D4.3A',
-	      description: 'context-eh',
-	      messages: [{
-	        sender: 'narrator',
-	        content: "So You're a context person huh?",
-	        delay: 1000
-	      }],
-	      reaction: true,
-	      reactionType: 'buttons',
-	      reactionOptions: [{
-	        deckLoad: true,
-	        reactionType: 'User Selection',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "These are real people, real texts, real pictures, real voices."
-	        }, {
-	          sender: 'narrator',
-	          content: "Imagine creating a scrapbook of memories from newsfeeds, voicemails, handwritten notes on the back of napkins...",
-	          delay: 3000
-	        }, {
-	          sender: 'narrator',
-	          content: "Then publishing those memories inside a chatroom such as this...",
-	          delay: 2000
-	        }]
-	      }]
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Correct",
+	      emoji: 'correct'
 	    }, {
-	      charmsg: 'she',
-	      slide: 'D4.4',
-	      description: 'following-me',
-	      messages: [{
-	        sender: 'narrator',
-	        content: "Are you following me?",
-	        delay: 1000
-	      }],
-	      reaction: true,
-	      reactionType: 'buttons',
-	      reactionOptions: [{
-	        prompt: 'Yes',
-	        returnTo: false,
-	        routeLoad: false,
-	        reactionType: 'buttons',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "Back to Sue then..."
-	        }]
-	      }, {
-	        prompt: 'No',
-	        deckLoad: false,
-	        routeLoad: false,
-	        reactionType: 'buttons',
-	        loadMore: true,
-	        messagesToLoad: [{
-	          sender: 'narrator',
-	          content: "Back to Sue then..."
-	        }]
-	      }]
+	      sender: 'narrator',
+	      content: 'You\'re right...Her eyes were more important :)',
+	      delay: 2000
+	    }, {
+	      sender: 'narrator',
+	      content: 'Back to texting',
+	      delay: 2000,
+	      slideLoad: true,
+	      slideToLoad: '6.1'
 	    }]
+	  }, {
+	    prompt: 'Why is this important?',
+	    deckLoad: false,
+	    routeLoad: false,
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: 'Back to texting',
+	      delay: 2000,
+	      slideLoad: true,
+	      slideToLoad: '6.1'
+	    }]
+	  }]
+	}, {
+	  slide: '6.1',
+	  description: 'john-cuddle-exchange',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'sue',
+	    content: 'In the cuddle room. Come cuddle.',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
+	  }, {
+	    sender: 'john',
+	    content: 'Sounds like a good idea.',
+	    delay: 1500,
+	    displayAvatar: true
+	  }, {
+	    sender: 'john',
+	    content: 'En route.',
+	    delay: 1000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '6.2'
+	  }]
+	}, {
+	  slide: '6.2',
+	  description: 'john-cuddle-room-audio',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'Cuddle Room',
+	  audioFile: 'hisCuddleRoom',
+	  gender: 'he',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '7.1'
+	}, {
+	  charmsg: 'he',
+	  slide: '7.1',
+	  description: 'meant-said-he-slider',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "Do you think John meant what he said?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: '>5',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.A'
+	  }, {
+	    prompt: '5',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.B'
+	  }, {
+	    prompt: '<5',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.C'
+	  }]
+	}, {
+	  charmsg: 'he',
+	  slide: '7.1.A',
+	  description: 'can-you-think-of-a-time',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: "Can you think of a time when you meant more than you said?",
+	    delay: 1000,
+	    lastMsgInBlock: true
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.B'
+	  }, {
+	    prompt: 'No',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.C'
+	  }, {
+	    prompt: 'Not sure',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.C'
+	  }]
+	}, {
+	  slide: '7.1.B',
+	  parent: 'D7',
+	  description: 'remember-like-q',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Like...?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Open Ended...',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Appreciation",
+	      emoji: 'appreciation',
+	      slideLoad: true,
+	      slideToLoad: '7.1.C'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.C',
+	  description: 'narrator-breakup',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'I remember when my ex and I finally had the breakup talk...',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'The last thing I said to him was, "See you later."',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'But now thinking back, I think what I really meant was - "Take care and be happy"',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '7.1.D'
+	  }]
+	}, {
+	  slide: '7.1.D',
+	  description: 'always-mean-what-you-say',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Do you always mean what you say?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Thumbs Up",
+	      emoji: 'thumbs_up',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }, {
+	    prompt: 'No',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Thumbs Down",
+	      emoji: 'thumbs_down',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }, {
+	    prompt: 'Not sure',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Question",
+	      emoji: 'question',
+	      slideLoad: true,
+	      slideToLoad: '7.1.E'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.E',
+	  description: 'overstated-things',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Can you think of a time when you\'ve overstated and meant less than what you said?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Yes',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.F'
+	  }, {
+	    prompt: 'No',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.G'
+	  }, {
+	    prompt: 'Not sure',
+	    reactionType: 'buttons',
+	    slideLoad: true,
+	    slideToLoad: '7.1.G'
+	  }]
+	}, {
+	  slide: '7.1.F',
+	  parent: 'D7',
+	  description: 'like...overstated',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Like...?',
+	    skipDelay: true,
+	    delay: 2000
+	  }],
+	  reaction: true,
+	  reactionType: 'buttons',
+	  reactionOptions: [{
+	    prompt: 'Open Ended...',
+	    reactionType: 'buttons',
+	    loadMore: true,
+	    messagesToLoad: [{
+	      sender: 'narrator',
+	      content: "Appreciation",
+	      emoji: 'appreciation',
+	      slideLoad: true,
+	      slideToLoad: '7.1.G'
+	    }]
+	  }]
+	}, {
+	  slide: '7.1.G',
+	  description: 'see-family',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'I see my family once or twice a year.',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'When it\'s time to go, I always say - "Catch up soon!" But we never do...',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'At least never properly. It might as well be - "See you in a year!"',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '8.1'
+	  }]
+	}, {
+	  slide: '8.1',
+	  description: 'moving-on-to-end',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'narrator',
+	    content: 'Moving on...',
+	    skipDelay: true,
+	    delay: 1000,
+	    displayAvatar: true
+	  }, {
+	    sender: 'narrator',
+	    content: 'Looks like we\'re nearing the end...,',
+	    delay: 1500
+	  }, {
+	    sender: 'narrator',
+	    content: 'Got one more voice and text message from John.',
+	    delay: 2000,
+	    lastMsgInBlock: true,
+	    slideLoad: true,
+	    slideToLoad: '9.1'
+	  }]
+	}, {
+	  slide: '9.1',
+	  description: 'johns-night-cap',
+	  special: true,
+	  specialType: 'audio',
+	  header: 'Night Cap',
+	  audioFile: 'hisNightCap',
+	  gender: 'he',
+	  lockHorizontal: true,
+	  loadNextAutomatically: true,
+	  nextSlide: '9.2'
+	}, {
+	  slide: '9.2',
+	  description: 'john-night-cap-exchange',
+	  charmsg: 'he',
+	  visibleHeader: true,
+	  messages: [{
+	    sender: 'john',
+	    content: 'Hope you got home safe. I\'m going to wake up thinking about what a dope breakfast I\'m going to make us next time when you actually let me take you home. :)',
+	    delay: 2500,
+	    displayAvatar: true,
+	    lastMsgInBlock: true
 	  }]
 	}];
 
@@ -51896,23 +52912,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 360 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(361);
+	var content = __webpack_require__(381);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(361, function() {
-				var newContent = __webpack_require__(361);
+			module.hot.accept(381, function() {
+				var newContent = __webpack_require__(381);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51922,127 +52938,127 @@
 	}
 
 /***/ },
-/* 361 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Avenir-Black';\n  src: url(" + __webpack_require__(362) + ");\n  src: url(" + __webpack_require__(363) + ") format('woff2'),\n       url(" + __webpack_require__(364) + ") format('woff'),\n       url(" + __webpack_require__(365) + ") format('truetype'),\n       url(" + __webpack_require__(366) + "#Avenir-Black) format('svg'),\n       url(" + __webpack_require__(362) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: 'Avenir-Light';\n  src: url(" + __webpack_require__(367) + ");\n  src: url(" + __webpack_require__(368) + ") format('woff2'),\n       url(" + __webpack_require__(369) + ") format('woff'),\n       url(" + __webpack_require__(370) + ") format('truetype'),\n       url(" + __webpack_require__(371) + "#Avenir-Light) format('svg'),\n       url(" + __webpack_require__(367) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: 'Avenir-Medium';\n  src: url(" + __webpack_require__(372) + ");\n  src: url(" + __webpack_require__(373) + ") format('woff2'),\n       url(" + __webpack_require__(374) + ") format('woff'),\n       url(" + __webpack_require__(375) + ") format('truetype'),\n       url(" + __webpack_require__(376) + "#Avenir-Medium) format('svg'),\n       url(" + __webpack_require__(372) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Avenir-Black';\n  src: url(" + __webpack_require__(382) + ");\n  src: url(" + __webpack_require__(383) + ") format('woff2'),\n       url(" + __webpack_require__(384) + ") format('woff'),\n       url(" + __webpack_require__(385) + ") format('truetype'),\n       url(" + __webpack_require__(386) + "#Avenir-Black) format('svg'),\n       url(" + __webpack_require__(382) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: 'Avenir-Light';\n  src: url(" + __webpack_require__(387) + ");\n  src: url(" + __webpack_require__(388) + ") format('woff2'),\n       url(" + __webpack_require__(389) + ") format('woff'),\n       url(" + __webpack_require__(390) + ") format('truetype'),\n       url(" + __webpack_require__(391) + "#Avenir-Light) format('svg'),\n       url(" + __webpack_require__(387) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: 'Avenir-Medium';\n  src: url(" + __webpack_require__(392) + ");\n  src: url(" + __webpack_require__(393) + ") format('woff2'),\n       url(" + __webpack_require__(394) + ") format('woff'),\n       url(" + __webpack_require__(395) + ") format('truetype'),\n       url(" + __webpack_require__(396) + "#Avenir-Medium) format('svg'),\n       url(" + __webpack_require__(392) + "?#iefix) format('embedded-opentype');\n  font-weight: normal;\n  font-style: normal;\n}\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 362 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a53efb0bde42cb3f8670ddb8ddd20a44.eot";
 
 /***/ },
-/* 363 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a4e5e999fbbce4a611c9701d74af46ed.woff2";
 
 /***/ },
-/* 364 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "fa0c34ba0bc49c5b44756decf5de5074.woff";
 
 /***/ },
-/* 365 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "26b50dc9a71e7729e091f75c27877927.ttf";
 
 /***/ },
-/* 366 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4613171fa8746e5b796212468d42e8f2.svg";
 
 /***/ },
-/* 367 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e1009c69fc0c463860067b90992c68c7.eot";
 
 /***/ },
-/* 368 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c7b77e1b82fe0d512f98d2dddb95eafb.woff2";
 
 /***/ },
-/* 369 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c59a5b8783e0fb51a329b081990e8334.woff";
 
 /***/ },
-/* 370 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "060c670e3875d0f6713ed0cc9116d1ec.ttf";
 
 /***/ },
-/* 371 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "8d163f8ecaeca92aeef8ee419b5f6921.svg";
 
 /***/ },
-/* 372 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "62e15fa8f09dc3048de1e9f3ce6bb58a.eot";
 
 /***/ },
-/* 373 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4355ca2bc58c8c8cec1114b1b0b69798.woff2";
 
 /***/ },
-/* 374 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "04bb9fac32f6704f7343fd8b10e1e0eb.woff";
 
 /***/ },
-/* 375 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "994610af0eaad4f8fd7a4df2e425699b.ttf";
 
 /***/ },
-/* 376 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "01a253bca485f8f1b5b81fc8e5e5e686.svg";
 
 /***/ },
-/* 377 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(378);
+	var content = __webpack_require__(398);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(294)(content, {});
+	var update = __webpack_require__(293)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(378, function() {
-				var newContent = __webpack_require__(378);
+			module.hot.accept(398, function() {
+				var newContent = __webpack_require__(398);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52052,10 +53068,10 @@
 	}
 
 /***/ },
-/* 378 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(293)();
+	exports = module.exports = __webpack_require__(292)();
 	// imports
 
 
