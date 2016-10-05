@@ -3,7 +3,7 @@ import john_slides from './john'
 
 let intro_script = [{
   deck                  : '0',
-  slide                 : 'D1',
+  slide                 : '1',
   description           : 'start',
   special               : true,
   specialType           : 'splash',
@@ -17,7 +17,7 @@ let intro_script = [{
 },
   {
     deck            : '1',
-    slide           : 'D2.1',
+    slide           : '2.1',
     description     : 'hello',
     visibleHeader   : true,
     messages        : [
@@ -66,7 +66,7 @@ let intro_script = [{
           {
             prompt      : 'Ok!',
             slideLoad   : true,
-            slideToLoad : 'D2.2'
+            slideToLoad : '2.2'
           }
         ]
       }
@@ -75,8 +75,8 @@ let intro_script = [{
   {
     container      : 'story',
     description    : 'story-container',
-    slide          : 'D2.2',
-    episodeToStart : 'D3',
+    slide          : '2.2',
+    episodeToStart : '3',
     deck           : '2',
     order          : 1,
     tense          : 'present',
@@ -120,7 +120,7 @@ let intro_script = [{
     tense       : 'present',
     special     : true,
     specialType : 'bifurcate',
-    slide       : 'D3',
+    slide       : '3',
     sections    : [
       {
         container       : 'JOHN',
