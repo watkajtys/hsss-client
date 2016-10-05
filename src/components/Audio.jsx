@@ -121,7 +121,8 @@ export default React.createClass({
       barWidth : 3,
       cursorWidth: 0,
       height: 384,
-      normalize: true
+      normalize: true,
+      fillParent: true
     };
 
     var btnClass = classNames({
