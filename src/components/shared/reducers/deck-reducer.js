@@ -1,7 +1,7 @@
 import * as types from '../actions/action-types.js';
 
 const initialState = {
-  activeSlide     : 'D1',
+  activeSlide     : '1',
   activeContainer : 'INTRO',
   lockedSide      : false
 };
