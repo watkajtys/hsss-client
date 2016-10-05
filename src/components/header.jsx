@@ -2,21 +2,43 @@ import React from 'react';
 import {connect} from 'react-redux';
 import store from './shared/store';
 
-var classNames = require('classnames');
-
 require('../css/header.css');
 
 const Header = React.createClass({
+
+  componentWillMount() {
+    //INIT HEADER CLASS STRING
+    this.headerClass = '';
+  },
+
+  componentWillReceiveProps(nextProps) {
+
+    //SETTING THE HEADER CLASS
+    switch(nextProps.activeContainer) {
+      case 'JOHN' :
+        this.headerClass = 'he';
+        break;
+      case 'SUE' :
+        this.headerClass = 'she';
+        break;
+      case 'INTRO' :
+        this.headerClass = 'intro';
+        break;
+      default :
+        this.headerClass = 'intro';
+    }
+
+    //TOGGLING VISIBILITY OF THE HEADER
+    if (nextProps.visible) {
+      this.headerClass += ' visible'
+    } else {
+      this.headerClass.replace(/ visible/, '');
+    }
+  },
   render : function () {
 
-    var headerClass = classNames({
-      'visible' : this.props.visible,
-      'he'      : this.props.activeContainer === 'JOHN',
-      'she'     : this.props.activeContainer === 'SUE',
-      'intro'   : this.props.activeContainer === 'INTRO'
-    });
     return (
-      <header className={headerClass}>
+      <header className={this.headerClass}>
         <div id='burger-icon'>
           <span></span>
           <span></span>
