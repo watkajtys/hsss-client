@@ -216,6 +216,13 @@
   visibility      : hidden;
 }
 
+.prompt-line.emoji {
+  flex-wrap: wrap;
+  height : 150px;
+  justify-content: space-between;
+  background: #CCCCCC;
+}
+
 .prompt-line.visible {
   visibility : visible;
 }
@@ -230,6 +237,13 @@
   border-radius : 20px 0 20px 20px;
   margin-right  : 10px;
   font-family   : 'Avenir-Medium', sans-serif;
+}
+
+.prompt.emoji {
+  background    : none;
+  margin-right  : 0;
+  border-radius : 0;
+  padding       : 0 12px;
 }
 
 .prompt > p {

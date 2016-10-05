@@ -31,7 +31,8 @@
 }
 
 .audio-container > .content-wrap {
-  padding  : 0 5%;
+  width    : 90%;
+  margin   : auto;
   overflow : hidden;
 }
 

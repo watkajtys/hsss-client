@@ -4,6 +4,8 @@ import store from '../shared/store';
 import assign from 'deep-assign';
 import Message from './Message';
 import PromptList from './PromptList';
+import EmojiBoard from './Emojikeyboard';
+
 
 let _ = require('lodash');
 require('../../css/messaging.css');
@@ -121,10 +123,11 @@ export default React.createClass({
   },
   addMessage          : function (message) {
     //CALLED BY CLICKING A PROMPT
-    this.setState({prompts : []});
     let that = this;
     console.log(message, 'add message');
+
     if (message.prompt) {
+      this.setState({prompts : []});
       let obj = {
         sender    : 'user',
         content   : message.prompt,
@@ -172,19 +175,42 @@ export default React.createClass({
         }
       }
     }
+
+    if (message.emojiboard) {
+      console.log('FROM THE BOARD', this);
+      //MESSAGE COMING FROM THE EMOJIBOARD
+      let obj = {
+        sender    : 'user',
+        content   : message.prompt,
+        skipDelay : true
+      };
+      //IF WE HAVE AN EMOJI - ADD TO OBJECT
+      if (message.emoji) {
+        obj.emoji = message.emoji;
+      }
+      this.setState({data : this.state.data.concat([obj])});
+    }
   },
   messageClass        : function () {
     let extra = this.props.classExtra ? this.props.classExtra : '';
     return 'messaging-container ' + extra;
   },
-  render              : function () {
+
+  render : function () {
+    var prompter;
+    if (this.props.deck.reaction && this.props.deck.reactionType === 'buttons') {
+      prompter = <PromptList prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
+    } else {
+      prompter = <EmojiBoard prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
+    }
+
     return (
       <div className={this.messageClass()} key={this.id}>
         {this.state.data.map((message, index) =>
           <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime}
                    displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock} key={index}/>
         )}
-        <PromptList prompts={this.state.prompts} addMessage={this.addMessage} key={this.promptId}/>
+        {prompter}
       </div>
     )
   }
