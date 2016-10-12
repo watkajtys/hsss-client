@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e2d64e449c9ea950659c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1807819505861c6206c5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -32375,6 +32375,10 @@
 	  componentWillMount: function componentWillMount() {
 	    this.id = _.uniqueId('message-container_');
 	    this.promptId = _.uniqueId('prompt-container_');
+
+	    //SETTING THE EMOJI RESPONSE TO TRUE
+	    //USED TO CONCAT EMOJIS INTO EMOJI RESPONSE MSG
+	    this.emojiResponse = false;
 	  },
 	  componentDidMount: function componentDidMount() {
 	    console.log('Are we active? Mount', this.props.active);
@@ -32476,61 +32480,58 @@
 	      }
 	    });
 	  },
-	  addMessage: function addMessage(message) {
-	    //CALLED BY CLICKING A PROMPT
+
+	  processPrompt: function processPrompt(prompt) {
 	    var that = this;
-	    console.log(message, 'add message');
-
-	    if (message.prompt) {
-	      this.setState({ prompts: [] });
-	      var obj = {
-	        sender: 'user',
-	        content: message.prompt,
-	        skipDelay: true
-	      };
-	      //IF WE HAVE AN EMOJI - ADD TO OBJECT
-	      if (message.emoji) {
-	        obj.emoji = message.emoji;
-	      }
-	      this.setState({ data: this.state.data.concat([obj]) });
-
-	      if (message.slideLoad) {
-	        //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
-	        setTimeout(function () {
-	          if (that.props.parentContainer === that.props.activeContainer) {
-	            var regexMatch = /.+?./;
-	            var parent = message.slideToLoad.match(regexMatch);
-	            var action = {
-	              type: 'CHANGE_SLIDE',
-	              activeSlide: message.slideToLoad,
-	              activeParent: parent[0]
-	            };
-	            _store2.default.dispatch(action);
-	          }
-	        }, 750);
-	      } else if (message.loadAdditionalSlides) {
-	        if (message.slidesToLoad) {}
-	      } else {
-	        //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
-	        if (message.loadMore) {
-	          if (message.messagesToLoad) {
-	            setTimeout(function () {
-	              if (message.additionalPrompt) {
-	                //EXECUTE MESSAGING WITH PROMPTS
-	                that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
-	              } else {
-	                //EXECUTE MESSAGING NORMALLY
-	                that.executeMessaging(message.messagesToLoad);
-	              }
-	            }, 1000);
-	          }
+	    if (prompt.slideLoad) {
+	      //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
+	      setTimeout(function () {
+	        if (that.props.parentContainer === that.props.activeContainer) {
+	          //REGEX TO GET THE PARENT SLIDE NUMBER (between the two ie: 7.1)
+	          var regexMatch = /\b([^.]+).([^.]+)\b/;
+	          var parent = prompt.slideToLoad.match(regexMatch);
+	          var action = {
+	            type: 'CHANGE_SLIDE',
+	            activeSlide: prompt.slideToLoad,
+	            activeParent: parent[0]
+	          };
+	          _store2.default.dispatch(action);
+	        }
+	      }, 750);
+	    } else {
+	      //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
+	      if (prompt.loadMore) {
+	        if (prompt.messagesToLoad) {
+	          setTimeout(function () {
+	            if (prompt.additionalPrompt) {
+	              //EXECUTE MESSAGING WITH PROMPTS
+	              that.executeMessaging(prompt.messagesToLoad, prompt.promptFollowUp);
+	            } else {
+	              //EXECUTE MESSAGING NORMALLY
+	              that.executeMessaging(prompt.messagesToLoad);
+	            }
+	          }, 1000);
 	        }
 	      }
 	    }
+	  },
+	  findAndReturnPrompt: function findAndReturnPrompt(prompts, toFind) {
+	    //LOOP THROUGH THE PROMPTS UNTIL WE FIND WHAT WE ARE LOOKING FOR
+	    //INCLUDES WILL FIND ITEM DEEP IN OBJECT
+	    var i;
+	    for (i = 0; i < prompts.length; i++) {
+	      if (_.includes(prompts[i].prompt, toFind)) {
+	        return prompts[i];
+	      }
+	    }
+	  },
 
-	    if (message.emojiboard) {
-	      console.log('FROM THE BOARD', this);
-	      //MESSAGE COMING FROM THE EMOJIBOARD
+	  addMessage: function addMessage(message) {
+	    //CALLED BY CLICKING A PROMPT
+	    var that = this;
+
+	    if (message.prompt) {
+	      this.setState({ prompts: [] });
 	      var _obj = {
 	        sender: 'user',
 	        content: message.prompt,
@@ -32541,6 +32542,43 @@
 	        _obj.emoji = message.emoji;
 	      }
 	      this.setState({ data: this.state.data.concat([_obj]) });
+	      this.processPrompt(message);
+	    }
+	    if (message.emojiboard) {
+	      console.log('FROM THE BOARD', message);
+	      //MESSAGE COMING FROM THE EMOJIBOARD
+
+	      if (message.enterButton) {
+	        //IF THE ENTER BUTTON ON THE KEYBOARD WAS CLICKED...
+	        var foundPrompt;
+	        //FIND THE RIGHT PROMPT BASED ON CALCULATED VALUE
+	        if (message.overallValue < 0) {
+	          //IF THE VALUE IS LESS THAN 0 - NEGATIVE
+	          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'negative');
+	        } else if (message.overallValue == 0) {
+	          //IF THE VALUE IS ZERO - NEUTRAL
+	          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'neutral');
+	        } else {
+	          //IF THE VALUE IS GREATER THAN 0 - POSITIVE
+	          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'positive');
+	        }
+	        this.processPrompt(foundPrompt);
+	      } else {
+	        var obj = {
+	          sender: 'user',
+	          content: message.prompt,
+	          skipDelay: true
+	        };
+	        //IF WE HAVE AN EMOJI - ADD TO OBJECT
+	        if (message.emoji) {
+	          obj.emoji = message.emoji;
+	        }
+
+	        if (!this.emojiResponse) {
+	          //CONCAT THAT OBJECT TO THE STATE
+	          this.setState({ data: this.state.data.concat([obj]) });
+	        }
+	      }
 	    }
 	  },
 	  messageClass: function messageClass() {
@@ -49448,7 +49486,7 @@
 
 
 	// module
-	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  padding            : 55px 2% 0;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : #FEF3F1;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : #F1F5F7;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n  margin  : 1px 0;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  font-size       : 12px;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #D7CFDC;\n  color           : #734E86;\n  border          : #734E86 1px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg {\n  border-top-right-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg {\n  border-top-left-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background      : #4F3065;\n  color           : white;\n  border-radius   : 20px 0 20px 20px;\n  float           : right;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  min-width       : 10%;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border     : 1px solid #3CA3BB;\n  background : #F1F5F7;\n  right      : 40px;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : white;\n  left       : 40px;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.messaging-container.she > .message__wrapper > .message.john {\n  background : #FEF3F1;\n  left       : 40px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n  right         : 40px;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.friend {\n  left : 40px;\n}\n\n.message__wrapper > .message.friend {\n  margin-left : 10px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n/*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.john:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue:nth-last-child(2) > .message {\n  border-bottom-right-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator > span.bubble {\n  margin          : auto;\n  width           : 40px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n  position        : absolute;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(325) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(326) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.friend {\n  background-image : url(" + __webpack_require__(327) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(328) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(329) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 12pt;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n  box-shadow      : black 0 0 2px;\n  background      : white;\n  visibility      : hidden;\n}\n\n.prompt-line.emoji {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  height : 150px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  background: #CCCCCC;\n}\n\n.prompt-line.visible {\n  visibility : visible;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n  font-family   : 'Avenir-Medium', sans-serif;\n}\n\n.prompt.emoji {\n  background    : none;\n  margin-right  : 0;\n  border-radius : 0;\n  padding       : 0 12px;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n.emoji {\n  height : 25px;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #333;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
+	exports.push([module.id, ".messaging-container {\n  width              : 90%;\n  height             : 100%;\n  padding            : 55px 2% 0;\n  overflow-y         : hidden;\n  overflow-scrolling : touch;\n}\n\n.messaging-container.she {\n  width      : 100%;\n  background : #FEF3F1;\n}\n\n.messaging-container.he {\n  width      : 100%;\n  background : #F1F5F7;\n}\n\n.message__wrapper {\n  width   : 100%;\n  height  : auto;\n  display : -webkit-inline-box;\n  display : -ms-inline-flexbox;\n  display : inline-flex;\n  margin  : 1px 0;\n}\n\n.message__wrapper.non-user.narrator {\n  margin : 2px 0;\n}\n\n.message__wrapper.user {\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n}\n\n.message__wrapper > .message {\n  display         : -webkit-inline-box;\n  display         : -ms-inline-flexbox;\n  display         : inline-flex;\n  -webkit-box-pack : start;\n      -ms-flex-pack : start;\n          justify-content : flex-start;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  position        : relative;\n  float           : left;\n  min-height      : 20px;\n  max-width       : 70%;\n  font-size       : 12px;\n  margin          : 0;\n  padding         : 5px 10px;\n  background      : #D7CFDC;\n  color           : #734E86;\n  border          : #734E86 1px solid;\n  border-radius   : 0 20px 20px 0;\n  text-align      : left;\n  clear           : both;\n}\n\n.message__wrapper > .message.avatar__msg {\n  margin-top : 10px;\n}\n\n.message__wrapper > .message.sue.avatar__msg {\n  border-top-right-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .sue.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.john.avatar__msg {\n  border-top-left-radius : 0;\n}\n\n.messaging-container.he > .message__wrapper > .message.john.avatar__msg:after {\n  border-top : 8px solid #3CA3BB;\n}\n\n.message__wrapper > .message.user {\n  background      : #4F3065;\n  color           : white;\n  border-radius   : 20px 0 20px 20px;\n  float           : right;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n  min-width       : 10%;\n}\n\n.message__wrapper > .message.john {\n  margin-left : 10px;\n  color       : #333;\n  border      : 1px solid #F16375;\n}\n\n.messaging-container.he > .message__wrapper > .message.sue {\n  border     : 1px solid #3CA3BB;\n  background : #F1F5F7;\n  right      : 40px;\n}\n\n.messaging-container.he > .message__wrapper > .message.john {\n  border     : 1px solid #3CA3BB;\n  background : white;\n  left       : 40px;\n}\n\n.message__wrapper > .message.john > p {\n  padding-right : 5px;\n}\n\n.messaging-container.she > .message__wrapper > .message.john {\n  background : #FEF3F1;\n  left       : 40px;\n}\n\n.message__wrapper > .message.sue {\n  margin-right  : 10px;\n  border-radius : 20px 0 0 20px;\n  border        : 1px solid #F16375;\n  color         : #333;\n  background    : white;\n  right         : 40px;\n}\n\n.message__wrapper > .message.sue > p {\n  padding-left : 5px;\n}\n\n.message__wrapper > .message.friend {\n  left : 40px;\n}\n\n.message__wrapper > .message.friend {\n  margin-left : 10px;\n}\n\n.message__wrapper > .message.last__msg {\n  border-bottom-left-radius  : 20px;\n  border-bottom-right-radius : 20px;\n}\n\n/*.message__wrapper.non-user:first-child > .message {*/\n/*border-bottom-left-radius : 20px;*/\n/*}*/\n\n.message__wrapper.non-user:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.john:nth-last-child(2) > .message {\n  border-bottom-left-radius : 20px;\n}\n\n.message__wrapper.sue:nth-last-child(2) > .message {\n  border-bottom-right-radius : 20px;\n}\n\n.message.indicator {\n  border-bottom-left-radius : 20px;\n}\n\n.message.indicator > span.bubble {\n  margin          : auto;\n  width           : 40px;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : center;\n      -ms-flex-pack : center;\n          justify-content : center;\n}\n\n.message__wrapper.sue {\n  -webkit-box-orient : horizontal;\n  -webkit-box-direction : reverse;\n      -ms-flex-direction : row-reverse;\n          flex-direction : row-reverse;\n}\n\n.message__wrapper > .avatar {\n  height          : 45px;\n  width           : 45px;\n  background-size : cover;\n  position        : absolute;\n}\n\n.message__wrapper > .avatar.non__user {\n  height : 40px;\n}\n\n.messaging-container.she > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(325) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(326) + ");\n}\n\n.messaging-container.she > .message__wrapper > .avatar.friend {\n  background-image : url(" + __webpack_require__(327) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.john {\n  background-image : url(" + __webpack_require__(328) + ");\n}\n\n.messaging-container.he > .message__wrapper > .avatar.sue {\n  background-image : url(" + __webpack_require__(329) + ");\n}\n\n.message > p {\n  margin    : 0;\n  font-size : 12pt;\n}\n\n.prompt-line {\n  position        : absolute;\n  bottom          : 0;\n  height          : 50px;\n  width           : 100%;\n  left            : 0;\n  display         : -webkit-box;\n  display         : -ms-flexbox;\n  display         : flex;\n  -webkit-box-align     : center;\n      -ms-flex-align     : center;\n          align-items     : center;\n  -webkit-box-pack : end;\n      -ms-flex-pack : end;\n          justify-content : flex-end;\n  box-shadow      : black 0 0 2px;\n  background      : white;\n  visibility      : hidden;\n}\n\n.prompt-line.emoji {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  height : 150px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  background: #CCCCCC;\n}\n\n.prompt-line.visible {\n  visibility : visible;\n}\n\n.prompt {\n  background    : #4F3065;\n  color         : white;\n  height        : 40px;\n  display       : -webkit-box;\n  display       : -ms-flexbox;\n  display       : flex;\n  -webkit-box-align   : center;\n      -ms-flex-align   : center;\n          align-items   : center;\n  padding       : 0 20px;\n  border-radius : 20px 0 20px 20px;\n  margin-right  : 10px;\n  font-family   : 'Avenir-Medium', sans-serif;\n}\n\n.prompt.emoji {\n  background    : none;\n  margin-right  : 0;\n  border-radius : 0;\n  padding       : 0 12px;\n}\n\n.prompt.emoji.alreadyselected {\n  opacity: .4;\n}\n\n.prompt > p {\n  margin : 0;\n}\n\n.emoji {\n  height : 25px;\n}\n\n@-webkit-keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n@keyframes typing1 {\n  0% {\n    width  : 12px;\n    height : 12px;\n    margin : 0;\n  }\n  50% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n  100% {\n    width  : 8px;\n    height : 8px;\n    margin : 2px;\n  }\n}\n\n.point {\n  background-color          : #333;\n  display                   : inline-block;\n  border-radius             : 100px;\n  -webkit-animation-duration        : 1s;\n          animation-duration        : 1s;\n  -webkit-animation-iteration-count : infinite;\n          animation-iteration-count : infinite;\n  height                    : 8px;\n  width                     : 8px;\n  margin                    : 2px;\n}\n\n.point:nth-of-type(1) {\n  -webkit-animation-name : typing1;\n          animation-name : typing1;\n}\n\n.point:nth-of-type(2) {\n  -webkit-animation-delay : 333ms;\n          animation-delay : 333ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.point:nth-of-type(3) {\n  -webkit-animation-delay : 667ms;\n          animation-delay : 667ms;\n  -webkit-animation-name  : typing1;\n          animation-name  : typing1;\n}\n\n.hidden {\n  display : none !important;\n}", ""]);
 
 	// exports
 
@@ -49677,6 +49715,14 @@
 	exports.default = _react2.default.createClass({
 	  displayName: 'Emojikeyboard',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      emojiCount: 0,
+	      allowSelection: true,
+	      overallValue: 0
+	    };
+	  },
+
 	  componentWillMount: function componentWillMount() {
 	    this.id = _.uniqueId('prompt-list_');
 	    this.promptLineId = _.uniqueId('prompt-line-id_');
@@ -49734,12 +49780,39 @@
 	      value: 0
 	    }, {
 	      emoji: 'enter',
-	      enter: true
+	      value: '0',
+	      enterButton: true
 	    }];
 	  },
+
 	  componentDidMount: function componentDidMount() {
 	    console.log(this.props.messages, 'MOUNTED');
 	  },
+
+	  messagingSystem: function messagingSystem(messageToAdd) {
+
+	    if (messageToAdd.enterButton) {
+	      //IF ENTER HAS BEEN CLICKED
+	      //PASS THE OVERALL VALUE UP THE CHAIN
+	      messageToAdd.overallValue = this.state.overallValue;
+	      this.props.addMessage(messageToAdd);
+	    } else {
+
+	      if (this.state.emojiCount <= 3) {
+
+	        this.props.addMessage(messageToAdd);
+	        this.setState({ emojiCount: this.state.emojiCount + 1 });
+	        this.setState({ overallValue: this.state.overallValue + messageToAdd.value });
+
+	        if (this.state.emojiCount == 3) {
+	          this.setState({ allowSelection: false });
+	        }
+	      } else {
+	        this.setState({ allowSelection: false });
+	      }
+	    }
+	  },
+
 	  render: function render() {
 	    var _this = this;
 
@@ -49752,7 +49825,7 @@
 	      'div',
 	      { className: promptClass, key: this.promptLineId },
 	      this.emojiboard.map(function (emoji, index) {
-	        return _react2.default.createElement(_Emoji2.default, { emoji: emoji, key: index, addMessage: _this.props.addMessage, prompts: _this.props.prompts });
+	        return _react2.default.createElement(_Emoji2.default, { emoji: emoji, key: index, addMessage: _this.messagingSystem, allowSelection: _this.state.allowSelection, prompts: _this.props.prompts });
 	      })
 	    );
 	  }
@@ -49782,31 +49855,61 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _ = __webpack_require__(322);
+	var classNames = __webpack_require__(332);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Emoji',
 
-	  render: function render() {
-	    var _this = this;
 
-	    var promptContent = void 0;
-	    var emoji = (0, _emoji.emojiAssign)(this.props.emoji.emoji);
-	    promptContent = _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement('img', { className: 'emoji', src: emoji, alt: this.props.emoji.emoji })
-	    );
+	  getInitialState: function getInitialState() {
+	    return {
+	      disabled: false
+	    };
+	  },
 
-	    var messageToAdd = {
+	  componentWillMount: function componentWillMount() {
+	    this.messageToAdd = {
 	      emojiboard: true,
 	      emoji: this.props.emoji.emoji,
 	      value: this.props.emoji.value
 	    };
 
+	    this.emoji = (0, _emoji.emojiAssign)(this.props.emoji.emoji);
+	  },
+
+	  processClick: function processClick(func) {
+	    if (this.messageToAdd.emoji === 'enter') {
+	      //IF IT'S THE ENTER BUTTON
+	      this.messageToAdd.enterButton = true;
+	      func(this.messageToAdd);
+	    }
+
+	    if (this.props.allowSelection && !this.state.disabled) {
+	      //IF THE EMOJI CAN BE CLICKED AND EMOJI BOARD ALLOWS IT
+	      func(this.messageToAdd);
+	      this.setState({ disabled: true });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    var emojiClass = classNames({
+	      'prompt': true,
+	      'emoji': true,
+	      'alreadyselected': this.state.disabled
+	    });
+	    var promptContent = void 0;
+	    promptContent = _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement('img', { className: 'emoji', src: this.emoji, alt: this.props.emoji.emoji })
+	    );
+
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'prompt emoji', onClick: function onClick() {
-	          _this.props.addMessage(messageToAdd);
+	      { className: emojiClass, onClick: function onClick() {
+	          _this.processClick(_this.props.addMessage);
 	        } },
 	      promptContent
 	    );
@@ -52229,19 +52332,19 @@
 	  reaction: true,
 	  reactionType: 'emojikeyboard',
 	  reactionOptions: [{
-	    prompt: '-1',
+	    prompt: 'negative',
 	    returnTo: false,
 	    routeLoad: false,
 	    reactionType: 'buttons',
 	    slideLoad: true,
 	    slideToLoad: '7.1.A'
 	  }, {
-	    prompt: '1',
+	    prompt: 'neutral positive',
 	    deckLoad: false,
 	    routeLoad: false,
 	    reactionType: 'buttons',
 	    slideLoad: true,
-	    slideToLoad: '7.1.B'
+	    slideToLoad: '7.1.A'
 	  }]
 	}, {
 	  charmsg: 'she',
@@ -52642,19 +52745,19 @@
 	    lastMsgInBlock: true
 	  }],
 	  reaction: true,
-	  reactionType: 'buttons',
+	  reactionType: 'emojikeyboard',
 	  reactionOptions: [{
-	    prompt: '>5',
+	    prompt: 'negative',
 	    reactionType: 'buttons',
 	    slideLoad: true,
 	    slideToLoad: '7.1.A'
 	  }, {
-	    prompt: '5',
+	    prompt: 'neutral',
 	    reactionType: 'buttons',
 	    slideLoad: true,
 	    slideToLoad: '7.1.B'
 	  }, {
-	    prompt: '<5',
+	    prompt: 'positive',
 	    reactionType: 'buttons',
 	    slideLoad: true,
 	    slideToLoad: '7.1.C'
