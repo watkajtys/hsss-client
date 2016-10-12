@@ -121,6 +121,17 @@ export default React.createClass({
       }
     });
   },
+  findAndReturnPrompt : function (prompts, toFind) {
+    //LOOP THROUGH THE PROMPTS UNTIL WE FIND WHAT WE ARE LOOKING FOR
+    //INCLUDES WILL FIND ITEM DEEP IN OBJECT
+    var i;
+    for (i = 0; i < prompts.length; i++) {
+      if (_.includes(prompts[i].prompt, toFind)) {
+        return prompts[i]
+      }
+    }
+  },
+
   addMessage          : function (message) {
     //CALLED BY CLICKING A PROMPT
     let that = this;
