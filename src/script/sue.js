@@ -288,7 +288,7 @@ let sue_slides = [
     reactionType    : 'emojikeyboard',
     reactionOptions : [
       {
-        prompt       : '-1',
+        prompt       : 'negative',
         returnTo     : false,
         routeLoad    : false,
         reactionType : 'buttons',
@@ -296,12 +296,12 @@ let sue_slides = [
         slideToLoad  : '7.1.A',
       },
       {
-        prompt       : '1',
+        prompt       : 'neutral positive',
         deckLoad     : false,
         routeLoad    : false,
         reactionType : 'buttons',
         slideLoad    : true,
-        slideToLoad  : '7.1.B',
+        slideToLoad  : '7.1.A',
       }
     ]
   },

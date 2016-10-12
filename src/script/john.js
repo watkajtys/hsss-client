@@ -234,22 +234,22 @@ let john_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'emojikeyboard',
     reactionOptions : [
       {
-        prompt       : '>5',
+        prompt       : 'negative',
         reactionType : 'buttons',
         slideLoad    : true,
         slideToLoad  : '7.1.A',
       },
       {
-        prompt       : '5',
+        prompt       : 'neutral',
         reactionType : 'buttons',
         slideLoad    : true,
         slideToLoad  : '7.1.B',
       },
       {
-        prompt       : '<5',
+        prompt       : 'positive',
         reactionType : 'buttons',
         slideLoad    : true,
         slideToLoad  : '7.1.C',
