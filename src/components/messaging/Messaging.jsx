@@ -18,6 +18,10 @@ export default React.createClass({
   componentWillMount  : function () {
     this.id       = _.uniqueId('message-container_');
     this.promptId = _.uniqueId('prompt-container_');
+
+    //SETTING THE EMOJI RESPONSE TO TRUE
+    //USED TO CONCAT EMOJIS INTO EMOJI RESPONSE MSG
+    this.emojiResponse = false;
   },
   componentDidMount   : function () {
     console.log('Are we active? Mount', this.props.active);
@@ -121,6 +125,42 @@ export default React.createClass({
       }
     });
   },
+
+  processPrompt : function(prompt) {
+    let that = this;
+    if (prompt.slideLoad) {
+      //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
+      setTimeout(function () {
+        if (that.props.parentContainer === that.props.activeContainer) {
+          //REGEX TO GET THE PARENT SLIDE NUMBER (between the two ie: 7.1)
+          let regexMatch = /\b([^.]+).([^.]+)\b/;
+          let parent = prompt.slideToLoad.match(regexMatch);
+          const action = {
+            type        : 'CHANGE_SLIDE',
+            activeSlide : prompt.slideToLoad,
+            activeParent: parent[0]
+          };
+          store.dispatch(action);
+        }
+      }, 750);
+    } else {
+      //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
+      if (prompt.loadMore) {
+        if (prompt.messagesToLoad) {
+          setTimeout(function () {
+            if (prompt.additionalPrompt) {
+              //EXECUTE MESSAGING WITH PROMPTS
+              that.executeMessaging(prompt.messagesToLoad, prompt.promptFollowUp);
+            } else {
+              //EXECUTE MESSAGING NORMALLY
+              that.executeMessaging(prompt.messagesToLoad);
+            }
+
+          }, 1000);
+        }
+      }
+    }
+  },
   findAndReturnPrompt : function (prompts, toFind) {
     //LOOP THROUGH THE PROMPTS UNTIL WE FIND WHAT WE ARE LOOKING FOR
     //INCLUDES WILL FIND ITEM DEEP IN OBJECT
@@ -135,7 +175,6 @@ export default React.createClass({
   addMessage          : function (message) {
     //CALLED BY CLICKING A PROMPT
     let that = this;
-    console.log(message, 'add message');
 
     if (message.prompt) {
       this.setState({prompts : []});
@@ -149,57 +188,44 @@ export default React.createClass({
         obj.emoji = message.emoji;
       }
       this.setState({data : this.state.data.concat([obj])});
-
-      if (message.slideLoad) {
-        //IF MESSAGE IS SUPPOSED TO CALL A NEW SLIDE AFTER GETTING ADDED
-        setTimeout(function () {
-          if (that.props.parentContainer === that.props.activeContainer) {
-            let regexMatch = /.+?./;
-            let parent = message.slideToLoad.match(regexMatch);
-            const action = {
-              type        : 'CHANGE_SLIDE',
-              activeSlide : message.slideToLoad,
-              activeParent: parent[0]
-            };
-            store.dispatch(action);
-          }
-        }, 750);
-      } else if (message.loadAdditionalSlides) {
-        if (message.slidesToLoad) {
-
-        }
-      } else {
-        //NO NEW SLIDE IS GETTING ADDED - CARRY ON AND DO THINGS
-        if (message.loadMore) {
-          if (message.messagesToLoad) {
-            setTimeout(function () {
-              if (message.additionalPrompt) {
-                //EXECUTE MESSAGING WITH PROMPTS
-                that.executeMessaging(message.messagesToLoad, message.promptFollowUp);
-              } else {
-                //EXECUTE MESSAGING NORMALLY
-                that.executeMessaging(message.messagesToLoad);
-              }
-
-            }, 1000);
-          }
-        }
-      }
+      this.processPrompt(message);
     }
-
     if (message.emojiboard) {
-      console.log('FROM THE BOARD', this);
+      console.log('FROM THE BOARD', message);
       //MESSAGE COMING FROM THE EMOJIBOARD
-      let obj = {
-        sender    : 'user',
-        content   : message.prompt,
-        skipDelay : true
-      };
-      //IF WE HAVE AN EMOJI - ADD TO OBJECT
-      if (message.emoji) {
-        obj.emoji = message.emoji;
+
+      if (message.enterButton) {
+        //IF THE ENTER BUTTON ON THE KEYBOARD WAS CLICKED...
+        var foundPrompt;
+        //FIND THE RIGHT PROMPT BASED ON CALCULATED VALUE
+        if (message.overallValue < 0) {
+          //IF THE VALUE IS LESS THAN 0 - NEGATIVE
+          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'negative');
+        } else if (message.overallValue == 0) {
+          //IF THE VALUE IS ZERO - NEUTRAL
+          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'neutral');
+        } else {
+          //IF THE VALUE IS GREATER THAN 0 - POSITIVE
+          foundPrompt = this.findAndReturnPrompt(this.state.prompts, 'positive');
+        }
+        this.processPrompt(foundPrompt);
+
+      } else {
+        var obj = {
+          sender    : 'user',
+          content   : message.prompt,
+          skipDelay : true
+        };
+        //IF WE HAVE AN EMOJI - ADD TO OBJECT
+        if (message.emoji) {
+          obj.emoji = message.emoji;
+        }
+
+        if (!this.emojiResponse) {
+          //CONCAT THAT OBJECT TO THE STATE
+          this.setState({data : this.state.data.concat([obj])});
+        }
       }
-      this.setState({data : this.state.data.concat([obj])});
     }
   },
   messageClass        : function () {
