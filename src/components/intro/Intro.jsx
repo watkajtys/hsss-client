@@ -86,7 +86,7 @@ const Intro = React.createClass({
         that.setState({data: that.state.data.concat([obj])});
         setTimeout(function(){
           loop.next();
-        }, 3000);
+        }, 4000);
       }, function(){
 
         console.log('%cNext Item %i iteration of %i', 'color: blue; font-size: 14px', i, allMessageDecks.length-1);
@@ -99,7 +99,7 @@ const Intro = React.createClass({
         }
         setTimeout(function() {
           loop.next();
-        }, 3000)
+        }, 4000)
       });
 
     }, function(){
