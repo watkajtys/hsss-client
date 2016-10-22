@@ -99,6 +99,10 @@
   left       : 40px;
 }
 
+.messaging-container > .message__wrapper > .message.narrator {
+  left : 50px;
+}
+
 .message__wrapper > .message.john > p {
   padding-right : 5px;
 }
@@ -122,7 +126,10 @@
 }
 
 .message__wrapper > .message.friend {
-  left : 40px;
+  left       : 40px;
+  color      : #333;
+  border     : 1px solid #F16375;
+  background : #FEF3F1;
 }
 
 .message__wrapper > .message.friend {
@@ -177,6 +184,10 @@
   height : 40px;
 }
 
+.messaging-container > .message__wrapper > .avatar.narrator {
+  background-image : url('../images/inline_avatars/nr.png');
+}
+
 .messaging-container.she > .message__wrapper > .avatar.john {
   background-image : url('../images/inline_avatars/john_red.png');
 }
@@ -217,10 +228,10 @@
 }
 
 .prompt-line.emoji {
-  flex-wrap: wrap;
-  height : 150px;
-  justify-content: space-between;
-  background: #CCCCCC;
+  flex-wrap       : wrap;
+  height          : 150px;
+  justify-content : space-between;
+  background      : #CCCCCC;
 }
 
 .prompt-line.visible {
@@ -247,7 +258,7 @@
 }
 
 .prompt.emoji.alreadyselected {
-  opacity: .4;
+  opacity : .4;
 }
 
 .prompt > p {
