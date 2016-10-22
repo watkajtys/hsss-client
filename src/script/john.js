@@ -104,26 +104,28 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'What do you think she was wearing?',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'What do you think she was wearing?',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       }
     ],
     reaction        : true,
     reactionType    : 'buttons',
     reactionOptions : [
       {
-        prompt         : 'A white top',
+        prompt         : 'White',
         deckLoad       : false,
         routeLoad      : false,
         reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
-            sender  : 'narrator',
-            content : "Wrong",
-            emoji   : 'wrong'
+            sender        : 'narrator',
+            content       : "Wrong",
+            emoji         : 'wrong',
+            displayAvatar : true
           },
           {
             sender      : 'narrator',
@@ -135,16 +137,17 @@ let john_slides = [
         ]
       },
       {
-        prompt         : 'Nothing like he described',
+        prompt         : 'Something else',
         deckLoad       : false,
         routeLoad      : false,
         reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
-            sender  : 'narrator',
-            content : "Correct",
-            emoji   : 'correct'
+            sender        : 'narrator',
+            content       : "Correct",
+            emoji         : 'correct',
+            displayAvatar : true
           },
           {
             sender  : 'narrator',
@@ -161,18 +164,19 @@ let john_slides = [
         ]
       },
       {
-        prompt         : 'Why is this important?',
+        prompt         : 'Why?',
         deckLoad       : false,
         routeLoad      : false,
         reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : 'Back to texting',
-            delay       : 2000,
-            slideLoad   : true,
-            slideToLoad : '6.1'
+            sender        : 'narrator',
+            content       : 'Back to texting',
+            delay         : 2000,
+            slideLoad     : true,
+            slideToLoad   : '6.1',
+            displayAvatar : true
           }
         ]
       }
@@ -230,7 +234,8 @@ let john_slides = [
         sender         : 'narrator',
         content        : "Do you think John meant what he said?",
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,
@@ -266,7 +271,8 @@ let john_slides = [
         sender         : 'narrator',
         content        : "Can you think of a time when you meant more than you said?",
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,
@@ -299,10 +305,11 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'Like...?',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'Like...?',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       }
     ],
     reaction        : true,
@@ -314,11 +321,12 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Appreciation",
-            emoji       : 'appreciation',
-            slideLoad   : true,
-            slideToLoad : '7.1.C'
+            sender        : 'narrator',
+            content       : "Appreciation",
+            emoji         : 'appreciation',
+            slideLoad     : true,
+            slideToLoad   : '7.1.C',
+            displayAvatar : true
           }
         ]
       }
@@ -358,10 +366,11 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'Do you always mean what you say?',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'Do you always mean what you say?',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       }
     ],
     reaction        : true,
@@ -373,11 +382,12 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Thumbs Up",
-            emoji       : 'thumbs_up',
-            slideLoad   : true,
-            slideToLoad : '7.1.E'
+            sender        : 'narrator',
+            content       : "Thumbs Up",
+            emoji         : 'thumbs_up',
+            slideLoad     : true,
+            slideToLoad   : '7.1.E',
+            displayAvatar : true
           }
         ]
       },
@@ -387,11 +397,12 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Thumbs Down",
-            emoji       : 'thumbs_down',
-            slideLoad   : true,
-            slideToLoad : '7.1.E'
+            sender        : 'narrator',
+            content       : "Thumbs Down",
+            emoji         : 'thumbs_down',
+            slideLoad     : true,
+            slideToLoad   : '7.1.E',
+            displayAvatar : true
           }
         ]
       },
@@ -401,11 +412,12 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Question",
-            emoji       : 'question',
-            slideLoad   : true,
-            slideToLoad : '7.1.E'
+            sender        : 'narrator',
+            content       : "Question",
+            emoji         : 'question',
+            slideLoad     : true,
+            slideToLoad   : '7.1.E',
+            displayAvatar : true
           }
         ]
       }
@@ -417,10 +429,11 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'Can you think of a time when you\'ve overstated and meant less than what you said?',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'Can you think of a time when you\'ve overstated and meant less than what you said?',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       }
     ],
     reaction        : true,
@@ -453,10 +466,11 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'Like...?',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'Like...?',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       }
     ],
     reaction        : true,
@@ -468,11 +482,12 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Appreciation",
-            emoji       : 'appreciation',
-            slideLoad   : true,
-            slideToLoad : '7.1.G'
+            sender        : 'narrator',
+            content       : "Appreciation",
+            emoji         : 'appreciation',
+            slideLoad     : true,
+            slideToLoad   : '7.1.G',
+            displayAvatar : true
           }
         ]
       }

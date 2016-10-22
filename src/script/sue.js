@@ -91,10 +91,11 @@ let sue_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender    : 'narrator',
-        content   : 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
-        skipDelay : true,
-        delay     : 2000
+        sender        : 'narrator',
+        content       : 'By the way, I should mention everything here is collected from a couple\'s text history, documenting their first 48 hours of courtship.',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
       },
       {
         sender  : 'narrator',
@@ -119,10 +120,11 @@ let sue_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender      : 'narrator',
-            content     : "Back to Sue then...",
-            slideLoad   : true,
-            slideToLoad : '5.1'
+            sender        : 'narrator',
+            content       : "Back to Sue then...",
+            slideLoad     : true,
+            slideToLoad   : '5.1',
+            displayAvatar : true,
           }
         ]
       },
@@ -141,9 +143,10 @@ let sue_slides = [
     visibleHeader : true,
     messages      : [
       {
-        sender  : 'narrator',
-        content : "You're a context person, huh?",
-        delay   : 1000
+        sender        : 'narrator',
+        content       : "You're a context person, huh?",
+        delay         : 1000,
+        displayAvatar : true,
       },
       {
         sender  : 'narrator',
@@ -193,7 +196,8 @@ let sue_slides = [
             content        : "Back to Sue then...",
             slideLoad      : true,
             slideToLoad    : '5.1',
-            lastMsgInBlock : true
+            lastMsgInBlock : true,
+            displayAvatar  : true
           }
         ]
       },
@@ -207,7 +211,8 @@ let sue_slides = [
           {
             sender         : 'narrator',
             content        : "Back to Sue then...",
-            lastMsgInBlock : true
+            lastMsgInBlock : true,
+            displayAvatar  : true
           }
         ]
       }
@@ -281,7 +286,8 @@ let sue_slides = [
         sender         : 'narrator',
         content        : "Do you think she meant what she said?",
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,
@@ -316,22 +322,24 @@ let sue_slides = [
         sender         : 'narrator',
         content        : "So maybe Sue told a partial truth?",
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,
     reactionType    : 'buttons',
     reactionOptions : [
       {
-        prompt       : 'Yes maybe',
-        reactionType : 'buttons',
+        prompt         : 'Yes maybe',
+        reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
-            sender  : 'narrator',
-            content : "appreciation",
-            emoji   : 'appreciation',
-            delay   : 2000
+            sender        : 'narrator',
+            content       : "appreciation",
+            emoji         : 'appreciation',
+            delay         : 2000,
+            displayAvatar : true
           },
           {
             sender         : 'narrator',
@@ -344,15 +352,16 @@ let sue_slides = [
         ]
       },
       {
-        prompt       : 'No she lied',
-        reactionType : 'buttons',
+        prompt         : 'No she lied',
+        reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
-            sender  : 'narrator',
-            content : "appreciation",
-            emoji   : 'appreciation',
-            delay   : 2000
+            sender        : 'narrator',
+            content       : "appreciation",
+            emoji         : 'appreciation',
+            delay         : 2000,
+            displayAvatar : true
           },
           {
             sender         : 'narrator',
@@ -443,16 +452,17 @@ let sue_slides = [
     ]
   },
   {
-    charmsg     : 'she',
-    slide       : '8.1',
+    charmsg       : 'she',
+    slide         : '8.1',
     visibleHeader : true,
-    description : 'transition',
-    messages    : [
+    description   : 'transition',
+    messages      : [
       {
-        sender    : 'narrator',
-        content   : "Moving on...",
-        skipDelay : true,
-        delay     : 1000
+        sender        : 'narrator',
+        content       : "Moving on...",
+        skipDelay     : true,
+        delay         : 1000,
+        displayAvatar : true
       },
       {
         sender  : 'narrator',
@@ -514,7 +524,8 @@ let sue_slides = [
         sender         : 'narrator',
         content        : "What is your impression of Sue?",
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,

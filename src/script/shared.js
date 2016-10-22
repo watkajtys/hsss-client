@@ -26,7 +26,8 @@ let intro_script = [{
         content        : 'Hello!',
         skipDelay      : true,
         delay          : 1000,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        displayAvatar  : true
       }
     ],
     reaction        : true,
@@ -40,8 +41,9 @@ let intro_script = [{
         loadMore         : true,
         messagesToLoad   : [
           {
-            sender  : 'narrator',
-            content : "I'm the creative director also your narrator today."
+            sender        : 'narrator',
+            content       : "I'm the creative director also your narrator today.",
+            displayAvatar : true
           },
           {
             sender  : 'narrator',
