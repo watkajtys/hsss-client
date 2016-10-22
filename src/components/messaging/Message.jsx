@@ -67,6 +67,8 @@ export default React.createClass({
       avatar = <div className="avatar friend"></div>
     } else if (sender === 'sue' || sender === 'john'){
       avatar = <div className="avatar non__user"></div>
+    } else if (displayAvatar && sender === 'narrator') {
+      avatar = <div className="avatar narrator"></div>
     }
 
     let messageContent;
