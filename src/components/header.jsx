@@ -49,11 +49,11 @@ const Header = React.createClass({
   }
 });
 
-const mapeStateToProps = function (store) {
+const mapStateToProps = function (store) {
   return {
     activeContainer : store.slideState.activeContainer,
     visible         : store.headerState.visible
   }
 };
 
-export default connect(mapeStateToProps)(Header);
+export default connect(mapStateToProps)(Header);
