@@ -8,7 +8,8 @@ export default React.createClass({
 
   getInitialState : function () {
     return {
-      disabled : false
+      disabled   : false,
+      clickCount : 0
     }
   },
 
@@ -32,7 +33,11 @@ export default React.createClass({
     if (this.props.allowSelection && !this.state.disabled) {
       //IF THE EMOJI CAN BE CLICKED AND EMOJI BOARD ALLOWS IT
       func(this.messageToAdd);
-      this.setState({disabled : true});
+      this.setState({clickCount : this.state.clickCount += 1});
+
+      if (this.state.clickCount >= 3) {
+        this.setState({disabled : true});
+      }
     }
   },
 
