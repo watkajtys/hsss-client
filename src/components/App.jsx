@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import Header from './header';
 import CustomizableSlider from './CustomizableSlider';
 import intro_script from '../script/shared.js';
 require('../fonts/font.css');
