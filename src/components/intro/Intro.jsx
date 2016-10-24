@@ -86,6 +86,7 @@ const Intro = React.createClass({
         that.setState({data: that.state.data.concat([obj])});
         setTimeout(function(){
           loop.next();
+          //TIME SLIDE STAYS ON SCREEN
         }, 4750);
       }, function(){
 
@@ -99,7 +100,8 @@ const Intro = React.createClass({
         }
         setTimeout(function() {
           loop.next();
-        }, 4750)
+          //TIME IT TAKES TO BRING IN THE NEXT SLIDE
+        }, 1000)
       });
 
     }, function(){
