@@ -9,7 +9,8 @@ export default React.createClass({
     return {
       emojiCount : 0,
       allowSelection : true,
-      overallValue : 0
+      overallValue : 0,
+      emojis : []
     }
   },
 
@@ -104,17 +105,19 @@ export default React.createClass({
       //IF ENTER HAS BEEN CLICKED
       //PASS THE OVERALL VALUE UP THE CHAIN
       messageToAdd.overallValue = this.state.overallValue;
+      messageToAdd.emojis = this.state.emojis;
       this.props.addMessage(messageToAdd);
 
     } else {
 
-      if (this.state.emojiCount <= 3) {
+      if (this.state.emojiCount <= 6) {
 
-        this.props.addMessage(messageToAdd);
+        // this.props.addMessage(messageToAdd);
+        this.setState({emojis: this.state.emojis.concat(messageToAdd)});
         this.setState({emojiCount: this.state.emojiCount + 1});
         this.setState({overallValue : this.state.overallValue + messageToAdd.value});
 
-        if (this.state.emojiCount == 3) {this.setState({allowSelection : false});}
+        if (this.state.emojiCount == 6) {this.setState({allowSelection : false});}
 
       } else {
         this.setState({allowSelection : false});
@@ -128,13 +131,23 @@ export default React.createClass({
       'prompt-line emoji': true,
       'visible': this.props.prompts.length > 0
     });
+    var standbyClass = classNames({
+      'prompt-standby' : true,
+      'visible': this.props.prompts.length > 0
+    });
 
     return (
-
-      <div className={promptClass} key={this.promptLineId}>
-        {this.emojiboard.map((emoji, index) =>
-          <Emoji emoji={emoji} key={index} addMessage={this.messagingSystem} allowSelection={this.state.allowSelection} prompts={this.props.prompts}/>
-        )}
+      <div>
+        <div className={standbyClass}>
+          {this.state.emojis.map((emoji, index) =>
+            <Emoji emoji={emoji} key={index} allowSelection={this.state.allowSelection} prompts={this.props.prompts}/>
+          )}
+        </div>
+        <div className={promptClass} key={this.promptLineId}>
+          {this.emojiboard.map((emoji, index) =>
+            <Emoji emoji={emoji} key={index} addMessage={this.messagingSystem} allowSelection={this.state.allowSelection} prompts={this.props.prompts}/>
+          )}
+        </div>
       </div>
     )
   }
