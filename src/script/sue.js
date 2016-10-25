@@ -88,6 +88,7 @@ let sue_slides = [
   {
     slide           : '4.2.A',
     description     : 'hello2',
+    charmsg         : 'she',
     visibleHeader   : true,
     messages        : [
       {
@@ -140,6 +141,7 @@ let sue_slides = [
     slide         : '4.2.B',
     parent        : '4.2',
     description   : 'context-eh',
+    charmsg       : 'she',
     visibleHeader : true,
     messages      : [
       {
@@ -172,6 +174,7 @@ let sue_slides = [
     slide           : '4.2.C',
     parent          : '4.2',
     description     : 'following-me',
+    charmsg         : 'she',
     visibleHeader   : true,
     messages        : [
       {
@@ -266,6 +269,7 @@ let sue_slides = [
     slide                 : '6.2',
     parent                : '6.2',
     description           : 'cuddle_room_sue',
+    charmsg               : 'she',
     special               : true,
     specialType           : 'audio',
     header                : 'The Cuddle Room',
