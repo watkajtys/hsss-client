@@ -195,6 +195,23 @@ export default React.createClass({
       //MESSAGE COMING FROM THE EMOJIBOARD
 
       if (message.enterButton) {
+
+        var obj = {
+          sender    : 'user',
+          content   : message.prompt,
+          skipDelay : true
+        };
+        //IF WE HAVE AN EMOJI - ADD TO OBJECT
+        if (message.emoji) {
+          obj.emoji = message.emoji;
+        }
+
+        if (message.emojis) {
+          obj.emoji = message.emojis;
+        }
+
+        this.setState({data : this.state.data.concat([obj])});
+
         //IF THE ENTER BUTTON ON THE KEYBOARD WAS CLICKED...
         var foundPrompt;
         //FIND THE RIGHT PROMPT BASED ON CALCULATED VALUE
@@ -211,15 +228,6 @@ export default React.createClass({
         this.processPrompt(foundPrompt);
 
       } else {
-        var obj = {
-          sender    : 'user',
-          content   : message.prompt,
-          skipDelay : true
-        };
-        //IF WE HAVE AN EMOJI - ADD TO OBJECT
-        if (message.emoji) {
-          obj.emoji = message.emoji;
-        }
 
         if (!this.emojiResponse) {
           //CONCAT THAT OBJECT TO THE STATE
@@ -237,7 +245,7 @@ export default React.createClass({
     var prompter;
     if (this.props.deck.reaction && this.props.deck.reactionType === 'buttons') {
       prompter = <PromptList prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
-    } else {
+    } else if (this.props.deck.reaction && this.props.deck.reactionType === 'emojikeyboard') {
       prompter = <EmojiBoard prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
     }
 
