@@ -71,10 +71,21 @@ export default React.createClass({
       avatar = <div className="avatar narrator"></div>
     }
 
-    let messageContent;
+    let messageContent = [];
     if (this.props.msg.emoji) {
-      let emoji = emojiAssign(this.props.msg.emoji);
-      messageContent = <p><img className="emoji" src={emoji} alt={emoji}/></p>;
+      //IF WE HAVE AN ARRAY OF EMOJIS
+      if (Array.isArray(this.props.msg.emoji)) {
+        this.props.msg.emoji.forEach(function (emojiItem) {
+          let emoji = emojiAssign(emojiItem.emoji);
+          messageContent.push(<img className="emoji" src={emoji} alt={emoji}/>)
+        });
+
+
+      } else {
+        //IF WE JUST HAVE ON EMOJI
+        let emoji = emojiAssign(this.props.msg.emoji);
+        messageContent = <p><img className="emoji" src={emoji} alt={emoji}/></p>;
+      }
     } else {
       messageContent = <p>{this.props.msg.content}</p>
     }
