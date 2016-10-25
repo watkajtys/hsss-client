@@ -23,11 +23,11 @@
 }
 
 .audio-container.he {
-  background-image : url('../staticbackgrounds/NumberExchange_John.jpg');
+  background-image : url('../staticbackgrounds/NumberExchange_John_light.jpg');
 }
 
 .audio-container.she {
-  background-image : url('../staticbackgrounds/NumberExchange_Sue.jpg');
+  background-image : url('../staticbackgrounds/NumberExchange_Sue_light.jpg');
 }
 
 .audio-container > .content-wrap {
