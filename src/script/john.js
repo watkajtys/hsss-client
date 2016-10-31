@@ -20,7 +20,7 @@ let john_slides = [
       },
       {
         sender         : 'john',
-        content        : "(You can switch to Sues's side at any point by swiping right)",
+        content        : "(You can switch to Sues's side at any point by swiping left)",
         delay          : 2000,
         lastMsgInBlock : true
       }
