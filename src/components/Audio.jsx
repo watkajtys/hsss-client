@@ -13,7 +13,7 @@ var herNightCap            = require('../audio/Night_Cap_She_ALT_1-2.mp3');
 let classNames = require('classnames');
 import Waveform from './shared/waveform';
 
-export default React.createClass({
+const Audio = React.createClass({
 
   getInitialState: function () {
     return {
@@ -152,3 +152,12 @@ export default React.createClass({
     )
   }
 });
+
+const mapStateToProps = function (store) {
+  return {
+    audioTrack   : store.audioState.audioTrack,
+    audioPlaying : store.audioState.audioPlaying
+  }
+};
+
+export default connect(mapStateToProps)(Audio);
