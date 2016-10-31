@@ -147,8 +147,8 @@ const Audio = React.createClass({
               <Waveform audioFile={this.audioSelection()} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} onFinish={this.handleFinish} playing={this.state.playing} options={options} shouldLaunch={this.props.active}/>
             </div>
           </div>
+          <div className="next-btn"></div>
         </div>
-        <div className="next-btn"></div>
       </div>
     )
   }

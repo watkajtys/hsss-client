@@ -55,9 +55,9 @@
 }
 
 .next-btn {
-  position          : absolute;
+  position          : relative;
   margin            : auto;
-  bottom            : 20px;
+  bottom            : 0;
   height            : 60px;
   width             : 75px;
   background        : url("../images/shared/button-next.png");
