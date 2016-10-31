@@ -18,7 +18,12 @@
   "author": "Matt Watkajtys",
   "license": "ISC",
   "devDependencies": {
-
+    "webpack-dev-server": "^1.14.1",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-extension": "^1.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "react-hot-loader": "^1.3.0"
   },
   "babel": {
     "presets": [
@@ -27,9 +32,21 @@
     ]
   },
   "dependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
     "classnames": "^2.2.5",
+    "css-loader": "^0.23.1",
     "deep-assign": "^2.0.0",
+    "express": "^4.13.4",
+    "file-loader": "^0.8.5",
+    "image-webpack-loader": "^1.8.0",
+    "jsdom": "^9.2.1",
     "lodash": "^4.13.1",
+    "postcss-loader": "^0.9.1",
+    "precss": "^1.4.0",
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
@@ -38,25 +55,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
-    "autoprefixer": "^6.3.6",
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "chai": "^3.5.0",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.8.5",
-    "image-webpack-loader": "^1.8.0",
-    "jsdom": "^9.2.1",
-    "mocha": "^2.5.3",
-    "postcss-loader": "^0.9.1",
-    "precss": "^1.4.0",
-    "react-hot-loader": "^1.3.0",
-    "redux-devtools": "^3.3.1",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "express": "^4.13.4"
-
+    "webpack": "^1.13.1"
   }
 }
