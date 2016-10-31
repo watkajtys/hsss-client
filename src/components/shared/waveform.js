@@ -42,6 +42,10 @@ class Waveform extends Component {
       if (this.props.pos) {
         this._seekTo(this.props.pos);
       }
+
+      if (this.props.shouldLaunch) {
+        this._wavesurfer.play();
+      }
     });
 
     this._wavesurfer.on('audioprocess', (pos) => {
