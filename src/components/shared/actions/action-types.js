@@ -13,3 +13,6 @@ export const HEADER_VISIBILITY = 'HEADER_VISIBILITY';
 
 //SLIDES
 export const ADD_SLIDE = 'ADD_SLIDE';
+
+//AUDIO
+export const RUN_AUDIO = 'RUN_AUDIO';
