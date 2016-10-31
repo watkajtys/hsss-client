@@ -1,7 +1,7 @@
 import React from 'react';
 import store from './shared/store';
 require('../css/audio.css');
-let _ = require('lodash');
+let _                      = require('lodash');
 var hisAudioForImpressions = require('../audio/First_Impressions_He_ALT_1-2.mp3');
 var herAudioForImpressions = require('../audio/First_Impressions_She_ALT_1-2.mp3');
 var hisCuddleRoom          = require('../audio/Cuddle_Room_He_ALT_1-2.mp3');
@@ -10,8 +10,9 @@ var hisNumberExchange      = require('../audio/Number_Exchange_He_ALT_1-2.mp3');
 var herNumberExchange      = require('../audio/Number_Exchange_She_ALT_1-2.mp3');
 var hisNightCap            = require('../audio/Night_Cap_He_ALT_1-2.mp3');
 var herNightCap            = require('../audio/Night_Cap_She_ALT_1-2.mp3');
-let classNames = require('classnames');
+let classNames             = require('classnames');
 import Waveform from './shared/waveform';
+import {connect} from 'react-redux';
 
 const Audio = React.createClass({
 
@@ -27,8 +28,8 @@ const Audio = React.createClass({
   componentWillMount: function () {
     this.id = _.uniqueId('audio_');
   },
-  componentDidReceiveProps(nextProps) {
-    if (nextProps.active) {
+  componentWillReceiveProps(prevProps) {
+    if (prevProps.active) {
       this.play();
     } else {
       this.stop();
@@ -83,8 +84,8 @@ const Audio = React.createClass({
   handlePlayChange(e) {
     if (e.playArgs) {
       this.setState({
-        finished: e.playArgs[0],
-        playing: !e.playArgs[0]
+        finished : e.playArgs[0],
+        playing  : !e.playArgs[0]
       });
     }
   },
@@ -116,19 +117,19 @@ const Audio = React.createClass({
   },
   render: function () {
     const options = {
-      waveColor: 'rgba(255, 255, 255, 0.6)',
-      progressColor: 'rgba(255, 255, 255, 1)',
-      barWidth : 3,
-      cursorWidth: 0,
-      height: 384,
-      normalize: true,
-      fillParent: true
+      waveColor     : 'rgba(255, 255, 255, 0.6)',
+      progressColor : 'rgba(255, 255, 255, 1)',
+      barWidth      : 3,
+      cursorWidth   : 0,
+      height        : 384,
+      normalize     : true,
+      fillParent    : true
     };
 
     var btnClass = classNames({
-      'play': !this.state.playing,
-      'pause': this.state.playing,
-      'replay': !this.state.playing && this.state.finished
+      'play'   : !this.state.playing,
+      'pause'  : this.state.playing,
+      'replay' : !this.state.playing && this.state.finished
     });
 
     return (
@@ -143,7 +144,7 @@ const Audio = React.createClass({
           </div>
           <div className="audio-wrapper">
             <div className="audio-element">
-              <Waveform audioFile={this.audioSelection()} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} onFinish={this.handleFinish} playing={this.state.playing} options={options}/>
+              <Waveform audioFile={this.audioSelection()} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} onFinish={this.handleFinish} playing={this.state.playing} options={options} shouldLaunch={this.props.active}/>
             </div>
           </div>
         </div>
