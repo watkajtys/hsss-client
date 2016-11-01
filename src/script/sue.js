@@ -390,27 +390,27 @@ let sue_slides = [
         sender         : 'sue',
         content        : 'How was your night woman?! Also...Superbowl plans?',
         skipDelay      : true,
-        delay          : 1000,
+        delay          : 1500,
         displayAvatar  : true,
         lastMsgInBlock : true
       },
       {
         sender         : 'friend',
         content        : 'Ended being a low key night, which is fine. No super bowl plans... What are you gonna do?',
-        delay          : 1500,
+        delay          : 2500,
         displayAvatar  : true,
         lastMsgInBlock : true
       },
       {
         sender        : 'sue',
         content       : 'No plans yet...had a super intense with John. Got home only an hour ago. Need to decompress a bit then figure this super bowl stuff out',
-        delay         : 2500,
+        delay         : 3000,
         displayAvatar : true
       },
       {
         sender         : 'sue',
         content        : 'I hate Sunday nights...',
-        delay          : 1500,
+        delay          : 2000,
         lastMsgInBlock : true,
         slideLoad      : true,
         slideToLoad    : '7.1.D',
@@ -428,26 +428,26 @@ let sue_slides = [
         sender         : 'sue',
         content        : 'Also, John has a girlfriend, and I don\'t care.',
         skipDelay      : true,
-        delay          : 1000,
+        delay          : 2000,
         displayAvatar  : true,
         lastMsgInBlock : true
       },
       {
         sender        : 'friend',
         content       : 'Re: John that\'s normal. For what u need now. Not thinking about later, it\'s not your problem.',
-        delay         : 1500,
+        delay         : 2500,
         displayAvatar : true
       },
       {
         sender         : 'friend',
         content        : 'And that\'s probably the article we need to write about what\'s wrong with the "living in the moment" global conscious movement. #lifecoach',
-        delay          : 2500,
+        delay          : 3500,
         lastMsgInBlock : true
       },
       {
         sender         : 'sue',
         content        : 'Yes! I\'m happy I\'ve found someone who\'s always supportive of me making glorious mistakes.',
-        delay          : 1500,
+        delay          : 2000,
         displayAvatar  : true,
         lastMsgInBlock : true,
         slideLoad      : true,
@@ -536,11 +536,13 @@ let sue_slides = [
     reactionType    : 'buttons',
     reactionOptions : [
       {
-        prompt       : 'dislike',
+        prompt       : 'Thumbs Down',
+        emoji        : 'thumbs_down',
         reactionType : 'buttons'
       },
       {
-        prompt       : 'like',
+        prompt       : 'Thumbs Up',
+        emoji        : 'thumbs_up',
         reactionType : 'buttons'
       }
     ]
