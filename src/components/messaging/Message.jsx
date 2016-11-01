@@ -53,7 +53,14 @@ export default React.createClass({
     if (sender === 'user') {
       wrapper__class = 'message__wrapper ' + sender;
     }
-    return wrapper__class
+
+    let visible = '';
+    //IF THERE'S NO CONTENT
+    if (!this.props.msg.content) {
+      //RUN THE DELAY AND HIDE IT
+      visible = this.state.longerMessageDelay ? ' viewable' : ' hidden';
+    }
+    return wrapper__class + visible
   },
   render : function () {
     let sender = this.props.sender;
