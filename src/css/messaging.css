@@ -337,3 +337,13 @@
 .hidden {
   display : none !important;
 }
+
+@media (min-width : 375px) {
+  .prompt-line.emoji > .prompt.emoji > p > .emoji {
+    height : 35px;
+  }
+
+  .prompt-standby {
+    height : 50px;
+  }
+}
