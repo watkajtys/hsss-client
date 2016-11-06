@@ -1,6 +1,6 @@
 #intro {
   /*background     : #4F3065;*/
-  background-image : url('../motionbackgrounds/LandingPagev5.gif');
+  background-image : url('../motionbackgrounds/Quote_Sides.gif');
   background-size  : cover;
   color            : white;
   height           : 100%;
@@ -28,7 +28,6 @@
 
 .display-item > p {
   margin : 0;
-  filter : drop-shadow(1px 1px 3px black);
 }
 
 .display-item > img.avatar-intro-image {
