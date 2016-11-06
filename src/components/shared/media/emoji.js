@@ -19,6 +19,7 @@ var bolt_face     = require('../../../images/emoji/bolt_face.png');
 var tear          = require('../../../images/emoji/tear.png');
 var super_happy   = require('../../../images/emoji/super_happy.png');
 var enter         = require('../../../images/emoji/enter.png');
+var wink          = require('../../../images/emoji/wink.png');
 
 function emojiAssign(emoji) {
   switch (emoji) {
@@ -64,6 +65,8 @@ function emojiAssign(emoji) {
       return super_happy;
     case 'enter' :
       return enter;
+    case 'wink' :
+      return wink;
     default :
       return thumbs_up
   }
