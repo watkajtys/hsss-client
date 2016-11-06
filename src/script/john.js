@@ -172,6 +172,12 @@ let john_slides = [
         messagesToLoad : [
           {
             sender        : 'narrator',
+            content       : "Wink",
+            emoji         : 'wink',
+            displayAvatar : true
+          },
+          {
+            sender        : 'narrator',
             content       : 'Back to texting',
             delay         : 2000,
             slideLoad     : true,
