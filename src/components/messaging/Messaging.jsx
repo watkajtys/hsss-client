@@ -179,9 +179,10 @@ export default React.createClass({
     if (message.prompt) {
       this.setState({prompts : []});
       let obj = {
-        sender    : 'user',
-        content   : message.prompt,
-        skipDelay : true
+        sender         : 'user',
+        content        : message.prompt,
+        lastMsgInBlock : true,
+        skipDelay      : true
       };
       //IF WE HAVE AN EMOJI - ADD TO OBJECT
       if (message.emoji) {

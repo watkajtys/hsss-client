@@ -44,11 +44,12 @@ export default React.createClass({
     let extra = this.props.classExtra ? this.props.classExtra : '';
     let delay = this.state.longerMessageDelay ? 'textmessage' : 'hidden';
     let avatarMsg = this.props.displayAvatar ? 'avatar__msg' : '';
-    let last = this.props.lastinblock ? 'last__msg' : '';
+    let last = this.props.lastinblock ? ' last__msg' : '';
     return 'message indicator ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
   },
   wrapperClass : function() {
     let sender = this.props.sender;
+    let last = this.props.lastinblock ? ' last__msg' : '';
     let wrapper__class = 'message__wrapper non-user ' + sender;
     if (sender === 'user') {
       wrapper__class = 'message__wrapper ' + sender;
@@ -60,7 +61,7 @@ export default React.createClass({
       //RUN THE DELAY AND HIDE IT
       visible = this.state.longerMessageDelay ? ' viewable' : ' hidden';
     }
-    return wrapper__class + visible
+    return wrapper__class + visible + last
   },
   render : function () {
     let sender = this.props.sender;

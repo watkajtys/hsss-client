@@ -1,5 +1,5 @@
 .messaging-container {
-  width              : 90%;
+  width              : 100%;
   height             : 100%;
   padding            : 55px 2% 0;
   overflow-y         : hidden;
@@ -21,6 +21,10 @@
   height  : auto;
   display : inline-flex;
   margin  : 1px 0;
+}
+
+.message__wrapper.last__msg {
+  margin-bottom : 15px !important;
 }
 
 .message__wrapper.non-user.narrator {
