@@ -181,6 +181,7 @@ let sue_slides = [
         sender         : 'narrator',
         content        : "Are you following me?",
         delay          : 1000,
+        displayAvatar: true,
         lastMsgInBlock : true
       }
     ],
@@ -215,7 +216,9 @@ let sue_slides = [
             sender         : 'narrator',
             content        : "Back to Sue then...",
             lastMsgInBlock : true,
-            displayAvatar  : true
+            displayAvatar  : true,
+            slideLoad      : true,
+            slideToLoad    : '5.1'
           }
         ]
       }
@@ -521,8 +524,9 @@ let sue_slides = [
   {
     charmsg         : 'she',
     slide           : '9.3',
-    description     : 'night-cap-impression-of-sue',
+    description     : 'what-you-think-of-sue',
     visibleHeader   : true,
+    lockHorizontal  : true,
     messages        : [
       {
         sender         : 'narrator',
@@ -533,20 +537,161 @@ let sue_slides = [
       }
     ],
     reaction        : true,
+    reactionType    : 'emojikeyboard',
+    reactionOptions : [
+      {
+        prompt       : 'positive neutral negative',
+        returnTo     : false,
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '10.1',
+      }
+    ]
+  },
+  {
+    slide           : '10.1',
+    description     : 'know-more-sue',
+    lockHorizontal  : true,
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender        : 'narrator',
+        content       : "Want to know more?",
+        delay         : 2000,
+        skipDelay     : true,
+        displayAvatar : true
+      }
+    ],
+    reaction        : true,
     reactionType    : 'buttons',
     reactionOptions : [
       {
-        prompt       : 'Thumbs Down',
-        emoji        : 'thumbs_down',
+        prompt       : 'Thumbs Up',
+        emoji        : 'thumbs_up',
+        slideLoad    : true,
+        slideToLoad  : '10.1.A',
         reactionType : 'buttons'
       },
       {
-        prompt       : 'Thumbs Up',
-        emoji        : 'thumbs_up',
+        prompt       : 'Thumbs Down',
+        emoji        : 'thumbs_down',
+        slideLoad    : true,
+        slideToLoad  : '11.1',
         reactionType : 'buttons'
       }
     ]
+  },
+  {
+    slide                 : '10.1.A',
+    parent                : '10.1',
+    description           : 'ep-2-preview-sue',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Next On HS/SS',
+    audioFile             : 'next',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : '10.1.B'
+  },
+  {
+    slide          : '10.1.B',
+    parent         : '10.1',
+    description    : 'next-on-text-sue',
+    lockHorizontal : true,
+    visibleHeader  : true,
+    messages       : [
+      {
+        sender        : 'narrator',
+        content       : "Oh did I mention there will be other couples? :)",
+        delay         : 1000,
+        displayAvatar : true,
+      },
+      {
+        sender  : 'narrator',
+        content : "Including one that breaks up :(",
+        delay   : 2000
+      },
+      {
+        sender      : 'narrator',
+        content     : "But I won't give too much away...",
+        delay       : 2000,
+        slideLoad   : true,
+        slideToLoad : '11.1'
+      }
+    ]
+  },
+  {
+    slide           : '11.1',
+    parent          : '11',
+    description     : 'thanks-for-sue',
+    lockHorizontal  : true,
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender        : 'narrator',
+        content       : 'Thank you for listening!',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
+      },
+      {
+        sender         : 'narrator',
+        content        : 'I can send you updates if you\'d like',
+        delay          : 2000,
+        lastMsgInBlock : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt         : 'Open Ended...',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender        : 'narrator',
+            content       : "Appreciation",
+            emoji         : 'appreciation',
+            slideLoad     : true,
+            slideToLoad   : '11.2',
+            displayAvatar : true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slide          : '11.2',
+    parent         : '11',
+    description    : 'goodbye-sue',
+    lockHorizontal : true,
+    visibleHeader  : true,
+    messages       : [
+      {
+        sender        : 'narrator',
+        content       : 'That\'s all I got',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
+      },
+      {
+        sender  : 'narrator',
+        content : 'Please share with your social network! I\'m always looking to meet new friends',
+        delay   : 2000,
+      },
+      {
+        sender         : 'narrator',
+        content        : 'Good Bye',
+        emoji          : 'good_bye',
+        lastMsgInBlock : true,
+        delay          : 1500
+      }
+    ],
+    reaction       : false,
   }
+
 ];
 
 export default sue_slides;

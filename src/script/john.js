@@ -578,10 +578,185 @@ let john_slides = [
         content        : 'Hope you got home safe. I\'m going to wake up thinking about what a dope breakfast I\'m going to make us next time when you actually let me take you home. :)',
         delay          : 2500,
         displayAvatar  : true,
-        lastMsgInBlock : true
+        lastMsgInBlock : true,
+        slideLoad      : true,
+        nextSlide      : '9.3'
       }
     ]
   },
+  {
+    charmsg         : 'he',
+    slide           : '9.3',
+    description     : 'what-you-think-of-john',
+    visibleHeader   : true,
+    lockHorizontal  : true,
+    messages        : [
+      {
+        sender         : 'narrator',
+        content        : "What is your impression of John?",
+        delay          : 1000,
+        lastMsgInBlock : true,
+        displayAvatar  : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'emojikeyboard',
+    reactionOptions : [
+      {
+        prompt       : 'negative neutral positive',
+        returnTo     : false,
+        reactionType : 'buttons',
+        slideLoad    : true,
+        slideToLoad  : '10.1',
+      }
+    ]
+  },
+  {
+    charmsg         : 'he',
+    slide           : '10.1',
+    description     : 'know-more-john',
+    lockHorizontal  : true,
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender        : 'narrator',
+        content       : "Want to know more?",
+        delay         : 2000,
+        skipDelay     : true,
+        displayAvatar : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt       : 'Thumbs Up',
+        emoji        : 'thumbs_up',
+        slideLoad    : true,
+        slideToLoad  : '10.1.A',
+        reactionType : 'buttons'
+      },
+      {
+        prompt       : 'Thumbs Down',
+        emoji        : 'thumbs_down',
+        slideLoad    : true,
+        slideToLoad  : '11.1',
+        reactionType : 'buttons'
+      }
+    ]
+  },
+  {
+    slide                 : '10.1.A',
+    parent                : '10.1',
+    description           : 'ep-2-preview',
+    special               : true,
+    specialType           : 'audio',
+    header                : 'Next On HS/SS',
+    audioFile             : 'next',
+    gender                : 'he',
+    lockHorizontal        : true,
+    loadNextAutomatically : true,
+    nextSlide             : '10.1.B'
+  },
+  {
+    slide          : '10.1.B',
+    parent         : '10.1',
+    description    : 'next-on-text',
+    charmsg        : 'he',
+    lockHorizontal : true,
+    visibleHeader  : true,
+    messages       : [
+      {
+        sender        : 'narrator',
+        content       : "Oh did I mention there will be other couples? :)",
+        delay         : 1000,
+        displayAvatar : true,
+      },
+      {
+        sender  : 'narrator',
+        content : "Including one that breaks up :(",
+        delay   : 2000
+      },
+      {
+        sender      : 'narrator',
+        content     : "But I won't give too much away...",
+        delay       : 2000,
+        slideLoad   : true,
+        slideToLoad : '11.1'
+      }
+    ]
+  },
+  {
+    slide           : '11.1',
+    parent          : '11',
+    description     : 'thanks-for',
+    lockHorizontal  : true,
+    visibleHeader   : true,
+    messages        : [
+      {
+        sender        : 'narrator',
+        content       : 'Thank you for listening!',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
+      },
+      {
+        sender         : 'narrator',
+        content        : 'I can send you updates if you\'d like',
+        delay          : 2000,
+        lastMsgInBlock : true
+      }
+    ],
+    reaction        : true,
+    reactionType    : 'buttons',
+    reactionOptions : [
+      {
+        prompt         : 'Open Ended...',
+        reactionType   : 'buttons',
+        loadMore       : true,
+        messagesToLoad : [
+          {
+            sender        : 'narrator',
+            content       : "Appreciation",
+            emoji         : 'appreciation',
+            slideLoad     : true,
+            slideToLoad   : '11.2',
+            displayAvatar : true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slide          : '11.2',
+    parent         : '11',
+    description    : 'goodbye',
+    lockHorizontal : true,
+    visibleHeader  : true,
+    messages       : [
+      {
+        sender        : 'narrator',
+        content       : 'That\'s all I got',
+        skipDelay     : true,
+        delay         : 2000,
+        displayAvatar : true
+      },
+      {
+        sender  : 'narrator',
+        content : 'Please share with your social network! I\'m always looking to meet new friends',
+        delay   : 2000,
+      },
+      {
+        sender         : 'narrator',
+        content        : 'Good Bye',
+        emoji          : 'good_bye',
+        lastMsgInBlock : true,
+        delay          : 1500
+      }
+    ],
+    reaction       : false,
+  },
+
 ];
 
 export default john_slides;
