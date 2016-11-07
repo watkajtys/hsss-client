@@ -319,11 +319,11 @@ let john_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'input',
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
-        reactionType   : 'buttons',
+        reactionType   : 'input',
         loadMore       : true,
         messagesToLoad : [
           {
@@ -708,11 +708,11 @@ let john_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'input',
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
-        reactionType   : 'buttons',
+        reactionType   : 'input',
         loadMore       : true,
         messagesToLoad : [
           {

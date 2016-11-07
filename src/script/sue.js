@@ -643,11 +643,10 @@ let sue_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'input',
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
-        reactionType   : 'buttons',
         loadMore       : true,
         messagesToLoad : [
           {
