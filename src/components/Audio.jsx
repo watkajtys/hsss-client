@@ -10,6 +10,7 @@ var hisNumberExchange      = require('../audio/Number_Exchange_He_ALT_1-2.mp3');
 var herNumberExchange      = require('../audio/Number_Exchange_She_ALT_1-2.mp3');
 var hisNightCap            = require('../audio/Night_Cap_He_ALT_1-2.mp3');
 var herNightCap            = require('../audio/Night_Cap_She_ALT_1-2.mp3');
+var nextOn                 = require('../audio/NextOn.mp3');
 let classNames             = require('classnames');
 import Waveform from './shared/waveform';
 import {connect} from 'react-redux';
@@ -113,6 +114,8 @@ const Audio = React.createClass({
         return hisNightCap;
       case 'herNightCap' :
         return herNightCap;
+      case 'next' :
+        return nextOn;
     }
   },
   render: function () {
