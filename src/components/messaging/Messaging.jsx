@@ -205,10 +205,12 @@ export default React.createClass({
         //IF WE HAVE AN EMOJI - ADD TO OBJECT
         if (message.emoji) {
           obj.emoji = message.emoji;
+          obj.content = message.emoji;
         }
 
         if (message.emojis) {
           obj.emoji = message.emojis;
+          obj.content = message.emojis;
         }
 
         this.setState({data : this.state.data.concat([obj])});
