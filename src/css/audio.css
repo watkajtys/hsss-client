@@ -44,6 +44,10 @@
   font-family : 'Avenir-Black', sans-serif;
 }
 
+.audio-container > .content-wrap > .header-container > h1 {
+  line-height: 40px;
+}
+
 .audio-container > .content-wrap > .timer {
   display     : inline-block;
   width       : 60%;
