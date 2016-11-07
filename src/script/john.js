@@ -177,12 +177,11 @@ let john_slides = [
             displayAvatar : true
           },
           {
-            sender        : 'narrator',
-            content       : 'Back to texting',
-            delay         : 2000,
-            slideLoad     : true,
-            slideToLoad   : '6.1',
-            displayAvatar : true
+            sender      : 'narrator',
+            content     : 'Back to texting',
+            delay       : 2000,
+            slideLoad   : true,
+            slideToLoad : '6.1',
           }
         ]
       }
@@ -580,7 +579,7 @@ let john_slides = [
         displayAvatar  : true,
         lastMsgInBlock : true,
         slideLoad      : true,
-        nextSlide      : '9.3'
+        slideToLoad    : '9.3'
       }
     ]
   },
@@ -668,13 +667,13 @@ let john_slides = [
     messages       : [
       {
         sender        : 'narrator',
-        content       : "Oh did I mention there will be other couples? :)",
+        content       : "Oh did I mention there will be other couples? \n :)",
         delay         : 1000,
         displayAvatar : true,
       },
       {
         sender  : 'narrator',
-        content : "Including one that breaks up :(",
+        content : "Including one that breaks up \n :(",
         delay   : 2000
       },
       {

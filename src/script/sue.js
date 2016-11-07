@@ -589,7 +589,7 @@ let sue_slides = [
     specialType           : 'audio',
     header                : 'Next On HS/SS',
     audioFile             : 'next',
-    gender                : 'he',
+    gender                : 'she',
     lockHorizontal        : true,
     loadNextAutomatically : true,
     nextSlide             : '10.1.B'
@@ -603,13 +603,13 @@ let sue_slides = [
     messages       : [
       {
         sender        : 'narrator',
-        content       : "Oh did I mention there will be other couples? :)",
+        content       : "Oh did I mention there will be other couples? \n :)",
         delay         : 1000,
         displayAvatar : true,
       },
       {
         sender  : 'narrator',
-        content : "Including one that breaks up :(",
+        content : "Including one that breaks up \n :(",
         delay   : 2000
       },
       {
