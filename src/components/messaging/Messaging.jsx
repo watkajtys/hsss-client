@@ -5,6 +5,7 @@ import assign from 'deep-assign';
 import Message from './Message';
 import PromptList from './PromptList';
 import EmojiBoard from './Emojikeyboard';
+import PromptInput from './PromptInput';
 
 
 let _ = require('lodash');
@@ -250,6 +251,8 @@ export default React.createClass({
       prompter = <PromptList prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
     } else if (this.props.deck.reaction && this.props.deck.reactionType === 'emojikeyboard') {
       prompter = <EmojiBoard prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
+    } else if (this.props.deck.reaction && this.props.deck.reactionType === 'input') {
+      prompter = <PromptInput prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
     }
 
     return (
