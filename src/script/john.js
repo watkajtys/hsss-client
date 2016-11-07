@@ -348,18 +348,18 @@ let john_slides = [
         sender        : 'narrator',
         content       : 'I remember when my ex and I finally had the breakup talk...',
         skipDelay     : true,
-        delay         : 1000,
+        delay         : 1500,
         displayAvatar : true
       },
       {
         sender  : 'narrator',
         content : 'The last thing I said to him was, "See you later."',
-        delay   : 1500
+        delay   : 2500
       },
       {
         sender         : 'narrator',
         content        : 'But now thinking back, I think what I really meant was - "Take care and be happy"',
-        delay          : 2000,
+        delay          : 2500,
         lastMsgInBlock : true,
         slideLoad      : true,
         slideToLoad    : '7.1.D',
@@ -480,11 +480,11 @@ let john_slides = [
       }
     ],
     reaction        : true,
-    reactionType    : 'buttons',
+    reactionType    : 'input',
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
-        reactionType   : 'buttons',
+        reactionType   : 'input',
         loadMore       : true,
         messagesToLoad : [
           {
@@ -515,7 +515,7 @@ let john_slides = [
       {
         sender  : 'narrator',
         content : 'When it\'s time to go, I always say - "Catch up soon!" But we never do...',
-        delay   : 1500
+        delay   : 2000
       },
       {
         sender         : 'narrator',
