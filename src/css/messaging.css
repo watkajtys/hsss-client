@@ -246,6 +246,10 @@
   visibility : visible;
 }
 
+.prompt-line.input > input {
+  width : 100%;
+}
+
 .prompt-standby {
   position        : absolute;
   bottom          : 150px;
@@ -258,6 +262,17 @@
   box-shadow      : black 0 0 2px;
   background      : white;
   visibility      : hidden;
+}
+
+.prompt-standby.input {
+  bottom     : 50px;
+  padding    : 0 10px;
+  box-sizing : border-box;
+  height     : auto;
+}
+
+.prompt-standby.input > p {
+  margin : 0;
 }
 
 .prompt-standby.visible {
@@ -285,6 +300,15 @@
 
 .prompt.emoji.alreadyselected {
   opacity : .4;
+}
+
+.prompt.input {
+  padding     : 0;
+  margin-left : 5px;
+}
+
+.prompt.input > img {
+  height : 100%;
 }
 
 .prompt > p {
