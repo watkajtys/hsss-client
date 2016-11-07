@@ -85,7 +85,8 @@ export default React.createClass({
       if (Array.isArray(this.props.msg.emoji)) {
         this.props.msg.emoji.forEach(function (emojiItem) {
           let emoji = emojiAssign(emojiItem.emoji);
-          messageContent.push(<img className="emoji" src={emoji} alt={emoji}/>)
+          let emojiId = _.uniqueId('emoji-id_');
+          messageContent.push(<img className="emoji" src={emoji} alt={emoji} key={emojiId}/>)
         });
 
 
