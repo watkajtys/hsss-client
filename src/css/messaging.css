@@ -366,12 +366,22 @@
   display : none !important;
 }
 
-@media (min-width : 375px) {
+@media (min-width : 360px) {
   .prompt-line.emoji > .prompt.emoji > p > .emoji {
     height : 35px;
   }
 
   .prompt-standby {
     height : 50px;
+  }
+}
+
+@media (min-width : 400px) {
+  .prompt-line.emoji > .prompt.emoji > p > .emoji {
+    height : 40px;
+  }
+
+  .prompt-standby {
+    height : 55px;
   }
 }
