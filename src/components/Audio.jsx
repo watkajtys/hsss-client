@@ -19,10 +19,12 @@ const Audio = React.createClass({
 
   getInitialState: function () {
     return {
-      playing: false,
-      finished: false,
-      pos: 0,
-      elapsed: '0:00'
+      playing  : false,
+      finished : false,
+      pos      : 0,
+      elapsed  : '0:00',
+      launch   : false,
+      ready    : false
     }
   },
 
@@ -217,7 +219,7 @@ const Audio = React.createClass({
           </div>
           <div className="audio-wrapper">
             <div className="audio-element">
-              <Waveform audioFile={this.audioSelection()} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} onFinish={this.handleFinish} playing={this.state.playing} options={options} shouldLaunch={this.props.active}/>
+              <Waveform audioFile={this.audioSelection()} onReady={this.isReady} pos={this.state.pos} onPosChange={this.handlePosChange} onPlayChange={this.handlePlayChange} onFinish={this.handleFinish} playing={this.state.playing} options={options} shouldLaunch={this.state.launch} fileName={this.props.file}/>
             </div>
           </div>
           <div className="next-btn"></div>
