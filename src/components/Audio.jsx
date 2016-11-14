@@ -55,15 +55,33 @@ const Audio = React.createClass({
   },
 
   play : function() {
-    this.setState({
-      playing: true
-    });
+    if (this.state.ready) {
+      const playAction = {
+        type         : 'RUN_AUDIO',
+        audioTrack   : this.props.file
+      };
+      this.setState({
+        playing: true
+      });
+      store.dispatch(playAction);
+    } else {
+      this.setState({launch: true});
+    }
   },
 
   stop : function() {
-    this.setState({
-      playing: false
-    });
+    if (this.state.ready) {
+      const stopAction = {
+        type         : 'RUN_AUDIO',
+        audioTrack   : this.props.file
+      };
+      console.log('STOP CALLED', this.props.file)
+      this.setState({
+        playing: false
+      });
+      store.dispatch(stopAction);
+    }
+
   },
 
   handleFinish() {
