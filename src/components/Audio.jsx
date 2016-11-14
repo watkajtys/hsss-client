@@ -82,6 +82,10 @@ const Audio = React.createClass({
     });
   },
 
+  isReady() {
+    this.setState({ready: true});
+  },
+
   handlePlayChange(e) {
     if (e.playArgs) {
       this.setState({

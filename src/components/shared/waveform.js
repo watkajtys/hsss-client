@@ -35,6 +35,7 @@ class Waveform extends Component {
 
     //LOADED FILE AND DREW THE WAVES
     this._wavesurfer.on('ready', () => {
+      this.props.onReady();
       this._isReady = true;
 
       //set initial position
