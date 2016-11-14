@@ -29,12 +29,45 @@ const Audio = React.createClass({
   componentWillMount: function () {
     this.id = _.uniqueId('audio_');
   },
-  componentWillReceiveProps(prevProps) {
-    if (prevProps.active) {
-      this.play();
-    } else {
-      this.stop();
+
+  componentDidMount : function () {
+    //CHECK IF FIRST MOUNT
+    if (!this.props.audioTrack && this.props.active) {
+      //FIRST LOAD OF AUDIO SO PLAY
+      this.setState({launch: true});
+      const playAction = {
+        type         : 'RUN_AUDIO',
+        audioTrack   : this.props.file
+      };
+      store.dispatch(playAction);
     }
+
+  },
+  componentWillReceiveProps(nextProps) {
+
+    if (!this.props.active && nextProps.active) {
+      //IF AUDIO ISNT ACTIVE BUT IT ABOUT TO BE
+      if (this.props.file == nextProps.audioTrack && !this.state.playing) {
+        this.play();
+      }
+    } else if (this.props.active && !nextProps.active){
+      //IF IT'S ACTIVE, BUT IT'S CHANGING
+      console.log('PREV ACTIVE', this.props.file);
+      // this.stop();
+      if (this.props.file !== nextProps.audioTrack && this.state.playing) {
+        this.stop();
+      }
+    }
+
+    if (!this.props.active && (this.props.file !== nextProps.audioTrack)) {
+      //IF WERE NOT ACTIVE BUT THE AUDIO FILE CHANGES
+      if (this.state.playing) {
+        //IF ITS PLAYING STOP IT
+        console.log('stoped from not active')
+        this.stop();
+      }
+    }
+
   },
   audioClass: function () {
     let extra = this.props.classExtra ? this.props.classExtra : '';
