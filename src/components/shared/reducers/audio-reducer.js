@@ -2,7 +2,7 @@ import * as types from '../actions/action-types';
 
 const initialState = {
   audioTrack   : '',
-  audioPlaying : true
+  audioPlaying : false
 };
 
 const audioReducer = function (state = initialState, action) {
