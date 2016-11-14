@@ -42,15 +42,30 @@ const Audio = React.createClass({
   },
 
   handleTogglePlay: function () {
+
+
     if (this.state.finished) {
       this.setState({
-        finished: false,
-        playing: true
+        finished: false
       });
+
+      this.play();
+
+
     } else {
-      this.setState({
-        playing: !this.state.playing
-      });
+      //   console.log('Toggle Play CALLED')
+      // this.setState({
+      //   playing: !this.state.playing
+      // });
+      // playAction.audioPlaying = !this.state.playing;
+      if (this.props.active) {
+       if (this.state.playing) {
+         this.stop()
+       } else {
+         this.play()
+       }
+      }
+
     }
   },
 
