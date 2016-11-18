@@ -181,7 +181,7 @@ let sue_slides = [
         sender         : 'narrator',
         content        : "Are you following me?",
         delay          : 1000,
-        displayAvatar: true,
+        displayAvatar  : true,
         lastMsgInBlock : true
       }
     ],
@@ -644,6 +644,7 @@ let sue_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
+    trackingSchema  : {email: true, source: 'Sue'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
