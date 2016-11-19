@@ -1,5 +1,6 @@
 import React from 'react';
 import store from './shared/store';
+var updateEntry = require('../functions/updateEntry').updateEntry;
 require('../css/audio.css');
 let _                      = require('lodash');
 var hisAudioForImpressions = require('../audio/First_Impressions_He_ALT_1-2.mp3');
@@ -117,6 +118,10 @@ const Audio = React.createClass({
       this.setState({launch: true});
     }
     store.dispatch(playAction);
+    var audioFile = this.props.file + '-played';
+    let dataObj = {};
+    dataObj[audioFile] = 'true';
+    updateEntry(dataObj);
   },
 
   stop : function() {
@@ -131,6 +136,10 @@ const Audio = React.createClass({
 
   handleFinish() {
     console.log('HANDLE FINISH');
+    var audioFile = this.props.file + '-finished';
+    let dataObj = {};
+    dataObj[audioFile] = 'true';
+    updateEntry(dataObj);
   },
 
   handlePosChange(e) {
