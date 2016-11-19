@@ -153,6 +153,7 @@
 /*border-bottom-left-radius : 20px;*/
 /*}*/
 
+/*
 .message__wrapper.non-user:nth-last-child(2) > .message {
   border-bottom-left-radius : 20px;
 }
@@ -164,6 +165,7 @@
 .message__wrapper.sue:nth-last-child(2) > .message {
   border-bottom-right-radius : 20px;
 }
+*/
 
 .message.indicator {
   border-bottom-left-radius : 20px;
@@ -304,7 +306,9 @@
 
 .prompt.input {
   padding     : 0;
-  margin-left : 5px;
+  margin: 0 10px;
+  color: lightgray;
+  background-color: transparent;
 }
 
 .prompt.input > img {
