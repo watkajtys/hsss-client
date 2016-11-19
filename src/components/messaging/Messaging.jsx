@@ -252,7 +252,7 @@ export default React.createClass({
     } else if (this.props.deck.reaction && this.props.deck.reactionType === 'emojikeyboard') {
       prompter = <EmojiBoard prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
     } else if (this.props.deck.reaction && this.props.deck.reactionType === 'input') {
-      prompter = <PromptInput prompts={this.state.prompts} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
+      prompter = <PromptInput prompts={this.state.prompts} trackingSchema={this.props.deck.trackingSchema} addMessage={this.addMessage} type={this.props.deck.reactionType} key={this.promptId}/>
     }
 
     return (
