@@ -129,11 +129,12 @@ let john_slides = [
             displayAvatar : true
           },
           {
-            sender      : 'narrator',
-            content     : 'Back to texting',
-            delay       : 2000,
-            slideLoad   : true,
-            slideToLoad : '6.1'
+            sender         : 'narrator',
+            content        : 'Back to texting',
+            delay          : 2000,
+            slideLoad      : true,
+            slideToLoad    : '6.1',
+            lastMsgInBlock : true
           }
         ]
       },
@@ -329,12 +330,13 @@ let john_slides = [
         loadMore       : true,
         messagesToLoad : [
           {
-            sender        : 'narrator',
-            content       : "Appreciation",
-            emoji         : 'appreciation',
-            slideLoad     : true,
-            slideToLoad   : '7.1.C',
-            displayAvatar : true
+            sender         : 'narrator',
+            content        : "Appreciation",
+            emoji          : 'appreciation',
+            slideLoad      : true,
+            slideToLoad    : '7.1.C',
+            displayAvatar  : true,
+            lastMsgInBlock : true
           }
         ]
       }
@@ -476,11 +478,12 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : 'Like...?',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : 'Like...?',
+        skipDelay      : true,
+        delay          : 2000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
