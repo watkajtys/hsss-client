@@ -12,7 +12,7 @@ module.exports = {
     loaders : [{
       test    : /\.jsx?$/,
       exclude : /node_modules/,
-      loader  : 'react-hot!babel'
+      loader  : 'babel'
     }, {
       test   : /\.css$/,
       loader : 'style-loader!css-loader!postcss-loader'

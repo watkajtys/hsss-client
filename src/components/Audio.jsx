@@ -1,5 +1,6 @@
 import React from 'react';
 import store from './shared/store';
+var updateEntry = require('../functions/updateEntry').updateEntry;
 require('../css/audio.css');
 let _                      = require('lodash');
 var hisAudioForImpressions = require('../audio/First_Impressions_He_ALT_1-2.mp3');
@@ -37,11 +38,11 @@ const Audio = React.createClass({
     if (!this.props.audioTrack && this.props.active) {
       //FIRST LOAD OF AUDIO SO PLAY
       this.setState({launch: true});
-      const playAction = {
+      let startAction = {
         type         : 'RUN_AUDIO',
         audioTrack   : this.props.file
       };
-      store.dispatch(playAction);
+      store.dispatch(startAction);
     }
 
   },
@@ -61,11 +62,11 @@ const Audio = React.createClass({
       }
     }
 
-    if (!this.props.active && (this.props.file !== nextProps.audioTrack)) {
+    if (this.props.file !== nextProps.audioTrack) {
       //IF WERE NOT ACTIVE BUT THE AUDIO FILE CHANGES
       if (this.state.playing) {
         //IF ITS PLAYING STOP IT
-        console.log('stoped from not active')
+        console.log('stoped from not active', this.props.file, nextProps.audioTrack)
         this.stop();
       }
     }
@@ -105,42 +106,40 @@ const Audio = React.createClass({
   },
 
   play : function() {
+    const playAction = {
+      type         : 'RUN_AUDIO',
+      audioTrack   : this.props.file
+    };
     if (this.state.ready) {
-      const playAction = {
-        type         : 'RUN_AUDIO',
-        audioTrack   : this.props.file
-      };
       this.setState({
         playing: true
       });
-      store.dispatch(playAction);
     } else {
       this.setState({launch: true});
     }
+    store.dispatch(playAction);
+    var audioFile = this.props.file + '-played';
+    let dataObj = {};
+    dataObj[audioFile] = 'true';
+    updateEntry(dataObj);
   },
 
   stop : function() {
     if (this.state.ready) {
-      const stopAction = {
-        type         : 'RUN_AUDIO',
-        audioTrack   : this.props.file
-      };
       console.log('STOP CALLED', this.props.file)
       this.setState({
         playing: false
       });
-      store.dispatch(stopAction);
     }
 
   },
 
   handleFinish() {
     console.log('HANDLE FINISH');
-    const action = {
-      type: 'CHANGE_SLIDE',
-      activeSlide: this.props.nextSlide
-    };
-    store.dispatch(action);
+    var audioFile = this.props.file + '-finished';
+    let dataObj = {};
+    dataObj[audioFile] = 'true';
+    updateEntry(dataObj);
   },
 
   handlePosChange(e) {

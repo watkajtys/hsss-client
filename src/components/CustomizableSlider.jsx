@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import store from './shared/store';
 import Slide from './Slide';
+var updateEntry = require('../functions/updateEntry').updateEntry;
 require('../css/slide.css');
 let _ = require('lodash');
 
@@ -45,7 +46,11 @@ const CustomizableSlider = React.createClass({
           console.log('%cNEW SLIDE', 'font-size: 12px; color: yellow; background: black;', index, that.state.renderedSlides[index].slide);
           //SHOULD L2R SWIPING BE LOCKED? IF DIVERGENT - YES - OTHERWISE - NO
           var locked = that.state.renderedSlides[index].slide.match(/\d.\d./) ? true : false ;
-          
+          let dataObj = {
+            lastDeck : that.state.renderedSlides[index].slide,
+            lastSide : that.props.container
+          };
+          updateEntry(dataObj);
           const action = {
             type         : 'CHANGE_SLIDE',
             activeSlide  : that.state.renderedSlides[index].slide,

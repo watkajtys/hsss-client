@@ -1,4 +1,5 @@
 import React from 'react';
+var updateEntry = require('../../functions/updateEntry').updateEntry;
 
 var _          = require('lodash');
 var classNames = require('classnames');
@@ -29,6 +30,19 @@ export default React.createClass({
     prompt.prompt = this.state.value;
     //SEND IT
     this.props.addMessage(prompt);
+    let dataObj = {};
+    if (this.props.trackingSchema.schema) {
+      //SCHEMA PROVIDED
+      let tracking = this.props.trackingSchema.schema;
+      dataObj[tracking] = this.state.value;
+    } else if (this.props.trackingSchema.email) {
+      //OTHERWISE THIS IS AN EMAIL
+      dataObj.emailAddress = this.state.value;
+      dataObj.emailProvidedFrom = this.props.trackingSchema.source;
+    }
+    if (this.state.value) {
+      updateEntry(dataObj);
+    }
     this.setState({value : ''});
   },
   render : function () {

@@ -319,6 +319,7 @@ let john_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
+    trackingSchema  : {schema: 'meantMoreThanYouSaid'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -480,6 +481,7 @@ let john_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
+    trackingSchema  : {schema: 'overStatedWhatYouSaid'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -708,6 +710,7 @@ let john_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
+    trackingSchema  : {email : true, source: 'John'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',

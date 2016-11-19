@@ -1,7 +1,14 @@
 import React from 'react';
 require('../../css/splash.css');
+var createEntry = require('../../functions/createEntry').createEntry;
 
 export default React.createClass({
+
+  componentDidMount : function() {
+
+    createEntry();
+
+  },
   render: function () {
     return (
       <div id="splash">
