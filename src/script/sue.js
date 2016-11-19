@@ -555,11 +555,12 @@ let sue_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : "Want to know more?",
-        delay         : 2000,
-        skipDelay     : true,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : "Want to know more?",
+        delay          : 2000,
+        skipDelay      : true,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -613,11 +614,12 @@ let sue_slides = [
         delay   : 2000
       },
       {
-        sender      : 'narrator',
-        content     : "But I won't give too much away...",
-        delay       : 2000,
-        slideLoad   : true,
-        slideToLoad : '11.1'
+        sender         : 'narrator',
+        content        : "But I won't give too much away...",
+        delay          : 2000,
+        slideLoad      : true,
+        slideToLoad    : '11.1',
+        lastMsgInBlock : true
       }
     ]
   },
@@ -644,7 +646,7 @@ let sue_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
-    trackingSchema  : {email: true, source: 'Sue'},
+    trackingSchema  : {email : true, source : 'Sue'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -654,42 +656,29 @@ let sue_slides = [
             sender        : 'narrator',
             content       : "Appreciation",
             emoji         : 'appreciation',
-            slideLoad     : true,
-            slideToLoad   : '11.2',
             displayAvatar : true
+          },
+          {
+            sender    : 'narrator',
+            content   : 'That\'s all I got',
+            skipDelay : true,
+            delay     : 2000
+          },
+          {
+            sender  : 'narrator',
+            content : 'Please share with your social network! I\'m always looking to meet new friends',
+            delay   : 2000,
+          },
+          {
+            sender         : 'narrator',
+            content        : 'Good Bye',
+            emoji          : 'good_bye',
+            lastMsgInBlock : true,
+            delay          : 1500
           }
         ]
       }
     ]
-  },
-  {
-    slide          : '11.2',
-    parent         : '11',
-    description    : 'goodbye-sue',
-    lockHorizontal : true,
-    visibleHeader  : true,
-    messages       : [
-      {
-        sender        : 'narrator',
-        content       : 'That\'s all I got',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
-      },
-      {
-        sender  : 'narrator',
-        content : 'Please share with your social network! I\'m always looking to meet new friends',
-        delay   : 2000,
-      },
-      {
-        sender         : 'narrator',
-        content        : 'Good Bye',
-        emoji          : 'good_bye',
-        lastMsgInBlock : true,
-        delay          : 1500
-      }
-    ],
-    reaction       : false,
   }
 
 ];

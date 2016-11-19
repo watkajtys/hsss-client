@@ -104,11 +104,12 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : 'What do you think she was wearing?',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : 'What do you think she was wearing?',
+        skipDelay      : true,
+        delay          : 2000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -256,7 +257,7 @@ let john_slides = [
         prompt       : 'neutral',
         reactionType : 'buttons',
         slideLoad    : true,
-        slideToLoad  : '7.1.B',
+        slideToLoad  : '7.1.C',
       },
       {
         prompt       : 'positive',
@@ -310,16 +311,17 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : 'Like...?',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : 'Like...?',
+        skipDelay      : true,
+        delay          : 2000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
     reactionType    : 'input',
-    trackingSchema  : {schema: 'meantMoreThanYouSaid'},
+    trackingSchema  : {schema : 'meantMoreThanYouSaid'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -372,11 +374,12 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : 'Do you always mean what you say?',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : 'Do you always mean what you say?',
+        skipDelay      : true,
+        delay          : 2000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -435,11 +438,12 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : 'Can you think of a time when you\'ve overstated and meant less than what you said?',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : 'Can you think of a time when you\'ve overstated and meant less than what you said?',
+        skipDelay      : true,
+        delay          : 2000,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -481,7 +485,7 @@ let john_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
-    trackingSchema  : {schema: 'overStatedWhatYouSaid'},
+    trackingSchema  : {schema : 'overStatedWhatYouSaid'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -620,11 +624,12 @@ let john_slides = [
     visibleHeader   : true,
     messages        : [
       {
-        sender        : 'narrator',
-        content       : "Want to know more?",
-        delay         : 2000,
-        skipDelay     : true,
-        displayAvatar : true
+        sender         : 'narrator',
+        content        : "Want to know more?",
+        delay          : 2000,
+        skipDelay      : true,
+        displayAvatar  : true,
+        lastMsgInBlock : true
       }
     ],
     reaction        : true,
@@ -679,11 +684,12 @@ let john_slides = [
         delay   : 2000
       },
       {
-        sender      : 'narrator',
-        content     : "But I won't give too much away...",
-        delay       : 2000,
-        slideLoad   : true,
-        slideToLoad : '11.1'
+        sender         : 'narrator',
+        content        : "But I won't give too much away...",
+        delay          : 2000,
+        slideLoad      : true,
+        slideToLoad    : '11.1',
+        lastMsgInBlock : true
       }
     ]
   },
@@ -710,7 +716,7 @@ let john_slides = [
     ],
     reaction        : true,
     reactionType    : 'input',
-    trackingSchema  : {email : true, source: 'John'},
+    trackingSchema  : {email : true, source : 'John'},
     reactionOptions : [
       {
         prompt         : 'Open Ended...',
@@ -721,43 +727,29 @@ let john_slides = [
             sender        : 'narrator',
             content       : "Appreciation",
             emoji         : 'appreciation',
-            slideLoad     : true,
-            slideToLoad   : '11.2',
             displayAvatar : true
+          },
+          {
+            sender  : 'narrator',
+            content : 'That\'s all I got',
+            delay   : 2000
+          },
+          {
+            sender  : 'narrator',
+            content : 'Please share with your social network! I\'m always looking to meet new friends',
+            delay   : 2000,
+          },
+          {
+            sender         : 'narrator',
+            content        : 'Good Bye',
+            emoji          : 'good_bye',
+            lastMsgInBlock : true,
+            delay          : 1500
           }
         ]
       }
     ]
-  },
-  {
-    slide          : '11.2',
-    parent         : '11',
-    description    : 'goodbye',
-    lockHorizontal : true,
-    visibleHeader  : true,
-    messages       : [
-      {
-        sender        : 'narrator',
-        content       : 'That\'s all I got',
-        skipDelay     : true,
-        delay         : 2000,
-        displayAvatar : true
-      },
-      {
-        sender  : 'narrator',
-        content : 'Please share with your social network! I\'m always looking to meet new friends',
-        delay   : 2000,
-      },
-      {
-        sender         : 'narrator',
-        content        : 'Good Bye',
-        emoji          : 'good_bye',
-        lastMsgInBlock : true,
-        delay          : 1500
-      }
-    ],
-    reaction       : false,
-  },
+  }
 
 ];
 
