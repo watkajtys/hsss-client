@@ -2,6 +2,7 @@ import React from 'react';
 import CustomizableSlider from './CustomizableSlider';
 import { connect } from 'react-redux';
 import store from './shared/store';
+var updateEntry = require('../functions/updateEntry').updateEntry;
 // import store from '../components/shared/store.js';
 require('../css/slide.css');
 let _ = require('lodash');
@@ -10,7 +11,8 @@ const EmbeddedSlider =  React.createClass({
 
   getInitialState : function() {
     return {
-      rendered: []
+      rendered: [],
+      toggled : 0
     }
   },
   componentWillMount: function () {
@@ -30,7 +32,11 @@ const EmbeddedSlider =  React.createClass({
           type: 'UPDATE_ACTIVE_CONTAINER',
           activeContainer: that.props.slides[index].container
         };
-        store.dispatch(action)
+        store.dispatch(action);
+        let toggleNum = that.state.toggled + 1;
+        that.setState({toggled: toggleNum });
+        let dataObj = {sideToggle: that.state.toggled};
+        updateEntry(dataObj);
       },
       // onSlideNextStart: function (horizontalSlider) {
       //   localStorage.setItem('activeHorizontalSlide', horizontalSlider.activeIndex);
