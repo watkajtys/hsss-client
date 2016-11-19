@@ -4,13 +4,12 @@ var updateEntry = require('../../functions/updateEntry').updateEntry;
 var _          = require('lodash');
 var classNames = require('classnames');
 
-var enter = require('../../images/emoji/enter.png');
-
 export default React.createClass({
 
   getInitialState    : function () {
     return {
-      value : ''
+      value  : '',
+      hidden : false
     }
   },
   componentWillMount : function () {
@@ -44,11 +43,12 @@ export default React.createClass({
       updateEntry(dataObj);
     }
     this.setState({value : ''});
+    this.setState({hidden: true});
   },
   render : function () {
     var promptClass = classNames({
-      'prompt-line input': true,
-      'visible': this.props.prompts.length > 0
+      'prompt-line input' : true,
+      'visible'           : this.props.prompts.length > 0 && !this.state.hidden
     });
 
     var standbyClass = classNames({
@@ -61,7 +61,7 @@ export default React.createClass({
           <p>{this.state.value}</p>
         </div>
         <div className={promptClass} key={this.promptLineId}>
-          <input type="text" value={this.state.value} onChange={this.handleChange}/><div className="prompt input" onClick={ () => {this.handleSubmit()}}><img src={enter} alt=""/></div>
+          <input type="text" value={this.state.value} onChange={this.handleChange}/><div className="prompt input" onClick={ () => {this.handleSubmit()}}><div className="enter-btn">Send</div></div>
         </div>
       </div>
     )
