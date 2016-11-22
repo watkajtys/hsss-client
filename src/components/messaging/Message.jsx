@@ -37,7 +37,8 @@ export default React.createClass({
     let delay = this.state.longerMessageDelay ? 'hidden' : 'viewable';
     let avatarMsg = this.props.displayAvatar ? 'avatar__msg' : '';
     let last = this.props.lastinblock ? 'last__msg' : '';
-    return 'message ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last;
+    let msgLast = this.props.length-1 === this.props.index ? 'last' : '';
+    return 'message ' + sender + ' ' + extra + ' ' + delay + ' ' + avatarMsg + ' ' + last + ' ' + msgLast;
   },
   indicatorClass: function() {
     let sender = this.props.sender;

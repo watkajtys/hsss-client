@@ -259,7 +259,7 @@ export default React.createClass({
       <div className={this.messageClass()} key={this.id}>
         {this.state.data.map((message, index) =>
           <Message msg={message} sender={message.sender} skipDelay={message.skipDelay} delayTime={message.delayTime}
-                   displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock} key={index}/>
+                   displayAvatar={message.displayAvatar} lastinblock={message.lastMsgInBlock} key={index} length={this.state.data.length} index={index}/>
         )}
         {prompter}
       </div>

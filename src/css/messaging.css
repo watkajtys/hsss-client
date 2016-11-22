@@ -149,26 +149,14 @@
   border-bottom-right-radius : 20px;
 }
 
-/*.message__wrapper.non-user:first-child > .message {*/
-/*border-bottom-left-radius : 20px;*/
-/*}*/
-
-/*
-.message__wrapper.non-user:nth-last-child(2) > .message {
-  border-bottom-left-radius : 20px;
+.message.last {
+  border-bottom-right-radius: 20px !important;
+  border-bottom-left-radius  : 20px !important;
 }
-
-.message__wrapper.john:nth-last-child(2) > .message {
-  border-bottom-left-radius : 20px;
-}
-
-.message__wrapper.sue:nth-last-child(2) > .message {
-  border-bottom-right-radius : 20px;
-}
-*/
 
 .message.indicator {
-  border-bottom-left-radius : 20px;
+  border-bottom-left-radius : 20px !important;
+  border-bottom-right-radius : 20px !important;
 }
 
 .message.indicator > span.bubble {
