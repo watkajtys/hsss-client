@@ -8,6 +8,7 @@ let intro_script = [{
   special               : true,
   specialType           : 'splash',
   loadNextAutomatically : true,
+  visibleHeader         : false,
   messages              : [
     {
       sender  : 'narrator',
@@ -84,6 +85,7 @@ let intro_script = [{
     tense          : 'present',
     special        : true,
     specialType    : 'intro',
+    visibleHeader  : false,
     // loadNextAutomatically : true,
     textBlock      : [
       [
