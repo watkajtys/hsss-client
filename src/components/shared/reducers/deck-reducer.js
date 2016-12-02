@@ -3,7 +3,8 @@ import * as types from '../actions/action-types.js';
 const initialState = {
   activeSlide     : '1',
   activeContainer : 'INTRO',
-  lockedSide      : false
+  lockedSide      : false,
+  restart         : false
 };
 
 const deckReducer = function (state = initialState, action) {
@@ -17,6 +18,12 @@ const deckReducer = function (state = initialState, action) {
     case types.UPDATE_ACTIVE_CONTAINER :
       return Object.assign({}, state, {
         activeContainer : action.activeContainer
+      });
+    case types.RESTART :
+      return Object.assign({}, state, {
+        restart         : action.restart,
+        activeSlide     : '1',
+        activeContainer : 'INTRO'
       });
   }
   return state;
