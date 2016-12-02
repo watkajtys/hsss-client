@@ -2,7 +2,8 @@ import * as types from '../actions/action-types';
 
 const initialState = {
   episode    : '1',
-  launchSide : 'SHE'
+  launchSide : 'SHE',
+  launched   : false
 };
 
 const episodeReducer = function (state = initialState, action) {
@@ -10,7 +11,8 @@ const episodeReducer = function (state = initialState, action) {
     case types.LAUNCH_EPISODE :
       return Object.assign({}, state, {
         episode    : action.episode,
-        launchSide : action.launchSide
+        launchSide : action.launchSide,
+        launched   : action.launched
       })
   }
   return state;
