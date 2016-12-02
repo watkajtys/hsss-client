@@ -39,11 +39,7 @@ const Header = React.createClass({
 
     return (
       <header className={this.headerClass}>
-        <div id='burger-icon'>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <div className="back-btn" onClick={(event) => this.handleClick(this)}></div>
       </header>
     )
   }

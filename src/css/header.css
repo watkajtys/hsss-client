@@ -20,6 +20,17 @@ header.visible.she {
   background : rgba(243, 123, 133, 1);
 }
 
+header > .back-btn {
+  background        : url("../images/shared/button-back.png");
+  background-size   : contain;
+  background-repeat : no-repeat;
+  height            : 30px;
+  top               : 10px;
+  left              : 10px;
+  width             : 30px;
+  position          : relative;
+}
+
 #burger-icon {
   width      : 30px;
   height     : 30px;
