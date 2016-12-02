@@ -150,12 +150,12 @@
 }
 
 .message.last {
-  border-bottom-right-radius: 20px !important;
+  border-bottom-right-radius : 20px !important;
   border-bottom-left-radius  : 20px !important;
 }
 
 .message.indicator {
-  border-bottom-left-radius : 20px !important;
+  border-bottom-left-radius  : 20px !important;
   border-bottom-right-radius : 20px !important;
 }
 
@@ -279,6 +279,7 @@
   border-radius : 20px 0 20px 20px;
   margin-right  : 10px;
   font-family   : 'Avenir-Medium', sans-serif;
+  font-size     : 14px;
 }
 
 .prompt.emoji {
@@ -293,10 +294,10 @@
 }
 
 .prompt.input {
-  padding     : 0;
-  margin: 0 10px;
-  color: lightgray;
-  background-color: transparent;
+  padding          : 0;
+  margin           : 0 10px;
+  color            : lightgray;
+  background-color : transparent;
 }
 
 .prompt.input > img {
