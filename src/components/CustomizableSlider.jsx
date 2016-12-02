@@ -223,6 +223,34 @@ const CustomizableSlider = React.createClass({
 
       store.dispatch(restart);
     }
+
+    if (nextProps.launched) {
+      //IF LAUNCH HAS BEEN TRIGGERED
+      if (this.props.customClass === 'MAIN') {
+        //SEND THE MAIN SLIDER TO POSITION 3 (BIFURCATED START)
+        this.swipercustom.slideTo(3, 500, false);
+      } else {
+        //MAKE SURE ALL OTHER SLIDERS ARE AT POSITION 0
+        this.swipercustom.slideTo(0, 0, false);
+      }
+      //UPDATE SLIDE AND CONTAINERS TO START POSITION
+      let launch = {
+        type            : 'UPDATE_SLIDE_AND_CONTAINER',
+        activeSlide     : '3.3',
+        activeContainer : nextProps.launchSide === 'HE' ? 'JOHN' : 'SUE'
+      };
+
+      store.dispatch(launch);
+      //RESET THE LAUNCH SYSTEM
+      let reset = {
+        type       : 'LAUNCH_EPISODE',
+        launchSide : nextProps.launchSide,
+        launched   : false
+      };
+
+      store.dispatch(reset);
+    }
+
     if (this.props.container !== nextProps.activeContainer) {
       //THIS IS THE NON-ACTIVE SIDE
       if ((this.state.renderedSlides[activeIndex] && this.state.renderedSlides[activeIndex].slide) !== nextProps.activeSlide) {
@@ -259,6 +287,8 @@ const mapStateToProps = function (store) {
     activeParent    : store.slideState.activeParent,
     activeContainer : store.slideState.activeContainer,
     restart         : store.slideState.restart,
+    launched        : store.episodeState.launched,
+    launchSide      : store.episodeState.launchSide
   }
 };
 
