@@ -65,6 +65,11 @@ const EmbeddedSlider =  React.createClass({
     } else {
       this.unlockSwiping();
     }
+
+    if (this.props.launchSide !== nextProps.launchSide) {
+      //ON THE WRONG SIDE, FIX IT
+      this.toggleSide(nextProps.launchSide)
+    }
   },
   determineLaunchSide : function (side) {
     let index = 1;
