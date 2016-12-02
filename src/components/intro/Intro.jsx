@@ -28,10 +28,11 @@ const Intro = React.createClass({
     const action = {
       type       : 'LAUNCH_EPISODE',
       episode    : this.props.episode,
-      launchSide : launchSide
+      launchSide : launchSide,
+      launched   : true
     };
     store.dispatch(action);
-    this.launchEpisode();
+    this.launchEpisode(launchSide);
   },
   launchEpisode     : function () {
     const action = {
