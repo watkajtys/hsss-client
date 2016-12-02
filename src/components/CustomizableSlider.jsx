@@ -213,6 +213,16 @@ const CustomizableSlider = React.createClass({
   componentWillReceiveProps(nextProps) {
     let activeIndex = this.swipercustom.activeIndex;
 
+    if (nextProps.restart) {
+      //ROLL IT ALL BACK TO POSITION 0
+      this.swipercustom.slideTo(0, 500, false);
+      let restart = {
+        type : 'RESTART',
+        restart : false
+      };
+
+      store.dispatch(restart);
+    }
     if (this.props.container !== nextProps.activeContainer) {
       //THIS IS THE NON-ACTIVE SIDE
       if ((this.state.renderedSlides[activeIndex] && this.state.renderedSlides[activeIndex].slide) !== nextProps.activeSlide) {
@@ -248,6 +258,7 @@ const mapStateToProps = function (store) {
     activeSlide     : store.slideState.activeSlide,
     activeParent    : store.slideState.activeParent,
     activeContainer : store.slideState.activeContainer,
+    restart         : store.slideState.restart,
   }
 };
 
