@@ -35,6 +35,16 @@ const Header = React.createClass({
       this.headerClass.replace(/ visible/, '');
     }
   },
+
+  handleClick : function () {
+
+    let restart = {
+      type : 'RESTART',
+      restart : true
+    };
+
+    store.dispatch(restart);
+  },
   render : function () {
 
     return (
