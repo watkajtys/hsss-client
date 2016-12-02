@@ -152,11 +152,6 @@ let john_slides = [
             displayAvatar : true
           },
           {
-            sender  : 'narrator',
-            content : 'You\'re right...Her eyes were more important :)',
-            delay   : 2000
-          },
-          {
             sender      : 'narrator',
             content     : 'Back to texting',
             delay       : 2000,
@@ -177,6 +172,11 @@ let john_slides = [
             content       : "Wink",
             emoji         : 'wink',
             displayAvatar : true
+          },
+          {
+            sender  : 'narrator',
+            content : 'You\'re right...Her eyes were more important :)',
+            delay   : 2000
           },
           {
             sender      : 'narrator',
@@ -713,6 +713,11 @@ let john_slides = [
       {
         sender         : 'narrator',
         content        : 'I can send you updates if you\'d like',
+        delay          : 2000
+      },
+      {
+        sender         : 'narrator',
+        content        : 'What\'s the best email to reach you at?',
         delay          : 2000,
         lastMsgInBlock : true
       }

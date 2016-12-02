@@ -640,6 +640,11 @@ let sue_slides = [
       {
         sender         : 'narrator',
         content        : 'I can send you updates if you\'d like',
+        delay          : 2000
+      },
+      {
+        sender         : 'narrator',
+        content        : 'What\'s the best email to reach you at?',
         delay          : 2000,
         lastMsgInBlock : true
       }
