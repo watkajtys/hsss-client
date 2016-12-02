@@ -97,8 +97,8 @@ const EmbeddedSlider =  React.createClass({
       <div className="slide_container swiper-container swiper-container-hor" key={this.id}>
         <div className="swiper-wrapper">
           {this.getSlides().map((slide, index) =>
-            <div className="slide swiper-slide">
-              <CustomizableSlider slides={slide.characterSlides} customClass={slide.customClass} direction="vertical" index={this.props.indexToTrigger} activeSlide={this.props.activeSlide} container={slide.container} key={index}/>
+            <div className="slide swiper-slide" key={index}>
+              <CustomizableSlider slides={slide.characterSlides} customClass={slide.customClass} direction="vertical" index={this.props.indexToTrigger} activeSlide={this.props.activeSlide} container={slide.container}/>
             </div>
           )}
         </div>
