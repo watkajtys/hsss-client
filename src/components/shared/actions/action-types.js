@@ -16,5 +16,9 @@ export const ADD_SLIDE = 'ADD_SLIDE';
 
 //AUDIO
 export const RUN_AUDIO = 'RUN_AUDIO';
+
+//BACK
+export const UPDATE_SLIDE_AND_CONTAINER = 'UPDATE_SLIDE_AND_CONTAINER';
+
 //RESTART
 export const RESTART = 'RESTART';

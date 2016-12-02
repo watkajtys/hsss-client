@@ -19,6 +19,11 @@ const deckReducer = function (state = initialState, action) {
       return Object.assign({}, state, {
         activeContainer : action.activeContainer
       });
+    case types.UPDATE_SLIDE_AND_CONTAINER :
+      return Object.assign({}, state, {
+        activeContainer : action.activeContainer,
+        activeSlide     : action.activeSlide
+      });
     case types.RESTART :
       return Object.assign({}, state, {
         restart         : action.restart,
