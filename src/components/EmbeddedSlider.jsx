@@ -12,14 +12,15 @@ const EmbeddedSlider =  React.createClass({
   getInitialState : function() {
     return {
       rendered: [],
-      toggled : 0
+      toggled : 0,
+      firstToggledSide : undefined
     }
   },
   componentWillMount: function () {
     this.id = _.uniqueId('slide-wrap-hor_');
   },
   componentDidMount: function () {
-    var that = this;
+    const that = this;
     var initial = this.determineLaunchSide(this.props.launchSide);
     this.horizontalSlider = new Swiper('.swiper-container-hor', {
       direction: 'horizontal',
@@ -33,9 +34,24 @@ const EmbeddedSlider =  React.createClass({
           activeContainer: that.props.slides[index].container
         };
         store.dispatch(action);
+      },
+      onSlideChangeStart : function (horizontalSlider) {
+        //HANDLING TOGGLE COUNT FOR ANALYTICS
         let toggleNum = that.state.toggled + 1;
-        that.setState({toggled: toggleNum });
-        let dataObj = {sideToggle: that.state.toggled};
+        let container = that.props.activeContainer;
+        that.setState({toggled : toggleNum});
+        let dataObj = {sideToggle : toggleNum};
+
+        if (!that.state.firstToggledSide && toggleNum !== 0) {
+          //MAKING SURE THIS ISN'T THE FIRST TOGGLE -- INTRO TO STORY
+          if (container == 'SUE' || container == 'JOHN') {
+            //SETTING THE FIRST TOGGLED POINT
+            dataObj.firstToggle = true;
+            that.setState({firstToggledSide : container});
+            dataObj.firstToggledSide = container;
+          }
+        }
+        //HIT ANALYTICS SERVER
         updateEntry(dataObj);
       },
       // onSlideNextStart: function (horizontalSlider) {
