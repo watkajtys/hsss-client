@@ -78,22 +78,14 @@ const Audio = React.createClass({
   },
 
   handleTogglePlay: function () {
-
+    let that = this;
 
     if (this.state.finished) {
-      this.setState({
-        finished: false
+      this.setState({finished: false}, function() {
+        that.play();
       });
 
-      this.play();
-
-
     } else {
-      //   console.log('Toggle Play CALLED')
-      // this.setState({
-      //   playing: !this.state.playing
-      // });
-      // playAction.audioPlaying = !this.state.playing;
       if (this.props.active) {
        if (this.state.playing) {
          this.stop()
@@ -110,15 +102,14 @@ const Audio = React.createClass({
       type         : 'RUN_AUDIO',
       audioTrack   : this.props.file
     };
+
     if (this.state.ready) {
-      this.setState({
-        playing: true
-      });
+      this.setState({playing: true});
     } else {
       this.setState({launch: true});
     }
     store.dispatch(playAction);
-    var audioFile = this.props.file + '-played';
+    let audioFile = this.props.file + '-played';
     let dataObj = {};
     dataObj[audioFile] = 'true';
     updateEntry(dataObj);
@@ -126,7 +117,6 @@ const Audio = React.createClass({
 
   stop : function() {
     if (this.state.ready) {
-      console.log('STOP CALLED', this.props.file)
       this.setState({
         playing: false
       });
@@ -135,8 +125,8 @@ const Audio = React.createClass({
   },
 
   handleFinish() {
-    console.log('HANDLE FINISH');
-    var audioFile = this.props.file + '-finished';
+    this.setState({finished: true, playing: false});
+    let audioFile = this.props.file + '-finished';
     let dataObj = {};
     dataObj[audioFile] = 'true';
     updateEntry(dataObj);
@@ -156,7 +146,6 @@ const Audio = React.createClass({
   handlePlayChange(e) {
     if (e.playArgs) {
       this.setState({
-        finished : e.playArgs[0],
         playing  : !e.playArgs[0]
       });
     }

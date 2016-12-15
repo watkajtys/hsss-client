@@ -66,20 +66,12 @@ class Waveform extends Component {
       this.setState({
         finished : true
       });
-
-      this.props.onPlayChange({
-        playArgs : [this.state.finished]
-      });
       this.props.onFinish();
     });
 
     this._wavesurfer.on('play', () => {
       this.setState({
         finished : false
-      });
-
-      this.props.onPlayChange({
-        playArgs : [this.state.finished]
       });
     });
 
