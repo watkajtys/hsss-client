@@ -81,8 +81,14 @@ const Audio = React.createClass({
     let that = this;
 
     if (this.state.finished) {
+      //REPLAY THE AUDIO
       this.setState({finished: false}, function() {
         that.play();
+        let audioFile = this.props.file + '-replay';
+        let dataObj = {};
+        dataObj[audioFile] = 'true';
+        //SEND TRACKING DATA FOR AUDIO REPLAY
+        updateEntry(dataObj);
       });
 
     } else {
