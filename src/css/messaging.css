@@ -192,6 +192,7 @@
 
 .messaging-container.she > .message__wrapper > .avatar.sue {
   background-image : url('../images/inline_avatars/sue_red.png');
+  right: 1%;
 }
 
 .messaging-container.she > .message__wrapper > .avatar.friend {
@@ -204,6 +205,7 @@
 
 .messaging-container.he > .message__wrapper > .avatar.sue {
   background-image : url('../images/inline_avatars/sue_blue.png');
+  right: 1%;
 }
 
 .message > p {
@@ -232,8 +234,16 @@
   background      : #CCCCCC;
 }
 
+.prompt-line.emoji.ios {
+  bottom: 68px !important;
+}
+
 .prompt-line.visible {
   visibility : visible;
+}
+
+.prompt-line.ios {
+  bottom: 68px !important;
 }
 
 .prompt-line.input > input {
@@ -261,12 +271,20 @@
   height     : auto;
 }
 
+.prompt-standby.input.ios {
+  bottom: 118px !important;
+}
+
 .prompt-standby.input > p {
   margin : 0;
 }
 
 .prompt-standby.visible {
   visibility : visible;
+}
+
+.prompt-standby.ios {
+  bottom: 218px !important;
 }
 
 .prompt {

@@ -15,8 +15,10 @@ export default React.createClass({
   render : function () {
     var promptClass = classNames({
       'prompt-line': true,
-      'visible': this.props.prompts.length > 0
-    });
+      'visible': this.props.prompts.length > 0,
+      'ios' : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+
+  });
     return (
       <div className={promptClass} key={this.promptLineId}>
         {this.props.prompts.map((prompt, index) =>

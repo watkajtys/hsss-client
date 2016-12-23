@@ -129,11 +129,13 @@ export default React.createClass({
   render : function () {
     var promptClass = classNames({
       'prompt-line emoji': true,
-      'visible': this.props.prompts.length > 0
+      'visible': this.props.prompts.length > 0,
+      'ios' : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
     });
     var standbyClass = classNames({
       'prompt-standby' : true,
-      'visible': this.props.prompts.length > 0
+      'visible': this.props.prompts.length > 0,
+      'ios' : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
     });
 
     return (

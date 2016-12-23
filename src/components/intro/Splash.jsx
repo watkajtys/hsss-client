@@ -1,6 +1,7 @@
 import React from 'react';
 require('../../css/splash.css');
 var createEntry = require('../../functions/createEntry').createEntry;
+var classNames = require('classnames');
 
 export default React.createClass({
 
@@ -10,6 +11,11 @@ export default React.createClass({
 
   },
   render: function () {
+
+    let startClass = classNames({
+      'start-btn' : true,
+      'ios' : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+    });
     return (
       <div id="splash">
         <div className="splash-logo-wrapper">
@@ -18,7 +24,7 @@ export default React.createClass({
             An interactive story about dating in the digital age.
           </h3>
         </div>
-        <div className="start-btn"></div>
+        <div className={startClass}></div>
       </div>
     )
   }

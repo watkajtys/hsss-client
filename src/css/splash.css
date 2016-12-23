@@ -90,6 +90,11 @@
   margin            : auto;
 }
 
+.start-btn.ios {
+  position : relative !important;
+  bottom   : -40px;
+}
+
 .start-btn > .up-icon {
   font-size : 45px;
 }

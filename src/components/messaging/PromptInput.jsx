@@ -48,12 +48,14 @@ export default React.createClass({
   render : function () {
     var promptClass = classNames({
       'prompt-line input' : true,
-      'visible'           : this.props.prompts.length > 0 && !this.state.hidden
+      'visible'           : this.props.prompts.length > 0 && !this.state.hidden,
+      'ios'               : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
     });
 
     var standbyClass = classNames({
       'prompt-standby input' : true,
-      'visible': this.state.value.length > 0
+      'visible'              : this.state.value.length > 0,
+      'ios'                  : !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
     });
     return (
       <div>
